@@ -1,5 +1,9 @@
 package unsw.dungeon;
 
+/**
+ * Wall entity, observes subjects to make sure they cannot 
+ * walk through it
+ */
 public class Wall extends Entity implements playerObserver {
 
     public Wall(int x, int y) {
