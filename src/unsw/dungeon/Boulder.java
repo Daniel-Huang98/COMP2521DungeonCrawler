@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Moves boulder with player movement
  */
 public class Boulder extends Entity implements playerSubject, playerObserver{
-	
+	boolean deleted = false;
     boolean canMove = true;
     ArrayList<playerObserver>observers;
 	
@@ -121,4 +121,30 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
 	    	}
     	}
 	}
+
+	
+	@Override
+	public void delete() {
+		deleted = true;
+		
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return deleted;
+		
+	}
+
+	@Override
+	public void deleteObserver(playerObserver obj) {
+    	int counter = 0;
+    	for(playerObserver e: observers) {
+            if (e == obj) {
+            	break;
+            }
+            counter++;
+        }
+    	observers.remove(counter);
+    	
+    }
 }

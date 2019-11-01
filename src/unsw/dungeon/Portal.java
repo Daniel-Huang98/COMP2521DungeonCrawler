@@ -1,7 +1,8 @@
 package unsw.dungeon;
 
 public class Portal extends Entity implements playerObserver {
-
+	boolean deleted = false;
+	
     public Portal(int x, int y) {
         super(x, y);
     }
@@ -10,4 +11,17 @@ public class Portal extends Entity implements playerObserver {
     public void update(playerSubject player, int dX, int dY) {
     	
     }
+    
+
+	@Override
+	public void delete() {
+		deleted = true;
+		
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return deleted;
+		
+	}
 }
