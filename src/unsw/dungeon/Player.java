@@ -1,5 +1,7 @@
 package unsw.dungeon;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * The player entity
@@ -10,7 +12,7 @@ public class Player extends Entity implements playerSubject {
 
     private Dungeon dungeon;
     boolean canMove = true;
-    ArrayList<playerObserver>observers;
+    List<playerObserver>observers;
     Sword sword;
     boolean alive;
 
@@ -77,12 +79,25 @@ public class Player extends Entity implements playerSubject {
     
     public void setSword(Sword obj) {
     	this.sword = obj;
+    	System.out.println("I has the sword now");
+    }
+    
+    public void deleteObserver(playerObserver obj) {
+    	int counter = 0;
+    	for(playerObserver e: observers) {
+            if (e == obj) {
+            	break;
+            }
+            counter++;
+        }
+    	observers.remove(counter);
+    	
     }
     
     @Override
     public void notifyEntities(int dX, int dY) {
     	for(playerObserver e: observers) {
-    		e.update(this,dX, dY);
+    		if(!e.isDeleted())e.update(this,dX, dY);
     	}
     }
 }
