@@ -135,16 +135,4 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
 		
 	}
 
-	@Override
-	public void deleteObserver(playerObserver obj) {
-    	int counter = 0;
-    	for(playerObserver e: observers) {
-            if (e == obj) {
-            	break;
-            }
-            counter++;
-        }
-    	observers.remove(counter);
-    	
-    }
 }

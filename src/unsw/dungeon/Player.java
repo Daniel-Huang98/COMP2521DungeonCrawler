@@ -82,16 +82,8 @@ public class Player extends Entity implements playerSubject {
     	System.out.println("I has the sword now");
     }
     
-    public void deleteObserver(playerObserver obj) {
-    	int counter = 0;
-    	for(playerObserver e: observers) {
-            if (e == obj) {
-            	break;
-            }
-            counter++;
-        }
-    	observers.remove(counter);
-    	
+    public Sword getSword() {
+    	return this.sword;
     }
     
     @Override
