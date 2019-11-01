@@ -7,12 +7,17 @@ public class Wall extends Entity implements playerObserver {
     }
     
     @Override
-    public void update(playerSubject player, int dX, int dY) {
-    	
-    	if((dX + ((Player)player).getX()) == this.getX() && (((Player)player).getY()+dY) == this.getY()) {
-    		((Player)player).setCanMove(false);
+    public void update(playerSubject obj, int dX, int dY) {
+    	if (obj instanceof Player) {
+	    	if((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) {
+	    		((Player)obj).setCanMove(false);
+	    	}
     	}
-    	
+    	else if (obj instanceof Boulder) {
+	    	if((dX + ((Boulder)obj).getX()) == this.getX() && (((Boulder)obj).getY()+dY) == this.getY()) {
+	    		((Boulder)obj).setCanMove(false);
+	    	} 
+    	}
     }
 
 }
