@@ -8,6 +8,10 @@ public class Door extends Entity implements playerObserver{
     public Door(int x, int y) {
         super(x, y);
     }
+    
+    public boolean getOpened() {
+    	return isOpened;
+    }
 
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
