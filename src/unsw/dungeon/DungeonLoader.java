@@ -39,6 +39,10 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        for(Entity e: dungeon.getEntities()) {
+        	if(!(e instanceof Player))dungeon.getPlayer().addObserver((playerObserver)e);
+        }
+        
         return dungeon;
     }
 
@@ -54,7 +58,8 @@ public abstract class DungeonLoader {
             dungeon.setPlayer(player);
             onLoad(player);
             entity = player;
-            break;
+            dungeon.addEntity(entity);
+            return;
         case "wall":
             Wall wall = new Wall(x, y);
             onLoad(wall);
@@ -87,6 +92,7 @@ public abstract class DungeonLoader {
             break;
         }
         dungeon.addEntity(entity);
+        
     }
 
     public abstract void onLoad(Entity player);

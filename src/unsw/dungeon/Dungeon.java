@@ -18,7 +18,7 @@ import java.util.List;
 public class Dungeon {
 
     private int width, height;
-    private List<Entity> entities;
+    private ArrayList<Entity> entities;
     private Player player;
 
     public Dungeon(int width, int height) {
@@ -46,5 +46,9 @@ public class Dungeon {
 
     public void addEntity(Entity entity) {
         entities.add(entity);
+    }
+    
+    public ArrayList<Entity> getEntities() {
+    	return this.entities;
     }
 }
