@@ -2,17 +2,29 @@ package unsw.dungeon;
 
 import java.util.ArrayList;
 
+/**
+ * Boulder entity, observes players and is observed by walls
+ * and other boulders
+ * Moves boulder with player movement
+ */
 public class Boulder extends Entity implements playerSubject, playerObserver{
 	boolean deleted = false;
     boolean canMove = true;
     ArrayList<playerObserver>observers;
 	
-	
+    /**
+     * Constructs the Bolder object which contains x and y
+     * coordinates as well as an empty list of observers
+     */
     public Boulder(int x, int y) {
         super(x, y);
         this.observers = new ArrayList<playerObserver>();
     }
-
+    
+    /**
+     * Moves boulder up, if it can't player also can't
+     * @param player: Player object
+     */
     public void moveUp(Player player) {
     	notifyEntities(0,-1);
     	if(!canMove) {
@@ -24,6 +36,10 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             y().set(getY() - 1);
     }
 
+    /**
+     * Moves boulder down, if it can't player also can't
+     * @param player: Player object
+     */
     public void moveDown(Player player) {
     	notifyEntities(0,1);
     	if(!canMove) {
@@ -35,6 +51,10 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             y().set(getY() + 1);
     }
 
+    /**
+     * Moves boulder left, if it can't player also can't
+     * @param player: Player object
+     */
     public void moveLeft(Player player) {
     	notifyEntities(-1,0);
     	if(!canMove) {
@@ -46,6 +66,10 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             x().set(getX() - 1);
     }
 
+    /**
+     * Moves boulder right, if it can't player also can't
+     * @param player: Player object
+     */
     public void moveRight(Player player) {
     	notifyEntities(1,0);
     	if(!canMove) {
