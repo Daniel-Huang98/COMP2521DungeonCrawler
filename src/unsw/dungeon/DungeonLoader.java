@@ -60,15 +60,45 @@ public abstract class DungeonLoader {
             onLoad(wall);
             entity = wall;
             break;
-        // TODO Handle other possible entities
+        case "switch":
+        	FloorSwitch floorSwitch = new FloorSwitch(x,y);
+        	onLoad(floorSwitch);
+            entity = floorSwitch;
+            break;
+        case "sword":
+        	Sword sword = new Sword(x,y);
+        	onLoad(sword);
+            entity = sword;
+            break;
+        case "enemy":
+        	Enemy enemy = new Enemy(x,y);
+        	onLoad(enemy);
+            entity = enemy;
+            break;
+        case "treasure":
+        	Gold gold = new Gold(x,y);
+        	onLoad(gold);
+            entity = gold;
+            break;
+        case "invincibility":
+        	Potion potion = new Potion(x,y);
+        	onLoad(potion);
+            entity = potion;
+            break;
         }
         dungeon.addEntity(entity);
     }
 
     public abstract void onLoad(Entity player);
-
     public abstract void onLoad(Wall wall);
-
-    // TODO Create additional abstract methods for the other entities
-
+    public abstract void onLoad(Boulder boulder);
+    public abstract void onLoad(Exit exit);
+    public abstract void onLoad(Potion potion);
+    public abstract void onLoad(Door door);
+    public abstract void onLoad(Enemy enemy);
+    public abstract void onLoad(FloorSwitch floorSwitch);
+    public abstract void onLoad(Gold gold);
+    public abstract void onLoad(Key key);
+    public abstract void onLoad(Portal portal);
+    public abstract void onLoad(Sword sword);    
 }
