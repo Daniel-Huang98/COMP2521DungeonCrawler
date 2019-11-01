@@ -11,6 +11,8 @@ public class Player extends Entity implements playerSubject {
     private Dungeon dungeon;
     boolean canMove = true;
     ArrayList<playerObserver>observers;
+    Sword sword;
+    boolean alive;
 
     /**
      * Create a player positioned in square (x,y)
@@ -21,6 +23,8 @@ public class Player extends Entity implements playerSubject {
         super(x, y);
         this.dungeon = dungeon;
         this.observers = new ArrayList<playerObserver>();
+        this.alive = true;
+        this.sword = null;
     }
 
     public void moveUp() {
@@ -69,6 +73,10 @@ public class Player extends Entity implements playerSubject {
     
     public void addObserver(playerObserver obj) {
     	this.observers.add(obj);
+    }
+    
+    public void setSword(Sword obj) {
+    	this.sword = obj;
     }
     
     @Override
