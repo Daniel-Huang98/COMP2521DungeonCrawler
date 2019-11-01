@@ -7,9 +7,9 @@ public class Wall extends Entity implements playerObserver {
     }
     
     @Override
-    public void update(playerSubject player, int x, int y) {
+    public void update(playerSubject player, int dX, int dY) {
     	
-    	if(x == this.getX() && y == this.getY()) {
+    	if((dX + ((Player)player).getX()) == this.getX() && (((Player)player).getY()+dY) == this.getY()) {
     		((Player)player).setCanMove(false);
     	}
     	

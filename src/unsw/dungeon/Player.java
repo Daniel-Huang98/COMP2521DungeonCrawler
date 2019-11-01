@@ -24,7 +24,7 @@ public class Player extends Entity implements playerSubject {
     }
 
     public void moveUp() {
-    	notifyEntities(this.getX(),this.getY()-1);
+    	notifyEntities(0,-1);
     	if(!canMove) {
     		canMove = true;
     		return;
@@ -34,7 +34,7 @@ public class Player extends Entity implements playerSubject {
     }
 
     public void moveDown() {
-    	notifyEntities(this.getX(),this.getY()+1);
+    	notifyEntities(0,1);
     	if(!canMove) {
     		canMove = true;
     		return;
@@ -44,7 +44,7 @@ public class Player extends Entity implements playerSubject {
     }
 
     public void moveLeft() {
-    	notifyEntities(this.getX()-1,this.getY());
+    	notifyEntities(-1,0);
     	if(!canMove) {
     		canMove = true;
     		return;
@@ -54,7 +54,7 @@ public class Player extends Entity implements playerSubject {
     }
 
     public void moveRight() {
-    	notifyEntities(this.getX()+1,this.getY());
+    	notifyEntities(1,0);
     	if(!canMove) {
     		canMove = true;
     		return;
