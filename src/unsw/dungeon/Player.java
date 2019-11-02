@@ -24,9 +24,11 @@ public class Player extends Entity implements playerSubject, playerObserver {
     boolean alive;
     boolean hasKey = false;
     battle action;
+    int dy = 0;
+    int dx = 0;
 
 
-    /*
+    /**
      * Create a player positioned in square (x,y)
      * @param dungeon : dungeon entity
      * @param x : x coordinate
@@ -41,7 +43,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         this.action = new deathBattle();
     }
 
-    /*
+    /**
      * Checks if player can legally move up by notifying
      * all observer
      */
@@ -56,7 +58,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if(this.potion != null)this.decrementPotionHealth();
     }
 
-    /*
+    /**
      * Checks if player can legally move down by notifying
      * all observer
      */
@@ -71,7 +73,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if(this.potion != null)this.decrementPotionHealth();
     }
 
-    /*
+    /**
      * Checks if player can legally move left by notifying
      * all observer
      */
@@ -86,7 +88,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if(this.potion != null)this.decrementPotionHealth();
     }
 
-    /*
+    /**
      * Checks if player can legally move right by notifying
      * all observer
      */
@@ -135,6 +137,19 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return this.potion;
     }
     
+    public void setDelta(int dx, int dy) {
+    	this.dx = dx;
+    	this.dy = dy;
+    }
+    
+    public int getdx() {
+    	return this.dx;
+    }
+    
+    public int getdy() {
+    	return this.dy;
+    }
+    
     public void die() {
     	this.alive = false;
     	System.out.println("you have died");
@@ -145,7 +160,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return this.alive;
     }
     
-    /* 
+    /**
      * When sword breaks, change battle strategy
      */
     public void decrementSwordHealth() {
@@ -155,7 +170,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
     }
     
-    /* 
+    /**
      * When invincibility runs out, change battle strategy
      */
     public void decrementPotionHealth() {
@@ -191,6 +206,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     
     @Override
     public void notifyEntities(int dX, int dY) {
+    	this.setDelta(dX, dY);
     	for(playerObserver e: observers) {
     		if(!e.isDeleted())e.update(this,dX, dY);
     	}
@@ -206,17 +222,25 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	this.observers.remove(obj);
     }
 
-   /*
+   /**
     * Checks if enemy has moved into the player, employs
-    * strategy to see who dies
+    * which strategy to see who dies
     * @param obj: a subject that is observed
     * @param dX: the subject's change in X direction
     * @param dY: the subject's change in Y direction
     */
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
+		//System.out.println("check player");
+
 		if (obj instanceof Enemy) {
-	    	if(((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+			//System.out.println("checking coord");
+			if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
+	    		if(getAction().attacked(this)) {
+	    			((Enemy)obj).delete(); 	
+	    			System.out.println("Enemy has died");
+	    		}
+	    	} else if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");

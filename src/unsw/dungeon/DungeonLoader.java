@@ -95,6 +95,7 @@ public abstract class DungeonLoader {
         			for (Entity e2: dungeon.getEntities()) {
         				if(e2 instanceof Player) {
         					((Enemy)e).addObserver((playerObserver)e2);
+        					System.out.println("player is added to enemy");
         				}
         			}
         		}

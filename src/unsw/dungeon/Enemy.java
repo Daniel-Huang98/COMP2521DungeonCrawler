@@ -12,7 +12,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     boolean canMove = true;
     ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
     
-	/*
+	/**
 	 * Constructs an enemy object that holds x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -22,7 +22,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
         this.observers = new ArrayList<playerObserver>();
     }
     
-    /*
+    /**
      * Moves enemy based on Dijkstra's algorithm
      * @param player: Player object
      */
@@ -37,10 +37,11 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     	//backtrack the traceback array
     	while (next != getY()*map.get(0).size()+getX() && counter < map.size()*map.get(0).size()) {
     		curr = next;
+    		if (curr == -1) break;
     		next = prev[curr];
     		counter++;
     	}
-    	
+    	if (curr == -1) return;
     	//make sure no infinite loop occurs
     	if (counter == map.size()*map.get(0).size()) {
     		return;
@@ -62,7 +63,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     	this.map = map;
     }
     
-    /*
+    /**
     * Moves enemy, then updates the player on the map.
     * Checks if player has collided with it and checks to see what 
     * battle strategy is deployed
@@ -80,14 +81,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 				map.get(((Player)obj).getY()+dY).set(((Player)obj).getX()+dX, (Entity)obj);
 				map.get(((Player)obj).getY()).set(((Player)obj).getX(), null);
 			}
-			
-	    	if(((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
-	    		if(((Player)obj).getAction().attacked((Player)obj)) {
-	    			this.delete(); 	
-	    			((Player)obj).killEnemy();
-	    			System.out.println("Enemy has died");
-	    		}
-	    	}
+			this.notifyEntities(0,0);
     	}
     }
     
@@ -106,8 +100,9 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 
     @Override
     public void notifyEntities(int dX, int dY) {
+    	
     	for(playerObserver e: observers) {
-    		if(!e.isDeleted())e.update(this,dX, dY);
+    		e.update(this,dX, dY);
     	}
     }
     
