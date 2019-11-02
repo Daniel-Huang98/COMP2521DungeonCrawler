@@ -8,9 +8,11 @@ import java.util.ArrayList;
 public class FloorSwitch extends Entity implements playerObserver{
 	boolean deleted = false;
 	Boulder boulder = null;
+	Dungeon dungeon;
 	
-    public FloorSwitch(int x, int y) {
+    public FloorSwitch(int x, int y, Dungeon dungeon) {
         super(x, y);
+        this.dungeon = dungeon;
     }
     
     public Boulder getBoulder() {
@@ -22,9 +24,11 @@ public class FloorSwitch extends Entity implements playerObserver{
     	if (obj instanceof Boulder) {
     		if(boulder == null && ((dX + ((Boulder)obj).getX()) == this.getX() && (((Boulder)obj).getY()+dY) == this.getY())) {
     			boulder = (Boulder)obj;
+    			dungeon.activateSwitch();
     		}
     		else if (boulder != null && boulder.equals((Boulder)obj))
     			boulder = null;
+    			dungeon.deactivateSwitch();
     	}
     	return;
     } 

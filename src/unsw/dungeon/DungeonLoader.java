@@ -80,7 +80,7 @@ public abstract class DungeonLoader {
             entity = boulder;
             break;
         case "switch":
-        	FloorSwitch floorSwitch = new FloorSwitch(x,y);
+        	FloorSwitch floorSwitch = new FloorSwitch(x,y, dungeon);
         	onLoad(floorSwitch);
             entity = floorSwitch;
             break;
