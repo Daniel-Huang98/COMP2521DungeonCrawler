@@ -596,6 +596,16 @@
       "x": 17,
       "y": 15,
       "type": "wall"
+    },
+ {
+      "x": 5,
+      "y": 3,
+      "type": "boulder"
+    },
+{
+      "x": 7,
+      "y": 6,
+      "type": "switch"
     }
   ],
   "goal-condition": {

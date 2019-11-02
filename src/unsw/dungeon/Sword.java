@@ -28,6 +28,10 @@ public class Sword extends Entity implements playerObserver{
     	}
     	return false;
     }
+    
+    public int getHealth() {
+    	return this.health;
+    }
 
     /*
      * Checks if player is standing over a sword, if so a reference

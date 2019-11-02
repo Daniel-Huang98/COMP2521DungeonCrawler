@@ -172,6 +172,10 @@ public class Player extends Entity implements playerSubject {
     	return this.action;
     }
     
+    public void collectGold() {
+    	this.dungeon.collectGold();
+    }
+    
     @Override
     public void notifyEntities(int dX, int dY) {
     	for(playerObserver e: observers) {

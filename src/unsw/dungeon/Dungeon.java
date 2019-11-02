@@ -20,12 +20,92 @@ public class Dungeon {
     private int width, height;
     private ArrayList<Entity> entities;
     private Player player;
+    int totalGold = 0;
+    int switchTotal = 0;
+    int collected = 0;
+    int activated = 0;
+    State canWinState; 
+    State cantWinState; 
+    State endState; 
+    
+    State state; 
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        this.canWinState = new CanWinState(this);
+        this.cantWinState = new CantWinState(this);
+        this.endState = new EndState(this);
+        this.state = this.cantWinState;
+    }
+    
+    public State getCanWinState() {
+    	return this.canWinState;
+    }
+    
+    public State getCantWinState() {
+    	return this.cantWinState;
+    }
+    
+    public State getEndState() {
+    	return this.endState;
+    }
+    
+    public void setState(State state) {
+    	this.state = state;
+    }
+    
+	public void exit() {
+		this.state.exit();
+	}
+
+	public void collectGold() {
+		this.state.collectGold();
+		
+	}
+	
+	public void activateSwitch() {
+		this.state.activateSwitch();
+		
+	}
+
+	public void deactivateSwitch() {
+		this.state.deactivateSwitch();
+		
+	}
+
+	public void die() {
+		this.state.die();
+	}
+    
+    public boolean allGoldCollected() {
+    	return(collected == totalGold);
+    }
+    
+    public boolean allSwitchesActivated() {
+    	return(activated == switchTotal);
+    }
+    
+    public void incTotalGold() {
+    	this.totalGold++;
+    }
+    
+    public void incTotalSwitch() {
+    	this.switchTotal++;
+    }
+    
+    public void addGold() {
+    	this.collected++;
+    }
+    
+    public void addSwitch() {
+    	this.activated++;
+    }
+    
+    public void removeSwitch() {
+    	this.activated--;
     }
 
     public int getWidth() {

@@ -92,7 +92,7 @@ public abstract class DungeonLoader {
             entity = boulder;
             break;
         case "switch":
-        	FloorSwitch floorSwitch = new FloorSwitch(x,y);
+        	FloorSwitch floorSwitch = new FloorSwitch(x,y, dungeon);
         	onLoad(floorSwitch);
             entity = floorSwitch;
             break;
@@ -124,6 +124,8 @@ public abstract class DungeonLoader {
         }
         
         dungeon.addEntity(entity);
+        if(entity instanceof Gold) dungeon.incTotalGold();
+        else if(entity instanceof FloorSwitch) dungeon.incTotalSwitch();
         
     }
 
