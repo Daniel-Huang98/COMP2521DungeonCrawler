@@ -138,6 +138,7 @@ public class Player extends Entity implements playerSubject {
     public void die() {
     	this.alive = false;
     	System.out.println("you have died");
+    	dungeon.die();
     }
     
     public boolean isAlive() {
