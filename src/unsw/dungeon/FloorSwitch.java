@@ -26,8 +26,9 @@ public class FloorSwitch extends Entity implements playerObserver{
     			boulder = (Boulder)obj;
     			dungeon.activateSwitch();
     		}
-    		else if (boulder != null && boulder.equals((Boulder)obj))
-    			boulder = null;
+    		else if (this.boulder != null && this.boulder.equals((Boulder)obj))
+    			this.boulder = null;
+    			System.out.println("switch moved off");
     			dungeon.deactivateSwitch();
     	}
     	return;
