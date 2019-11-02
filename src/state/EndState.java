@@ -40,4 +40,10 @@ public class EndState implements State {
 		
 	}
 
+	@Override
+	public void killEnemy() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import battle.swordBattle;
+
 /**
  * Sword entity that starts with 5 hits left
  *

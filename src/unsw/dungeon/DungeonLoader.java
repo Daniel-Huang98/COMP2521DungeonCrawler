@@ -173,6 +173,7 @@ public abstract class DungeonLoader {
         dungeon.addEntity(entity);
         if(entity instanceof Gold) dungeon.incTotalGold();
         else if(entity instanceof FloorSwitch) dungeon.incTotalSwitch();
+        else if(entity instanceof Enemy) dungeon.incTotalEnemies();
         
     }
 

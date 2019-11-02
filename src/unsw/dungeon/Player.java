@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import battle.battle;
+import battle.deathBattle;
+import battle.swordBattle;
+
 /**
  * The player entity, contains sword reference, a boolean representing
  * if the player is able to make a legal move, a boolean representing if
@@ -175,6 +179,10 @@ public class Player extends Entity implements playerSubject {
     
     public void collectGold() {
     	this.dungeon.collectGold();
+    }
+    
+    public void killEnemy() {
+    	this.dungeon.killEnemy();
     }
     
     public void exit() {

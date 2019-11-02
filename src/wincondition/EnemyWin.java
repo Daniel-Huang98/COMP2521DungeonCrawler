@@ -6,8 +6,7 @@ public class EnemyWin implements WinCondition{
 
 	@Override
 	public boolean canWin(Dungeon dungeon) {
-		// TODO Auto-generated method stub
-		return false;
+		return dungeon.allEnemiesKilled();
 	}
 
 }

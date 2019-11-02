@@ -48,4 +48,10 @@ public class CanWinState implements State{
 		
 	}
 
+	@Override
+	public void killEnemy() {
+		dungeon.killedEnemy();
+		System.out.println("Shouldn't be able to kill enemy or don't need to kill enemy");
+	}
+
 }

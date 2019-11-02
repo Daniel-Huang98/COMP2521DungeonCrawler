@@ -31,6 +31,8 @@ public class Dungeon {
     int switchTotal = 0;
     int collected = 0;
     int activated = 0;
+    int enemiesKilled = 0;
+    int totalEnemies = 0;
     ArrayList<WinCondition> checks;
     State canWinState; 
     State cantWinState; 
@@ -101,6 +103,10 @@ public class Dungeon {
 		this.state.deactivateSwitch();
 		
 	}
+	
+	void killEnemy() {
+		this.state.killEnemy();
+	}
 
 	public void die() {
 		this.state.die();
@@ -114,12 +120,24 @@ public class Dungeon {
     	return(activated == switchTotal);
     }
     
+    public boolean allEnemiesKilled() {
+    	return(enemiesKilled == totalEnemies);
+    }
+    
     public void incTotalGold() {
     	this.totalGold++;
     }
     
     public void incTotalSwitch() {
     	this.switchTotal++;
+    }
+    
+    public void incTotalEnemies() {
+    	this.totalEnemies++;
+    }
+    
+    public void killedEnemy() {
+    	this.enemiesKilled++;
     }
     
     public void addGold() {

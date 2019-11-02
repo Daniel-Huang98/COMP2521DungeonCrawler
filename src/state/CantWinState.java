@@ -48,4 +48,14 @@ public class CantWinState implements State{
 		dungeon.setState(dungeon.getEndState());
 	}
 
+	@Override
+	public void killEnemy() {
+		System.out.println("killed enemy");
+		dungeon.killedEnemy();
+		if(dungeon.canWin()) {
+			System.out.println("Can win now");
+			dungeon.setState(dungeon.getCanWinState());
+		}
+	}
+
 }

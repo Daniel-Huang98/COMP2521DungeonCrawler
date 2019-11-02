@@ -1,5 +1,7 @@
 package unsw.dungeon;
 
+import battle.potionBattle;
+
 /**
  * Potion entity, contains a timer of how long the invincibility will last
  */

@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package battle;
+
+import unsw.dungeon.Player;
 
 /**
  * Strategy for when player is invincible

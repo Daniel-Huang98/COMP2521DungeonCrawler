@@ -614,13 +614,16 @@
     }
   ],
   "goal-condition": {
-    "goal": "OR",
+    "goal": "AND",
     "subgoals": [
       {
         "goal": "switch"
       },
       {
         "goal": "treasure"
+      },
+	{
+        "goal": "enemy"
       }
     ]
   }

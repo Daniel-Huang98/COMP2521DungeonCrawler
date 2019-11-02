@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package battle;
+
+import unsw.dungeon.Player;
 
 /**
  * Battle interface which determines how a player

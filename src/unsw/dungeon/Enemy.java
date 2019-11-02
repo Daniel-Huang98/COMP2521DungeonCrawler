@@ -88,7 +88,8 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     public void update(playerSubject player, int dX, int dY) {
     	if(((Player)player).getX()+dX == this.getX() && ((Player)player).getY()+dY == this.getY()) {
     		if(((Player)player).getAction().attacked((Player)player)) {
-    			this.delete(); 	
+    			this.delete();
+    			((Player)player).killEnemy();
     			System.out.println("Enemy has died");
     		}	
     	}
