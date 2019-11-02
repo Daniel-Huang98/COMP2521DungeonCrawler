@@ -14,7 +14,7 @@ public class Entity {
     // externally observed.
     private IntegerProperty x, y;
 
-    /**
+    /*
      * Create an entity positioned in square (x,y)
      * @param x
      * @param y
