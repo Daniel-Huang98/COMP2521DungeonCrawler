@@ -15,8 +15,11 @@ public class Player extends Entity implements playerSubject {
     boolean canMove = true;
     List<playerObserver>observers;
     Sword sword;
+    Potion potion;
     boolean alive;
     boolean hasKey = false;
+    battle action;
+
 
     /*
      * Create a player positioned in square (x,y)
@@ -30,6 +33,7 @@ public class Player extends Entity implements playerSubject {
         this.observers = new ArrayList<playerObserver>();
         this.alive = true;
         this.sword = null;
+        this.action = new deathBattle();
     }
 
     /*
@@ -44,6 +48,7 @@ public class Player extends Entity implements playerSubject {
     	}
         if (getY() > 0)
             y().set(getY() - 1);
+        if(this.potion != null)this.decrementPotionHealth();
     }
 
     /*
@@ -58,6 +63,7 @@ public class Player extends Entity implements playerSubject {
     	}
         if (getY() < dungeon.getHeight() - 1)
             y().set(getY() + 1);
+        if(this.potion != null)this.decrementPotionHealth();
     }
 
     /*
@@ -72,6 +78,7 @@ public class Player extends Entity implements playerSubject {
     	}
         if (getX() > 0)
             x().set(getX() - 1);
+        if(this.potion != null)this.decrementPotionHealth();
     }
 
     /*
@@ -86,6 +93,7 @@ public class Player extends Entity implements playerSubject {
     	}
         if (getX() < dungeon.getWidth() - 1)
             x().set(getX() + 1);
+        if(this.potion != null)this.decrementPotionHealth();
     }
     
     public void setCanMove(boolean flag) {
@@ -116,6 +124,49 @@ public class Player extends Entity implements playerSubject {
     
     public Sword getSword() {
     	return this.sword;
+    }
+    
+    public void setPotion(Potion obj) {
+    	this.potion = obj;
+    }
+    
+    public Potion getPotion() {
+    	return this.potion;
+    }
+    
+    public void die() {
+    	this.alive = false;
+    	System.out.println("you have died");
+    }
+    
+    public boolean isAlive() {
+    	return this.alive;
+    }
+    
+    public void decrementSwordHealth() {
+    	if(sword.decrementHealth()) {
+    		this.sword = null;
+    		this.action = new deathBattle();
+    	}
+    }
+    
+    public void decrementPotionHealth() {
+    	if(potion.decrementHealth()) {
+    		this.potion = null;
+    		if(sword != null) {
+    			this.action = new swordBattle();
+    		} else {
+    			this.action = new deathBattle();
+    		}
+    	}
+    }
+    
+    public void setAction(battle action) {
+    	this.action = action;
+    }
+    
+    public battle getAction() {
+    	return this.action;
     }
     
     @Override
