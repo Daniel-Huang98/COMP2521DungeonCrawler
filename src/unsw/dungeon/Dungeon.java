@@ -24,17 +24,21 @@ public class Dungeon {
     int switchTotal = 0;
     int collected = 0;
     int activated = 0;
-    State canWinState = new CanWinState(this);
-    State cantWinState = new CantWinState(this);
-    State endState = new EndState(this);
+    State canWinState; 
+    State cantWinState; 
+    State endState; 
     
-    State state = cantWinState;
+    State state; 
 
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
+        this.canWinState = new CanWinState(this);
+        this.cantWinState = new CantWinState(this);
+        this.endState = new EndState(this);
+        this.state = this.cantWinState;
     }
     
     public State getCanWinState() {
@@ -58,6 +62,7 @@ public class Dungeon {
 	}
 
 	public void collectGold() {
+		System.out.println("try to collect");
 		this.state.collectGold();
 		
 	}
