@@ -15,7 +15,7 @@ class SwordTest {
 	
 	
 	@Test
-	void deleteTestUp() {
+	void pickupTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
@@ -26,7 +26,7 @@ class SwordTest {
 	}
 	
 	@Test
-	void deleteTestDown() {
+	void pickupTestDown() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
@@ -37,7 +37,7 @@ class SwordTest {
 	}
 	
 	@Test
-	void deleteTestLeft() {
+	void pickupTestLeft() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,5);
@@ -48,14 +48,57 @@ class SwordTest {
 	}
 	
 	@Test
-	void deleteTestRight() {
+	void pickupTestRight() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(6,5);
 		player.addObserver(sword);
 		assertEquals(null, player.getSword());
 		player.moveRight();
-		assertEquals(sword, player.getSword());
+		assertEquals(true, sword.isDeleted());
+	}
+	
+	@Test
+	void deleteTestUp2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(5,4);
+		player.addObserver(sword);
+		assertEquals(null, player.getSword());
+		player.moveUp();
+		assertEquals(true, sword.isDeleted());
+	}
+	
+	@Test
+	void deleteTestDown2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(5,6);
+		player.addObserver(sword);
+		assertEquals(null, player.getSword());
+		player.moveDown();
+		assertEquals(true, sword.isDeleted());
+	}
+	
+	@Test
+	void deleteTestLeft2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(4,5);
+		player.addObserver(sword);
+		assertEquals(null, player.getSword());
+		player.moveLeft();
+		assertEquals(true, sword.isDeleted());
+	}
+	
+	@Test
+	void deleteTestRight2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(6,5);
+		player.addObserver(sword);
+		player.moveRight();
+		assertEquals(true, sword.isDeleted());
 	}
 	
 	@Test
@@ -90,6 +133,57 @@ class SwordTest {
 		Sword sword = new Sword(4,4);
 		player.setSword(sword);
 		assertEquals(sword,player.getSword() , "add test 2");
+	}
+	
+	@Test
+	void swordActionTest1() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(4,4);
+		player.setSword(sword);
+		assertEquals(false,player.getAction().attacked(player) , "add test 2");
+	}
+	
+	@Test
+	void swordActionTest2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(5,4);
+		player.addObserver(sword);
+		assertEquals(null, player.getSword());
+		player.moveUp();
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+	}
+	
+	@Test
+	void swordHealthTest1() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		Player player = new Player(dungeon,5,5);
+		Sword sword = new Sword(5,4);
+		player.addObserver(sword);
+		//assertEquals(null, player.getSword());
+		player.moveUp();
+		System.out.println(sword.getHealth());
+		
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		System.out.println(sword.getHealth());
+		
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		System.out.println(sword.getHealth());
+		
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		System.out.println(sword.getHealth());
+		
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		System.out.println(sword.getHealth());
+		
+		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		System.out.println(sword.getHealth());
+		
+		assertEquals(false,player.getAction().attacked(player) , "add test 2");
+		
+		//assertEquals(false,player.getAction().attacked(player) , "add test 2");
+		assertEquals(null,player.getSword() , "add test 2");
 	}
 	
 	
