@@ -4,7 +4,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * The player entity
+ * The player entity, contains sword reference, a boolean representing
+ * if the player is able to make a legal move, a boolean representing if
+ * the player has died or not and a boolean representing the key
  *
  */
 public class Player extends Entity implements playerSubject {
@@ -18,6 +20,7 @@ public class Player extends Entity implements playerSubject {
 
     /*
      * Create a player positioned in square (x,y)
+     * @param dungeon : dungeon entity
      * @param x : x coordinate
      * @param y : y coordinate
      */
@@ -29,6 +32,10 @@ public class Player extends Entity implements playerSubject {
         this.sword = null;
     }
 
+    /*
+     * Checks if player can legally move up by notifying
+     * all observer
+     */
     public void moveUp() {
     	notifyEntities(0,-1);
     	if(!canMove) {
@@ -39,6 +46,10 @@ public class Player extends Entity implements playerSubject {
             y().set(getY() - 1);
     }
 
+    /*
+     * Checks if player can legally move down by notifying
+     * all observer
+     */
     public void moveDown() {
     	notifyEntities(0,1);
     	if(!canMove) {
@@ -49,6 +60,10 @@ public class Player extends Entity implements playerSubject {
             y().set(getY() + 1);
     }
 
+    /*
+     * Checks if player can legally move left by notifying
+     * all observer
+     */
     public void moveLeft() {
     	notifyEntities(-1,0);
     	if(!canMove) {
@@ -59,6 +74,10 @@ public class Player extends Entity implements playerSubject {
             x().set(getX() - 1);
     }
 
+    /*
+     * Checks if player can legally move right by notifying
+     * all observer
+     */
     public void moveRight() {
     	notifyEntities(1,0);
     	if(!canMove) {
