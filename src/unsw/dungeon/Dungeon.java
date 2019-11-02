@@ -42,7 +42,7 @@ public class Dungeon {
     }
     
     public State getCanWinState() {
-    	return this.cantWinState;
+    	return this.canWinState;
     }
     
     public State getCantWinState() {
@@ -62,7 +62,6 @@ public class Dungeon {
 	}
 
 	public void collectGold() {
-		System.out.println("try to collect");
 		this.state.collectGold();
 		
 	}

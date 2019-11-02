@@ -29,12 +29,11 @@ public class CanWinState implements State{
 
 	@Override
 	public void deactivateSwitch() {
-		if(!dungeon.allGoldCollected() && dungeon.allSwitchesActivated()) {
+		if(dungeon.allGoldCollected() && dungeon.allSwitchesActivated()) {
 			System.out.println("Can't win now");
+			dungeon.setState(dungeon.getCantWinState());
 		}
-		System.out.println("Removed Switch");
 		dungeon.removeSwitch();
-		
 	}
 
 	@Override

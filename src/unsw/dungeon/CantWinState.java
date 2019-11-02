@@ -36,7 +36,7 @@ public class CantWinState implements State{
 
 	@Override
 	public void deactivateSwitch() {
-		System.out.println("Removed Switch");
+		System.out.println("can;t win Removed Switch");
 		dungeon.removeSwitch();
 	}
 
