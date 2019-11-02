@@ -134,6 +134,7 @@ public class Player extends Entity implements playerSubject {
     public void die() {
     	this.alive = false;
     	System.out.println("you have died");
+    	dungeon.die();
     }
     
     public boolean isAlive() {
@@ -174,6 +175,10 @@ public class Player extends Entity implements playerSubject {
     
     public void collectGold() {
     	this.dungeon.collectGold();
+    }
+    
+    public void exit() {
+    	this.dungeon.exit();
     }
     
     @Override
