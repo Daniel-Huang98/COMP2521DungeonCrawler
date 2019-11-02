@@ -5,7 +5,6 @@ import java.util.List;
 
 /**
  * The player entity
- * @author Robert Clifton-Everest
  *
  */
 public class Player extends Entity implements playerSubject {
@@ -80,6 +79,11 @@ public class Player extends Entity implements playerSubject {
     
     public void setKey(boolean flag) {
     	this.hasKey = flag;
+    }
+    
+    public void setCoordinates(int x, int y) {
+    	x().set(x);
+    	y().set(y);
     }
     
     public void addObserver(playerObserver obj) {
