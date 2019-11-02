@@ -201,7 +201,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		if (obj instanceof Enemy) {
-	    	if(((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+	    	if(((Enemy)obj).getX() == this.getX() && ((Enemy)obj).getY() == this.getY()) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
