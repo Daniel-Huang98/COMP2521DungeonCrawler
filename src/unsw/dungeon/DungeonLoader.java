@@ -56,7 +56,7 @@ public abstract class DungeonLoader {
         			}
         		} else if (e instanceof Enemy) {
         			for (Entity e2: dungeon.getEntities()) {
-        				if(e2 instanceof Wall || e2 instanceof Boulder) {
+        				if(e2 instanceof Wall || e2 instanceof Boulder || e2 instanceof Player) {
         					((Enemy)e).addObserver((playerObserver)e2);
         				}
         			}

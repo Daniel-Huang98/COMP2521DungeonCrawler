@@ -125,6 +125,11 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
 	    		((Boulder)obj).setCanMove(false);
 	    	}
     	}
+    	else if (obj instanceof Enemy) {
+	    	if((dX + ((Enemy)obj).getX()) == this.getX() && (((Enemy)obj).getY()+dY) == this.getY()) {
+	    		((Enemy)obj).setCanMove(false);
+	    	} 
+    	}
 	}
 
 	

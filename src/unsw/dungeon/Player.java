@@ -10,7 +10,7 @@ import java.util.List;
  * strategy
  *
  */
-public class Player extends Entity implements playerSubject {
+public class Player extends Entity implements playerSubject, playerObserver {
 
     private Dungeon dungeon;
     boolean canMove = true;
@@ -197,4 +197,27 @@ public class Player extends Entity implements playerSubject {
     public void deleteObserver(playerObserver obj){
     	this.observers.remove(obj);
     }
+
+	@Override
+	public void update(playerSubject obj, int dX, int dY) {
+		if (obj instanceof Enemy) {
+	    	if(((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+	    		if(getAction().attacked(this)) {
+	    			((Enemy)obj).delete(); 	
+	    			System.out.println("Enemy has died");
+	    		}
+	    	}
+		}
+	}
+
+	@Override
+	public void delete() {
+		return;
+		
+	}
+
+	@Override
+	public boolean isDeleted() {
+		return false;
+	}
 }
