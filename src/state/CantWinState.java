@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package state;
+
+import unsw.dungeon.Dungeon;
 
 public class CantWinState implements State{
 
@@ -17,7 +19,7 @@ public class CantWinState implements State{
 	public void collectGold() {
 		System.out.println("Added gold");
 		dungeon.addGold();
-		if(dungeon.allGoldCollected() && dungeon.allSwitchesActivated()) {
+		if(dungeon.canWin()) {
 			System.out.println("Can win now");
 			dungeon.setState(dungeon.getCanWinState());
 		}
@@ -27,7 +29,7 @@ public class CantWinState implements State{
 	public void activateSwitch() {
 		System.out.println("Added switch");
 		dungeon.addSwitch();
-		if(dungeon.allGoldCollected() && dungeon.allSwitchesActivated()) {
+		if(dungeon.canWin()) {
 			System.out.println("Can win now");
 			dungeon.setState(dungeon.getCanWinState());
 		}

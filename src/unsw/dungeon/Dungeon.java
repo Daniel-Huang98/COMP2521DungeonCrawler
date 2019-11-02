@@ -6,6 +6,12 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import state.CanWinState;
+import state.CantWinState;
+import state.EndState;
+import state.State;
+import wincondition.WinCondition;
+
 /**
  * A dungeon in the interactive dungeon player.
  *
@@ -24,6 +30,7 @@ public class Dungeon {
     int switchTotal = 0;
     int collected = 0;
     int activated = 0;
+    WinCondition check;
     State canWinState; 
     State cantWinState; 
     State endState; 
@@ -39,6 +46,14 @@ public class Dungeon {
         this.cantWinState = new CantWinState(this);
         this.endState = new EndState(this);
         this.state = this.cantWinState;
+    }
+    
+    public void setWinCondition(WinCondition obj) {
+    	this.check = obj;
+    }
+    
+    public boolean canWin() {
+    	return this.check.canWin(this);
     }
     
     public State getCanWinState() {

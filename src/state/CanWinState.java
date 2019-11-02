@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package state;
+
+import unsw.dungeon.Dungeon;
 
 public class CanWinState implements State{
 	
@@ -29,11 +31,12 @@ public class CanWinState implements State{
 
 	@Override
 	public void deactivateSwitch() {
-		if(dungeon.allGoldCollected() && dungeon.allSwitchesActivated()) {
+		dungeon.removeSwitch();
+		if(!dungeon.canWin()) {
 			System.out.println("Can't win now");
 			dungeon.setState(dungeon.getCantWinState());
 		}
-		dungeon.removeSwitch();
+		
 	}
 
 	@Override

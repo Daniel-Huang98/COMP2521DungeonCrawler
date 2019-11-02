@@ -1,4 +1,6 @@
-package unsw.dungeon;
+package state;
+
+import unsw.dungeon.Dungeon;
 
 public class EndState implements State {
 	

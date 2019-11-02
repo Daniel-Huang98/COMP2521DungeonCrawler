@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import wincondition.GoldAndSwitch;
+
 /**
  * Loads a dungeon from a .json file.
  *
@@ -34,7 +36,7 @@ public abstract class DungeonLoader {
         int height = json.getInt("height");
 
         Dungeon dungeon = new Dungeon(width, height);
-
+        dungeon.setWinCondition(new GoldAndSwitch());
         JSONArray jsonEntities = json.getJSONArray("entities");
 
         for (int i = 0; i < jsonEntities.length(); i++) {

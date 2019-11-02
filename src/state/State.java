@@ -1,4 +1,4 @@
-package unsw.dungeon;
+package state;
 
 public interface State {
 	void exit();
