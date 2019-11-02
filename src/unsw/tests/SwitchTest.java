@@ -12,6 +12,10 @@ import unsw.dungeon.playerObserver;
 
 class SwitchTest {
 	
+	/*
+	 * When a boulder is on the same tile as a switch, the switch is 
+	 * considered to be pressed
+	 */
 	@Test
 	void testBoulderOnSwitch () {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
@@ -28,6 +32,11 @@ class SwitchTest {
 		assertEquals(boulder, floorSwitch.getBoulder());
 	}
 	
+	/*
+	 * When a boulder is not on the same tile as a switch, the switch is 
+	 * considered to be not pressed
+	 */
+	@Test
 	void testNotOnSwitch () {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
 		Boulder boulder = new Boulder(1,0);
@@ -43,6 +52,11 @@ class SwitchTest {
 		assertEquals(floorSwitch.getBoulder(), null);
 	}
 	
+	/*
+	 * Moving another boulder should not have any effect on a
+	 * switch being pressed by another boulder
+	 */
+	@Test
 	void testMoveAnotherBoulder () {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
 		Boulder boulder = new Boulder(1,0);
@@ -68,6 +82,11 @@ class SwitchTest {
 		assertEquals(boulder, floorSwitch.getBoulder());
 	}
 	
+	/*
+	 * When boulder is pushed off the switch, the switch is no longer 
+	 * considered pressed
+	 */
+	@Test
 	void testMoveOffSwitch() {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
 		Boulder boulder = new Boulder(1,0);

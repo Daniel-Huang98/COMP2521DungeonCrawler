@@ -15,11 +15,12 @@ public class Player extends Entity implements playerSubject {
     List<playerObserver>observers;
     Sword sword;
     boolean alive;
+    boolean hasKey = false;
 
-    /**
+    /*
      * Create a player positioned in square (x,y)
-     * @param x
-     * @param y
+     * @param x : x coordinate
+     * @param y : y coordinate
      */
     public Player(Dungeon dungeon, int x, int y) {
         super(x, y);
@@ -71,6 +72,14 @@ public class Player extends Entity implements playerSubject {
     
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
+    }
+    
+    public boolean getKey() {
+    	return hasKey;
+    }
+    
+    public void setKey(boolean flag) {
+    	this.hasKey = flag;
     }
     
     public void addObserver(playerObserver obj) {
