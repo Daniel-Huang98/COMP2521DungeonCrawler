@@ -8,7 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import wincheck.AndWinCheck;
+import wincheck.OrWinCheck;
+import wincondition.EnemyWin;
 import wincondition.GoldAndSwitch;
+import wincondition.GoldWin;
+import wincondition.SwitchWin;
+import wincondition.WinCondition;
 
 /**
  * Loads a dungeon from a .json file.
@@ -36,12 +42,28 @@ public abstract class DungeonLoader {
         int height = json.getInt("height");
 
         Dungeon dungeon = new Dungeon(width, height);
-        dungeon.setWinCondition(new GoldAndSwitch());
         JSONArray jsonEntities = json.getJSONArray("entities");
+        
+        JSONObject goalCondition = json.getJSONObject("goal-condition");
+        String goal = goalCondition.getString("goal");
+        JSONArray goals = goalCondition.getJSONArray("subgoals");
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        
+        if(goal.equals("AND")) {
+        	dungeon.setWinCheck(new AndWinCheck());
+        } else if(goal.equals("OR")) {
+        	dungeon.setWinCheck(new OrWinCheck());
+        } 
+        
+        System.out.println(goal);
+        for(int i = 0; i < goals.length(); i++) {
+        	loadGoal(dungeon, goals.getJSONObject(i));
+        }
+        
+        
         for(Entity e: dungeon.getEntities()) {
         	if(!(e instanceof Player)) {
         		dungeon.getPlayer().addObserver((playerObserver)e);
@@ -69,7 +91,25 @@ public abstract class DungeonLoader {
         return dungeon;
     }
 
-    private void loadEntity(Dungeon dungeon, JSONObject json) {
+    private void loadGoal(Dungeon dungeon, JSONObject jsonObject) {
+		WinCondition condition = null;
+		String goal = jsonObject.getString("goal");
+		System.out.println(goal);
+		switch(goal) {
+			case "treasure":
+				condition = new GoldWin();
+				break;
+			case "switch":
+				condition = new SwitchWin();
+				break;
+			case "enemy":
+				condition = new EnemyWin();
+				break;
+		}
+    	if(condition != null)dungeon.addWinCondition(condition);
+	}
+
+	private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");

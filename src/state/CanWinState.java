@@ -19,13 +19,15 @@ public class CanWinState implements State{
 
 	@Override
 	public void collectGold() {
-		System.out.println("Shouldn't be able to add gold");
+		dungeon.addGold();
+		System.out.println("Shouldn't be able to add gold or don't need to add gold");
 		
 	}
 
 	@Override
 	public void activateSwitch() {
-		System.out.println("Shouldn't be able to add switches");
+		dungeon.addSwitch();
+		System.out.println("Shouldn't be able to add switches or don't need to add gold");
 		
 	}
 

@@ -10,6 +10,7 @@ import state.CanWinState;
 import state.CantWinState;
 import state.EndState;
 import state.State;
+import wincheck.WinCheck;
 import wincondition.WinCondition;
 
 /**
@@ -30,12 +31,13 @@ public class Dungeon {
     int switchTotal = 0;
     int collected = 0;
     int activated = 0;
-    WinCondition check;
+    ArrayList<WinCondition> checks;
     State canWinState; 
     State cantWinState; 
     State endState; 
-    
     State state; 
+    
+    WinCheck check;
 
     public Dungeon(int width, int height) {
         this.width = width;
@@ -46,10 +48,19 @@ public class Dungeon {
         this.cantWinState = new CantWinState(this);
         this.endState = new EndState(this);
         this.state = this.cantWinState;
+        this.checks = new  ArrayList<WinCondition>();
     }
     
-    public void setWinCondition(WinCondition obj) {
-    	this.check = obj;
+    public void addWinCondition(WinCondition obj) {
+    	this.checks.add(obj);
+    }
+    
+    public void setWinCheck(WinCheck check) {
+    	this.check = check;
+    }
+    
+    public  ArrayList<WinCondition> getChecks(){
+    	return this.checks;
     }
     
     public boolean canWin() {
