@@ -81,7 +81,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 				map.get(((Player)obj).getY()).set(((Player)obj).getX(), null);
 			}
 			
-	    	if(((Player)obj).getX() == this.getX() && ((Player)obj).getY() == this.getY()) {
+	    	if(((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
 	    		if(((Player)obj).getAction().attacked((Player)obj)) {
 	    			this.delete(); 	
 	    			((Player)obj).killEnemy();

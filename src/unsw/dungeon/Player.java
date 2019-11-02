@@ -206,10 +206,17 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	this.observers.remove(obj);
     }
 
+   /*
+    * Checks if enemy has moved into the player, employs
+    * strategy to see who dies
+    * @param obj: a subject that is observed
+    * @param dX: the subject's change in X direction
+    * @param dY: the subject's change in Y direction
+    */
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		if (obj instanceof Enemy) {
-	    	if(((Enemy)obj).getX() == this.getX() && ((Enemy)obj).getY() == this.getY()) {
+	    	if(((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
