@@ -17,6 +17,7 @@ class EnemyTest {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,6);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.moveDown();
 		player.moveDown();
@@ -28,6 +29,7 @@ class EnemyTest {
 		Dungeon dungeon = new Dungeon(100, 100);
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,6);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.moveDown();
 		player.moveDown();
@@ -40,6 +42,7 @@ class EnemyTest {
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		Enemy enemy = new Enemy(5,7);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.addObserver(potion);
 		player.moveDown();
@@ -53,6 +56,7 @@ class EnemyTest {
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		Enemy enemy = new Enemy(5,7);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.addObserver(potion);
 		player.moveDown();
@@ -66,6 +70,7 @@ class EnemyTest {
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		Enemy enemy = new Enemy(5,7);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.addObserver(sword);
 		player.moveDown();
@@ -79,6 +84,7 @@ class EnemyTest {
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		Enemy enemy = new Enemy(5,7);
+		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.addObserver(sword);
 		player.moveDown();

@@ -90,18 +90,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     */
     @Override
     public void update(playerSubject obj, int dX, int dY) {
-		if (dX == 1) {
-			moveRight();
-		}
-		else if (dY == -1) {
-			moveUp();
-		}
-		else if (dY == 1) {
-			moveDown();
-		}
-		else if (dX == -1) {
-			moveLeft();
-		}
+
 		if (obj instanceof Player) {
 	    	if(((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
 	    		if(((Player)obj).getAction().attacked((Player)obj)) {
