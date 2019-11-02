@@ -6,7 +6,8 @@ import java.util.List;
 /**
  * The player entity, contains sword reference, a boolean representing
  * if the player is able to make a legal move, a boolean representing if
- * the player has died or not and a boolean representing the key
+ * the player has died or not, a boolean representing the key and a battle
+ * strategy
  *
  */
 public class Player extends Entity implements playerSubject {
@@ -143,6 +144,9 @@ public class Player extends Entity implements playerSubject {
     	return this.alive;
     }
     
+    /* 
+     * When sword breaks, change battle strategy
+     */
     public void decrementSwordHealth() {
     	if(sword.decrementHealth()) {
     		this.sword = null;
@@ -150,6 +154,9 @@ public class Player extends Entity implements playerSubject {
     	}
     }
     
+    /* 
+     * When invincibility runs out, change battle strategy
+     */
     public void decrementPotionHealth() {
     	if(potion.decrementHealth()) {
     		this.potion = null;

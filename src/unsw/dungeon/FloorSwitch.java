@@ -41,7 +41,6 @@ public class FloorSwitch extends Entity implements playerObserver{
     			boulder = null;
     		}
     	}
-    	return;
     } 
 
 	@Override

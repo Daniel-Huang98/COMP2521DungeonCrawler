@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+/**
+ * Strategy for when player is vulnerable
+ */
 public class deathBattle implements battle{
 
 	@Override

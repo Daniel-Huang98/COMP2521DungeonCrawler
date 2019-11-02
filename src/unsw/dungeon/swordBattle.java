@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+/**
+ * Strategy for when player holds a sword
+ */
 public class swordBattle implements battle{
 
 	@Override
