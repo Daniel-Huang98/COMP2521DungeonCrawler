@@ -18,9 +18,10 @@ class SwitchTest {
 	 */
 	@Test
 	void testBoulderOnSwitch () {
-		Player player = new Player(new Dungeon(4,4), 0, 0);
+		Dungeon dungeon = new Dungeon(4,4);
+		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
-		FloorSwitch floorSwitch = new FloorSwitch(2,0);
+		FloorSwitch floorSwitch = new FloorSwitch(2,0, dungeon);
 		player.addObserver((playerObserver)boulder);
 		player.addObserver((playerObserver)floorSwitch);
 		boulder.addObserver((playerObserver)floorSwitch);
@@ -38,9 +39,10 @@ class SwitchTest {
 	 */
 	@Test
 	void testNotOnSwitch () {
-		Player player = new Player(new Dungeon(4,4), 0, 0);
+		Dungeon dungeon = new Dungeon(4,4);
+		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
-		FloorSwitch floorSwitch = new FloorSwitch(3,1);
+		FloorSwitch floorSwitch = new FloorSwitch(3,1, dungeon);
 		player.addObserver((playerObserver)boulder);
 		player.addObserver((playerObserver)floorSwitch);
 		boulder.addObserver((playerObserver)floorSwitch);
@@ -58,10 +60,11 @@ class SwitchTest {
 	 */
 	@Test
 	void testMoveAnotherBoulder () {
-		Player player = new Player(new Dungeon(4,4), 0, 0);
+		Dungeon dungeon = new Dungeon(4,4);
+		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
 		Boulder boulder2 = new Boulder(1,1);
-		FloorSwitch floorSwitch = new FloorSwitch(2,0);
+		FloorSwitch floorSwitch = new FloorSwitch(2,0, dungeon);
 		player.addObserver((playerObserver)boulder);
 		player.addObserver((playerObserver)boulder2);
 		player.addObserver((playerObserver)floorSwitch);
@@ -88,9 +91,10 @@ class SwitchTest {
 	 */
 	@Test
 	void testMoveOffSwitch() {
-		Player player = new Player(new Dungeon(4,4), 0, 0);
+		Dungeon dungeon = new Dungeon(4,4);
+		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
-		FloorSwitch floorSwitch = new FloorSwitch(1,0);
+		FloorSwitch floorSwitch = new FloorSwitch(1,0, dungeon);
 		player.addObserver((playerObserver)boulder);
 		player.addObserver((playerObserver)floorSwitch);
 		boulder.addObserver((playerObserver)floorSwitch);

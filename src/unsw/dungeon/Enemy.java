@@ -10,6 +10,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	boolean deleted = false;
     List<playerObserver>observers;
     boolean canMove = true;
+    ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
     
 	/*
 	 * Constructs an enemy object that holds x,y coordinates
@@ -77,6 +78,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
             x().set(getX() + 1);
     }
     
+    public void setCanMove(boolean flag) {
+    	this.canMove = flag;
+    }
+    
+    public void setMap(ArrayList<ArrayList<Entity>> map) {
+    	this.map = map;
+    }
+    
     /*
     * Checks if player has collided with it and checks to see what 
     * battle strategy is deployed
@@ -85,12 +94,15 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     * @param dY: the subject's change in Y direction
     */
     @Override
-    public void update(playerSubject player, int dX, int dY) {
-    	if(((Player)player).getX()+dX == this.getX() && ((Player)player).getY()+dY == this.getY()) {
-    		if(((Player)player).getAction().attacked((Player)player)) {
-    			this.delete(); 	
-    			System.out.println("Enemy has died");
-    		}	
+    public void update(playerSubject obj, int dX, int dY) {
+
+		if (obj instanceof Player) {
+	    	if(((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
+	    		if(((Player)obj).getAction().attacked((Player)obj)) {
+	    			this.delete(); 	
+	    			System.out.println("Enemy has died");
+	    		}
+	    	}
     	}
     }
     
