@@ -47,7 +47,6 @@ public class FloorSwitch extends Entity implements playerObserver{
     			dungeon.deactivateSwitch();
     		}
     	}
-    	return;
     } 
 
 	@Override

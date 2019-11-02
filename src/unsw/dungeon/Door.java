@@ -1,6 +1,6 @@
 package unsw.dungeon;
 
-/*
+/**
  * Door entity that has a boolean which indicates opened or closed
  */
 public class Door extends Entity implements playerObserver{
