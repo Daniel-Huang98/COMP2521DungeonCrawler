@@ -37,8 +37,9 @@ public class FloorSwitch extends Entity implements playerObserver{
     		if(boulder == null && ((dX + ((Boulder)obj).getX()) == this.getX() && (((Boulder)obj).getY()+dY) == this.getY())) {
     			boulder = (Boulder)obj;
     		}
-    		else if (boulder != null && boulder.equals((Boulder)obj))
+    		else if (boulder != null && boulder.equals((Boulder)obj)) {
     			boulder = null;
+    		}
     	}
     	return;
     } 
