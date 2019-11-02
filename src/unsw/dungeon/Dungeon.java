@@ -85,6 +85,10 @@ public class Dungeon {
     	this.state = state;
     }
     
+    public State getState() {
+    	return this.state;
+    }
+    
 	public void exit() {
 		this.state.exit();
 	}
