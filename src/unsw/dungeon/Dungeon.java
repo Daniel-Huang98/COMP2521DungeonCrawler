@@ -40,7 +40,11 @@ public class Dungeon {
     State state; 
     
     WinCheck check;
-
+    /**
+     * Contructor for the dungeon class
+     * @param width Is the width of the game window
+     * @param height Is the height of the game window
+     */
     public Dungeon(int width, int height) {
         this.width = width;
         this.height = height;
@@ -53,34 +57,67 @@ public class Dungeon {
         this.checks = new  ArrayList<WinCondition>();
     }
     
+    /**
+     * adds a subgoal condition
+     * @param obj Is a reference to a sub-goal strategy object
+     */
     public void addWinCondition(WinCondition obj) {
     	this.checks.add(obj);
     }
     
+    /**
+     * add the check condition OR or AND
+     * @param check reference to the check strategy object
+     */
     public void setWinCheck(WinCheck check) {
     	this.check = check;
     }
     
+    /**
+     * returns the list of subgoals
+     * @return the reference to the dungeon's arraylist of subgoals
+     */
     public  ArrayList<WinCondition> getChecks(){
     	return this.checks;
     }
     
+    /**
+     * Returns true or false based on whether the player has satisfied the dungeon goal
+     * @return true or false boolean 
+     */
     public boolean canWin() {
     	return this.check.canWin(this);
     }
     
+    
+    /**
+     * Returns the canWinState Reference
+     * @return reference to the canWinState object
+     */
     public State getCanWinState() {
     	return this.canWinState;
     }
     
+    /**
+     * Returns the cantWinState Reference
+     * @return reference to the cantWinState object
+     */
     public State getCantWinState() {
     	return this.cantWinState;
     }
     
+    /**
+     * Returns the endState reference
+     * @return reference to the endState object
+     */
     public State getEndState() {
     	return this.endState;
     }
     
+    /**
+     * Sets the dungeons current state
+     * @param state reference to a state object
+     */
     public void setState(State state) {
     	this.state = state;
     }
@@ -89,69 +126,120 @@ public class Dungeon {
     	return this.state;
     }
     
+    /**
+     * invokes exit function of current state
+     */
 	public void exit() {
 		this.state.exit();
 	}
 
+	/**
+	 * invokes the collect gold function of the current state
+	 */
 	public void collectGold() {
 		this.state.collectGold();
 		
 	}
 	
+	/**
+	 * invokes the activate switch function of the current state
+	 */
 	public void activateSwitch() {
 		this.state.activateSwitch();
 		
 	}
 
+	/**
+	 * invokes the deactivate switch function of the current state
+	 */
 	public void deactivateSwitch() {
 		this.state.deactivateSwitch();
 		
 	}
 	
+	/**
+	 * invokes the kill enemy function of the current state
+	 */
 	void killEnemy() {
 		this.state.killEnemy();
 	}
 
+	/**
+	 * invokes the die function of the current state
+	 */
 	public void die() {
 		this.state.die();
 	}
     
+	/**
+	 * returns booleans based on whether all the gold has been collected
+	 * @return true is all gold collect, false otherwise
+	 */
     public boolean allGoldCollected() {
     	return(collected == totalGold);
     }
     
+    /**
+	 * returns booleans based on whether all the switches has been collected
+	 * @return true is all switches collect, false otherwise
+	 */
     public boolean allSwitchesActivated() {
     	return(activated == switchTotal);
     }
     
+    /**
+	 * returns booleans based on whether all the enemies has been collected
+	 * @return true is all enemies collect, false otherwise
+	 */
     public boolean allEnemiesKilled() {
     	return(enemiesKilled == totalEnemies);
     }
     
+    /**
+     * increments the total gold counter
+     */
     public void incTotalGold() {
     	this.totalGold++;
     }
     
+    /**
+     * increments the total switch counter
+     */
     public void incTotalSwitch() {
     	this.switchTotal++;
     }
     
+    /**
+     * increments the total enemies counter
+     */
     public void incTotalEnemies() {
     	this.totalEnemies++;
     }
     
+    /**
+     * increments the killed enemies counter
+     */
     public void killedEnemy() {
     	this.enemiesKilled++;
     }
     
+    /**
+     * increments the collected gold counter
+     */
     public void addGold() {
     	this.collected++;
     }
     
+    /**
+     * increments the activated switches counter
+     */
     public void addSwitch() {
     	this.activated++;
     }
     
+    /**
+     * decrements the activated switches counter
+     */
     public void removeSwitch() {
     	this.activated--;
     }
