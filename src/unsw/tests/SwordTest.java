@@ -165,25 +165,25 @@ class SwordTest {
 		player.moveUp();
 		System.out.println(sword.getHealth());
 		
-		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		assertEquals(true,player.getAction().attacked(player) , "Decrement sword health 1");
 		System.out.println(sword.getHealth());
 		
-		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		assertEquals(true,player.getAction().attacked(player) , "Decrement sword health 2");
 		System.out.println(sword.getHealth());
 		
-		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		assertEquals(true,player.getAction().attacked(player) , "Decrement sword health 3");
 		System.out.println(sword.getHealth());
 		
-		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		assertEquals(true,player.getAction().attacked(player) , "Decrement sword health 4");
 		System.out.println(sword.getHealth());
 		
-		assertEquals(true,player.getAction().attacked(player) , "add test 2");
+		assertEquals(true,player.getAction().attacked(player) , "Decrement sword health 5");
 		System.out.println(sword.getHealth());
 		
-		assertEquals(false,player.getAction().attacked(player) , "add test 2");
+		assertEquals(false,player.getAction().attacked(player) ,"check if player dies");
 		
 		//assertEquals(false,player.getAction().attacked(player) , "add test 2");
-		assertEquals(null,player.getSword() , "add test 2");
+		assertEquals(null,player.getSword() , "check sword has been deleted");
 	}
 	
 	

@@ -2,11 +2,19 @@ package unsw.dungeon;
 
 public class Exit extends Entity implements playerObserver{
 	boolean deleted = false;
-		
+	
+	/**
+	 * Constructor for the Exit entity
+	 * @param x The x coordinate of the exit in the dungeon
+	 * @param y The y coordinate of the exit in the dungeon
+	 */
     public Exit(int x, int y) {
         super(x, y);
     }
     
+    /**
+     * When the player enters the exit, if the dungeon goals have been reached the player can complete the dungeon, else the player must continue playing
+     */
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if (obj instanceof Player) {

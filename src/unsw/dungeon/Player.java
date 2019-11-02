@@ -103,10 +103,15 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if(this.potion != null)this.decrementPotionHealth();
     }
     
+    /**
+     * Sets if the player can move
+     * @param flag Set flag to true if the player can move, set to false if it can't move
+     */
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
     }
     
+   
     public boolean getKey() {
     	return hasKey;
     }
@@ -115,6 +120,11 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	this.hasKey = flag;
     }
     
+    /**
+     * Sets the coordinate of the player in the dungeon
+     * @param x x coordinate of the player
+     * @param y y coordinate of the player
+     */
     public void setCoordinates(int x, int y) {
     	x().set(x);
     	y().set(y);
@@ -150,17 +160,26 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return this.dy;
     }
     
+    /**
+     * Will set alive to false and notifies the dungeon of the player's death
+     */
     public void die() {
     	this.alive = false;
     	System.out.println("you have died");
     	dungeon.die();
     }
     
+    /**
+     * returns booleans based on whether the player is still alive
+     * @return returns true if player is alive else returns false
+     */
     public boolean isAlive() {
     	return this.alive;
     }
     
-    /**
+
+
+    /** 
      * When sword breaks, change battle strategy
      */
     public void decrementSwordHealth() {
@@ -170,7 +189,8 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
     }
     
-    /**
+
+    /** 
      * When invincibility runs out, change battle strategy
      */
     public void decrementPotionHealth() {
@@ -183,7 +203,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     		}
     	}
     }
-    
+   
     public void setAction(battle action) {
     	this.action = action;
     }
@@ -192,18 +212,30 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return this.action;
     }
     
+    /**
+     * notifies the dungeon that gold has been collected
+     */
     public void collectGold() {
     	this.dungeon.collectGold();
     }
     
+    /**
+     * notifies the dungeon that an enemy has been killed
+     */
     public void killEnemy() {
     	this.dungeon.killEnemy();
     }
     
+    /**
+     * notifies the dungeon that the player has tried to exit
+     */
     public void exit() {
     	this.dungeon.exit();
     }
     
+    /**
+     * notifies all observers of its change in coordinates
+     */
     @Override
     public void notifyEntities(int dX, int dY) {
     	this.setDelta(dX, dY);
@@ -222,6 +254,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	this.observers.remove(obj);
     }
 
+
    /**
     * Checks if enemy has moved into the player, employs
     * which strategy to see who dies
@@ -229,6 +262,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     * @param dX: the subject's change in X direction
     * @param dY: the subject's change in Y direction
     */
+
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		//System.out.println("check player");
