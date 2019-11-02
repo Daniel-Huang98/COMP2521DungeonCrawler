@@ -80,10 +80,6 @@ class EnemyTest {
 		assertEquals(false,enemy.isDeleted(), "Health Test");
 	}
 	
-	/*
-	 * When an invincible player collides with an enemy, the enemy is 
-	 * defeated
-	 */
 	@Test
 	void potionBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -105,7 +101,37 @@ class EnemyTest {
 		//assertEquals(player.getX(), 5);
 		//assertEquals(player.getY(), 6);
 		assertEquals(true,player.isAlive() , "Potion Test - player alive");
-		assertEquals(true,enemy.isDeleted(), "Potion Test - enemy dead");
+		assertEquals(false,enemy.isDeleted(), "Potion Test - enemy is alive");
+	}
+	
+	
+	/*
+	 * When an invincible player collides with an enemy, the enemy is 
+	 * defeated
+	 */
+	@Test
+	void potionBattleTest2() {
+		ArrayList<Entity> entities = new ArrayList<Entity>();
+		Dungeon dungeon = new Dungeon(1,4);
+		Player player = new Player(dungeon,0,0);
+		Potion potion = new Potion(0,1);
+		Enemy enemy = new Enemy(0,3);
+		enemy.addObserver(player);
+		player.addObserver(enemy);
+		player.addObserver(potion);
+		entities.add(player);
+		entities.add(enemy);
+		entities.add(potion);
+		setMap(entities, 4, 1, enemy);
+		player.moveDown();
+		player.moveDown();
+		player.moveDown();
+		//assertEquals(enemy.getX(), 5);
+		//assertEquals(enemy.getY(), 7);
+		//assertEquals(player.getX(), 5);
+		//assertEquals(player.getY(), 6);
+		assertEquals(true,player.isAlive() , "Potion Test 2 - player alive");
+		assertEquals(true,enemy.isDeleted(), "Potion Test 2 - enemy dead");
 	}
 	
 	/*
@@ -157,8 +183,8 @@ class EnemyTest {
 		assertEquals(enemy.getY(), 5);
 		assertEquals(player.getX(), 6);
 		assertEquals(player.getY(), 5);
-		assertEquals(true,player.isAlive() , "Sword Test - player alive");
-		assertEquals(false,enemy.isDeleted(), "Sword Test - enemy alive");
+		assertEquals(true,player.isAlive() , "Wall Test - player alive");
+		assertEquals(false,enemy.isDeleted(), "wall Test - enemy alive");
 	}
 	
 	/*
@@ -182,8 +208,8 @@ class EnemyTest {
 		assertEquals(enemy.getY(), 0);
 		assertEquals(player.getX(), 0);
 		assertEquals(player.getY(), 4);
-		assertEquals(true,player.isAlive() , "Sword Test - player alive");
-		assertEquals(false,enemy.isDeleted(), "Sword Test - enemy alive");
+		assertEquals(true,player.isAlive() , "Wall Test 2 - player alive");
+		assertEquals(false,enemy.isDeleted(), "Wall Test 2 - enemy alive");
 	}
 	
 	void setMap(ArrayList<Entity> entities, int height, int width, Enemy enemy) {

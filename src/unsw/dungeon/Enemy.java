@@ -46,14 +46,101 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     	if (counter == map.size()*map.get(0).size()) {
     		return;
     	}
+    	
     	//calculate next coordinate, move the enemy and update the map
     	int nextY = curr/map.get(0).size();
     	int nextX = curr%(map.get(0).size());
     	map.get(getY()).set(getX(),null);
-    	x().set(nextX);
-    	y().set(nextY);
-    	map.get(getY()).set(getX(),(Entity)this);
-    }
+    	if (obj.getPotion() == null) {
+	    	x().set(nextX);
+	    	y().set(nextY);
+	    	map.get(getY()).set(getX(),(Entity)this);
+    	}
+    	else {
+    		int oldX = getX();
+    		int oldY = getY();
+    		int graph[][] = m.getGraph(); 
+    		if (oldX < nextX) {
+    			nextX-=2;
+    			if (nextX >= 0 && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(nextX);
+    		    	y().set(nextY);
+    			}
+    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(oldX);
+    		    	y().set(oldY+1);
+    			}
+    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
+    				x().set(oldX);
+    		    	y().set(oldY-1);
+    			}
+    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1){
+    				x().set(oldX+1);
+    		    	y().set(oldY);
+    			}
+    			map.get(getY()).set(getX(),(Entity)this);
+    		}
+    		else if (oldX > nextX) {
+    			nextX+=2;
+    			if (nextX < map.get(0).size() && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(nextX);
+    		    	y().set(nextY);
+    			}
+    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(oldX);
+    		    	y().set(oldY+1);
+    			}
+    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
+    				x().set(oldX);
+    		    	y().set(oldY-1);
+    			}
+    			else if (oldX-1 >= 0  && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1){
+    				x().set(oldX-1);
+    		    	y().set(oldY);
+    			}
+    			map.get(getY()).set(getX(),(Entity)this);
+    		}
+    		else if (oldY < nextY) {
+    			nextY-=2;
+    			if (nextY >= 0 && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(nextX);
+    		    	y().set(nextY);
+    			}
+    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(oldX+1);
+    		    	y().set(oldY);
+    			}
+    			else if (oldX-1 >= 0 && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1) {
+    				x().set(oldX-1);
+    		    	y().set(oldY);
+    			}
+    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1){
+    				x().set(oldX);
+    		    	y().set(oldY+1);
+    			}
+    		}
+        	else if (oldY > nextY) {
+    			nextY+=2;
+    			if (nextY < map.size() && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(nextX);
+    		    	y().set(nextY);
+    			}
+    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1) {
+    		    	x().set(oldX+1);
+    		    	y().set(oldY);
+    			}
+    			else if (oldX-1 >= 0 && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1) {
+    				x().set(oldX-1);
+    		    	y().set(oldY);
+    			}
+    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1){
+    				x().set(oldX);
+    		    	y().set(oldY-1);
+    			}
+        	}
+    		map.get(getY()).set(getX(),(Entity)this);
+    	}
+    }  		
     
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
