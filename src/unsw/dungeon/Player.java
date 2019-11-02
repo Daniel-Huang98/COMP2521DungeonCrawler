@@ -162,7 +162,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return this.alive;
     }
     
-    /* 
+    /** 
      * When sword breaks, change battle strategy
      */
     public void decrementSwordHealth() {
@@ -172,7 +172,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
     }
     
-    /* 
+    /** 
      * When invincibility runs out, change battle strategy
      */
     public void decrementPotionHealth() {
