@@ -114,10 +114,6 @@ public class Player extends Entity implements playerSubject {
     	y().set(y);
     }
     
-    public void addObserver(playerObserver obj) {
-    	this.observers.add(obj);
-    }
-    
     public void setSword(Sword obj) {
     	this.sword = obj;
     	System.out.println("I has the sword now");
@@ -181,5 +177,15 @@ public class Player extends Entity implements playerSubject {
     	for(playerObserver e: observers) {
     		if(!e.isDeleted())e.update(this,dX, dY);
     	}
+    }
+    
+    @Override
+    public void addObserver(playerObserver obj) {
+    	this.observers.add(obj);
+    }
+    
+    @Override
+    public void deleteObserver(playerObserver obj){
+    	this.observers.remove(obj);
     }
 }

@@ -85,10 +85,6 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
     	this.canMove = flag;
     }
     
-    public void addObserver(playerObserver obj) {
-    	this.observers.add(obj);
-    }
-    
     @Override
     public void notifyEntities(int dX, int dY) {
     	for(playerObserver e: observers) {
@@ -144,4 +140,13 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
 		
 	}
 
+	@Override
+	public void deleteObserver(playerObserver obs) {
+		this.observers.remove(obj);
+	}
+
+	@Override
+    public void addObserver(playerObserver obj) {
+    	this.observers.add(obj);
+    }
 }

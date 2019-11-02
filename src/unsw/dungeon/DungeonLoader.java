@@ -54,6 +54,12 @@ public abstract class DungeonLoader {
         					((Portal)e).setPortalPair((Portal)e2);
         				}
         			}
+        		} else if (e instanceof Enemy) {
+        			for (Entity e2: dungeon.getEntities()) {
+        				if(e2 instanceof Wall || e2 instanceof Boulder) {
+        					((Enemy)e).addObserver((playerObserver)e2);
+        				}
+        			}
         		}
         	}
         }
