@@ -40,7 +40,18 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+        for (int i = 0; i < dungeon.getHeight(); i++) {
+        	ArrayList<Entity> inner = new ArrayList <Entity>();
+        	for (int j = 0; j < dungeon.getWidth(); j++) {
+        		inner.add(null);
+        	}
+        	map.add(inner);
+        }
+        
+        ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
         for(Entity e: dungeon.getEntities()) {
+        	map.get(e.getY()).set(e.getX(), e);
         	if(!(e instanceof Player)) {
         		dungeon.getPlayer().addObserver((playerObserver)e);
         		if (e instanceof Boulder) {
@@ -55,15 +66,18 @@ public abstract class DungeonLoader {
         				}
         			}
         		} else if (e instanceof Enemy) {
+        			enemyList.add((Enemy)e);
         			for (Entity e2: dungeon.getEntities()) {
-        				if(e2 instanceof Wall || e2 instanceof Boulder || e2 instanceof Player) {
+        				if(e2 instanceof Player) {
         					((Enemy)e).addObserver((playerObserver)e2);
         				}
         			}
         		}
         	}
         }
-        
+        for (Enemy enemy: enemyList) {
+        	enemy.setMap(map);
+        }
         return dungeon;
     }
 

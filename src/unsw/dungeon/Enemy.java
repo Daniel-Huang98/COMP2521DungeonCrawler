@@ -10,6 +10,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	boolean deleted = false;
     List<playerObserver>observers;
     boolean canMove = true;
+    ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
     
 	/*
 	 * Constructs an enemy object that holds x,y coordinates
@@ -79,6 +80,10 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
+    }
+    
+    public void setMap(ArrayList<ArrayList<Entity>> map) {
+    	this.map = map;
     }
     
     /*
