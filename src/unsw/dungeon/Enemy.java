@@ -23,59 +23,35 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     }
     
     /*
-     * Moves boulder up, if it can't player also can't
+     * Moves enemy based on Dijkstra's algorithm
      * @param player: Player object
      */
-    public void moveUp() {
-    	notifyEntities(0,-1);
-    	if(!canMove) {
-    		canMove = true;
+    public void moveEnemy(Player obj) {
+    	//run Dijkstra's algorithm on the map
+    	Movement m = new Movement(map.size(), map.get(0).size(), map);
+    	int prev[] = m.dijkstra();
+    	int curr = obj.getY()*map.get(0).size()+obj.getX();
+    	int next = prev[curr];
+    	int counter = 0;
+    	
+    	//backtrack the traceback array
+    	while (next != getY()*map.get(0).size()+getX() && counter < map.size()*map.get(0).size()) {
+    		curr = next;
+    		next = prev[curr];
+    		counter++;
+    	}
+    	
+    	//make sure no infinite loop occurs
+    	if (counter == map.size()*map.get(0).size()) {
     		return;
     	}
-    	else
-            y().set(getY() - 1);
-    }
-
-    /*
-     * Moves boulder down, if it can't player also can't
-     * @param player: Player object
-     */
-    public void moveDown() {
-    	notifyEntities(0,1);
-    	if(!canMove) {
-    		canMove = true;
-    		return;
-    	}
-    	else
-            y().set(getY() + 1);
-    }
-
-    /*
-     * Moves boulder left, if it can't player also can't
-     * @param player: Player object
-     */
-    public void moveLeft() {
-    	notifyEntities(-1,0);
-    	if(!canMove) {
-    		canMove = true;
-    		return;
-    	}
-    	else
-            x().set(getX() - 1);
-    }
-
-    /*
-     * Moves boulder right, if it can't player also can't
-     * @param player: Player object
-     */
-    public void moveRight() {
-    	notifyEntities(1,0);
-    	if(!canMove) {
-    		canMove = true;
-    		return;
-    	}
-    	else
-            x().set(getX() + 1);
+    	//calculate next coordinate, move the enemy and update the map
+    	int nextY = curr/map.get(0).size();
+    	int nextX = curr%(map.get(0).size());
+    	map.get(getY()).set(getX(),null);
+    	x().set(nextX);
+    	y().set(nextY);
+    	map.get(getY()).set(getX(),(Entity)this);
     }
     
     public void setCanMove(boolean flag) {
@@ -87,6 +63,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     }
     
     /*
+    * Moves enemy, then updates the player on the map.
     * Checks if player has collided with it and checks to see what 
     * battle strategy is deployed
     * @param player: a subject that is observed
@@ -95,9 +72,16 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     */
     @Override
     public void update(playerSubject obj, int dX, int dY) {
-
+    	if(isDeleted()) return;
 		if (obj instanceof Player) {
-	    	if(((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
+	    	moveEnemy((Player)obj);
+	    	
+			if (!(map.get(((Player)obj).getY()+dY).get(((Player)obj).getX()+dX) instanceof Wall)) {
+				map.get(((Player)obj).getY()+dY).set(((Player)obj).getX()+dX, (Entity)obj);
+				map.get(((Player)obj).getY()).set(((Player)obj).getX(), null);
+			}
+			
+	    	if(((Player)obj).getX() == this.getX() && ((Player)obj).getY() == this.getY()) {
 	    		if(((Player)obj).getAction().attacked((Player)obj)) {
 	    			this.delete(); 	
 	    			((Player)obj).killEnemy();
