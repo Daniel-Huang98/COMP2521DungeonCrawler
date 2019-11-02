@@ -115,6 +115,11 @@ public abstract class DungeonLoader {
 	    	onLoad(portal);
 	        entity = portal;
 	        break;
+    	case "exit":
+    		Exit exit = new Exit(x,y);
+    		onLoad(exit);
+    		entity = exit;
+    		break;
         }
         
         dungeon.addEntity(entity);

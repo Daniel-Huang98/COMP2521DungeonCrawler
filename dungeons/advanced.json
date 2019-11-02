@@ -606,6 +606,11 @@
       "x": 7,
       "y": 6,
       "type": "switch"
+    },
+{
+      "x": 8,
+      "y": 8,
+      "type": "exit"
     }
   ],
   "goal-condition": {

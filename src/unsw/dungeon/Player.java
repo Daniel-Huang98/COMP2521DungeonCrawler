@@ -180,6 +180,10 @@ public class Player extends Entity implements playerSubject {
     	this.dungeon.collectGold();
     }
     
+    public void exit() {
+    	this.dungeon.exit();
+    }
+    
     @Override
     public void notifyEntities(int dX, int dY) {
     	for(playerObserver e: observers) {
