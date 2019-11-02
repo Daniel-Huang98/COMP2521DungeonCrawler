@@ -1,7 +1,11 @@
 package unsw.tests;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 
+import state.CanWinState;
+import state.EndState;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Exit;
 import unsw.dungeon.Player;
@@ -15,27 +19,29 @@ import wincondition.SwitchWin;
 
 public class ExitTest {
 	@Test
-	void AndTest() {
+	void ExitTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
+		dungeon.setWinCheck(new OrWinCheck());
 		dungeon.addWinCondition(new EnemyWin());
 		dungeon.addWinCondition(new GoldWin());
 		Player player = new Player(dungeon,5,4);
-		player.collectGold();
-		player.killEnemy();
-		player.exit();	
+		player.addObserver(new Exit(5,5));
 		player.moveDown();
+		assertEquals(false,dungeon.getState() instanceof EndState , "Trying to exit when win state not entered");
 	}
 	
 	@Test
-	void OrTest() {
+	void ExitTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		dungeon.setWinCheck(new OrWinCheck());
+		dungeon.addWinCondition(new EnemyWin());
+		dungeon.addWinCondition(new GoldWin());
 		Player player = new Player(dungeon,5,4);
-		Potion potion = new Potion(5,6);
-		Sword sword = new Sword(5,6);
-		player.addObserver(sword);
+		player.addObserver(new Exit(5,5));
+		player.collectGold();
+		player.killEnemy();
 		player.moveDown();
+		assertEquals(true,dungeon.getState() instanceof EndState , "Trying to exit when win state entered");
 	}
 	
 	
