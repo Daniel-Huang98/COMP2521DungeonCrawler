@@ -12,6 +12,10 @@ import unsw.dungeon.playerObserver;
 
 class BoulderTest {
 
+	/*
+	 * When a player is touching the boulder and walks in the 
+	 * direction of the boulder, the boulder moves with the player
+	 */
 	@Test
 	void testPush() {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
@@ -24,6 +28,9 @@ class BoulderTest {
 		assertEquals(player.getY(), 0);
 	}
 
+	/*
+	 * Pushing a boulder against another boulder does nothing
+	 */
 	@Test
 	void testTwoBoulders() {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
@@ -42,6 +49,9 @@ class BoulderTest {
 		assertEquals(player.getY(), 0);
 	}
 	
+	/*
+	 * Pushing a boulder against a wall will do nothing
+	 */
 	@Test
 	void testBoulderNextToWall() {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
