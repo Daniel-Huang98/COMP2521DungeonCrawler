@@ -11,8 +11,12 @@ import wincheck.OrWinCheck;
 
 class potionTest {
 
+	/**
+	 * When a player picks up an invincibility potion, it is 
+	 * immediately used
+	 */
 	@Test
-	void pickupTestUp() {
+	void pickupTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
@@ -23,43 +27,12 @@ class potionTest {
 		assertEquals(potion, player.getPotion());
 	}
 	
+	/**
+	 * When an invincibility potion is picked up, the invincibility 
+	 * potion on the floor disappears
+	 */
 	@Test
-	void pickupTestDown() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(5,6);
-		player.addObserver(potion);
-		assertEquals(null, player.getPotion());
-		player.moveDown();
-		assertEquals(potion, player.getPotion());
-	}
-	
-	@Test
-	void pickupTestLeft() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(4,5);
-		player.addObserver(potion);
-		assertEquals(null, player.getPotion());
-		player.moveLeft();
-		assertEquals(potion, player.getPotion());
-	}
-	
-	@Test
-	void pickupTestRight() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(6,5);
-		player.addObserver(potion);
-		assertEquals(null, player.getPotion());
-		player.moveRight();
-	}
-	
-	@Test
-	void deleteTestUp() {
+	void deleteTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
@@ -69,42 +42,11 @@ class potionTest {
 		player.moveUp();
 		assertEquals(true,potion.isDeleted());
 	}
-	
-	@Test
-	void deleteTestDown() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(5,6);
-		player.addObserver(potion);
-		assertEquals(false,potion.isDeleted());
-		player.moveDown();
-		assertEquals(true,potion.isDeleted());
-	}
-	
-	@Test
-	void deleteTestLeft() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(4,5);
-		player.addObserver(potion);
-		assertEquals(false,potion.isDeleted());
-		player.moveLeft();
-		assertEquals(true,potion.isDeleted());
-	}
-	
-	@Test
-	void deleteTestRight() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Potion potion = new Potion(6,5);
-		player.addObserver(potion);
-		assertEquals(false,potion.isDeleted());
-		player.moveRight();
-		assertEquals(true,potion.isDeleted());
-	}
-	
+
+	/**
+	 * When a player uses the invincibility potion, their battle
+	 * strategy should change
+	 */
 	@Test
 	void battleTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -115,6 +57,10 @@ class potionTest {
 		assertEquals(false,player.getAction().attacked(player));
 	}
 	
+	/**
+	 * When a player uses the invincibility potion, their battle
+	 * strategy should change
+	 */
 	@Test
 	void battleTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -127,6 +73,10 @@ class potionTest {
 		assertEquals(true,player.getAction().attacked(player));
 	}
 	
+	/**
+	 * After a player has used the invincibility potion, it's effects 
+	 * should stop after 15 steps
+	 */
 	@Test
 	void battleTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -141,6 +91,10 @@ class potionTest {
 		assertEquals(false,player.getAction().attacked(player));
 	}
 	
+	/**
+	 * After a player has used the invincibility potion, it's effects 
+	 * should stop after 15 steps
+	 */
 	@Test
 	void healthTest() {
 		Dungeon dungeon = new Dungeon(100, 100);

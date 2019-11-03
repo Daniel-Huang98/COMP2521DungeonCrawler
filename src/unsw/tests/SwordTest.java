@@ -13,8 +13,10 @@ import wincheck.OrWinCheck;
 
 class SwordTest {
 	
-	
-	
+	/**
+	 * A sword is picked up when the player walks 
+	 * over the sword
+	 */
 	@Test
 	void pickupTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -27,42 +29,29 @@ class SwordTest {
 		assertEquals(sword, player.getSword());
 	}
 	
+	/**
+	 * When a player walks over a new sword while holding a sword
+	 * ,the player does not pick up a new sword. 
+	 */
 	@Test
-	void pickupTestDown() {
+	void pickupTestUp2() {
 		Dungeon dungeon = new Dungeon(100, 100);
 		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(5,6);
+		Sword sword = new Sword(5,4);
+		Sword sword2 = new Sword(5,3);
 		player.addObserver(sword);
 		assertEquals(null, player.getSword());
-		player.moveDown();
+		player.moveUp();
+		player.moveUp();
+		player.moveUp();
 		assertEquals(sword, player.getSword());
 	}
 	
-	@Test
-	void pickupTestLeft() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(4,5);
-		player.addObserver(sword);
-		assertEquals(null, player.getSword());
-		player.moveLeft();
-		assertEquals(sword, player.getSword());
-	}
-	
-	@Test
-	void pickupTestRight() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(6,5);
-		player.addObserver(sword);
-		assertEquals(null, player.getSword());
-		player.moveRight();
-		assertEquals(true, sword.isDeleted());
-	}
-	
+	/**
+	 * When a sword is picked up, 
+	 * the sword on the floor disappears
+	 */
 	@Test
 	void deleteTestUp2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -75,60 +64,10 @@ class SwordTest {
 		assertEquals(true, sword.isDeleted());
 	}
 	
-	@Test
-	void deleteTestDown2() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(5,6);
-		player.addObserver(sword);
-		assertEquals(null, player.getSword());
-		player.moveDown();
-		assertEquals(true, sword.isDeleted());
-	}
-	
-	@Test
-	void deleteTestLeft2() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(4,5);
-		player.addObserver(sword);
-		assertEquals(null, player.getSword());
-		player.moveLeft();
-		assertEquals(true, sword.isDeleted());
-	}
-	
-	@Test
-	void deleteTestRight2() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(6,5);
-		player.addObserver(sword);
-		player.moveRight();
-		assertEquals(true, sword.isDeleted());
-	}
-	
-	@Test
-	void deleteTest1() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(4,4);
-		sword.delete();
-		assertEquals(true,sword.isDeleted() , "check if deleted 1");
-	}
-	
-	@Test
-	void deleteTest2() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		Player player = new Player(dungeon,5,5);
-		Sword sword = new Sword(4,4);
-		assertEquals(false,sword.isDeleted() , "check if deleted 1");
-	}
-	
+	/**
+	 * A sword is picked 
+	 * up when the player walks over the sword
+	 */
 	@Test
 	void addTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -137,6 +76,10 @@ class SwordTest {
 		assertEquals(null,player.getSword() , "add test 1");
 	}
 	
+	/**
+	 * A sword is picked
+	 *  up when the player walks over the sword
+	 */
 	@Test
 	void addTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -147,6 +90,10 @@ class SwordTest {
 		assertEquals(sword,player.getSword() , "add test 2");
 	}
 	
+	/**
+	 * When a player who is holding a sword 
+	 * collides with an enemy, the enemy dies
+	 */
 	@Test
 	void swordActionTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -157,6 +104,10 @@ class SwordTest {
 		assertEquals(false,player.getAction().attacked(player) , "add test 2");
 	}
 	
+	/**
+	 * When a player who is holding a sword 
+	 * collides with an enemy, the enemy dies
+	 */
 	@Test
 	void swordActionTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -169,6 +120,10 @@ class SwordTest {
 		assertEquals(true,player.getAction().attacked(player) , "add test 2");
 	}
 	
+	/**
+	 * After the sword has been used to
+	 * kill 5 enemies, the sword disappears
+	 */
 	@Test
 	void swordHealthTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);

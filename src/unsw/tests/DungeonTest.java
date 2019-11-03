@@ -17,6 +17,9 @@ import wincondition.SwitchWin;
 
 class DungeonTest {
 	
+	/**
+	 * tests that dungeon can detect when all enemies have been killed
+	 */
 	@Test
 	void EnemyWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -26,6 +29,9 @@ class DungeonTest {
 		assertEquals(false,dungeon.canWin() , "add test 2");
 	}
 	
+	/**
+	 * tests that dungeon can detect when all enemies have been killed
+	 */
 	@Test
 	void EnemyWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -36,6 +42,9 @@ class DungeonTest {
 		assertEquals(true,dungeon.canWin() , "add test 2");
 	}
 	
+	/**
+	 * tests that dungeon can detect when all gold has been collected
+	 */
 	@Test
 	void GoldWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -45,6 +54,9 @@ class DungeonTest {
 		assertEquals(false,dungeon.canWin(), "add test 2");
 	}
 	
+	/**
+	 * tests that dungeon can detect when all gold has been collected
+	 */
 	@Test
 	void GoldWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -55,6 +67,9 @@ class DungeonTest {
 		assertEquals(true,dungeon.canWin() , "add test 2");
 	}
 	
+	/**
+	 * tests that dungeon can detect when all switches have been activated
+	 */
 	@Test
 	void SwitchWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -64,6 +79,9 @@ class DungeonTest {
 		assertEquals(false,dungeon.canWin() , "add test 2");
 	}
 	
+	/**
+	 * tests that dungeon can detect when all switches have been activated
+	 */
 	@Test
 	void SwitchWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -74,6 +92,9 @@ class DungeonTest {
 		assertEquals(true,dungeon.canWin(), "add test 2");
 	}
 
+	/**
+	 * tests that dungeon can detect when a switch has been deactivated
+	 */
 	@Test
 	void SwitchWinTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -84,6 +105,9 @@ class DungeonTest {
 		assertEquals(false,dungeon.canWin() , "add test 2");
 	}
 
+	/**
+	 * tests dungeon CantWinState
+	 */
 	@Test
 	void CantWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -95,6 +119,9 @@ class DungeonTest {
 		assertEquals(true,dungeon.getState() instanceof CantWinState , "add test 2");
 	}
 	
+	/**
+	 * tests complex goals AND case
+	 */
 	@Test
 	void CantWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -107,6 +134,10 @@ class DungeonTest {
 		assertEquals(false,dungeon.canWin(), "add test 2");
 	}
 
+	/**
+	 * tests dungeon CanWinState
+	 * Win state is reached when goals completed
+	 */
 	@Test
 	void CanWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -123,6 +154,10 @@ class DungeonTest {
 
 	}
 
+	/**
+	 * tests dungeon EndState
+	 * End state is reached when goals completed + player exits
+	 */
 	@Test
 	void ExitTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -138,6 +173,10 @@ class DungeonTest {
 		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
 	}
 	
+	/**
+	 * tests complex goals OR case
+	 * tests some goals reached
+	 */
 	@Test
 	void OrTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -152,6 +191,10 @@ class DungeonTest {
 		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
 	}
 	
+	/**
+	 * tests complex goals OR case
+	 * tests some goals reached
+	 */
 	@Test
 	void OrTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -166,6 +209,10 @@ class DungeonTest {
 		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
 	}
 	
+	/**
+	 * tests complex goals AND case
+	 * tests all goals reached
+	 */
 	@Test
 	void AndTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -181,6 +228,10 @@ class DungeonTest {
 		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
 	}
 	
+	/**
+	 * tests complex goals AND case
+	 * Not all goals reached
+	 */
 	@Test
 	void AndTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
