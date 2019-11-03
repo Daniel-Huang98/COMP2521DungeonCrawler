@@ -10,7 +10,7 @@ public class Sword extends Entity implements playerObserver{
 	int health;
 	boolean deleted = false;
 
-	/*
+	/**
 	 * Constructs a sword object that holds x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -20,7 +20,7 @@ public class Sword extends Entity implements playerObserver{
         this.health = 5;
     }
     
-    /*
+    /**
      * Decrements the amount of hits left by 1
      */
     public boolean decrementHealth() {
@@ -35,7 +35,7 @@ public class Sword extends Entity implements playerObserver{
     	return this.health;
     }
 
-    /*
+    /**
      * Checks if player is standing over a sword, if so a reference
      * to it is added to the player and the battle strategy is changed
      * @param player: a subject that is observed

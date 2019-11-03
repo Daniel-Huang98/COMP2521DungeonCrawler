@@ -12,7 +12,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
     boolean canMove = true;
     ArrayList<playerObserver>observers;
 	
-    /*
+    /**
      * Constructs the Bolder object which contains x and y
      * coordinates as well as an empty list of observers
      */
@@ -21,7 +21,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
         this.observers = new ArrayList<playerObserver>();
     }
     
-    /*
+    /**
      * Moves boulder up, if it can't player also can't
      * @param player: Player object
      */
@@ -36,7 +36,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             y().set(getY() - 1);
     }
 
-    /*
+    /**
      * Moves boulder down, if it can't player also can't
      * @param player: Player object
      */
@@ -51,7 +51,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             y().set(getY() + 1);
     }
 
-    /*
+    /**
      * Moves boulder left, if it can't player also can't
      * @param player: Player object
      */
@@ -66,7 +66,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
             x().set(getX() - 1);
     }
 
-    /*
+    /**
      * Moves boulder right, if it can't player also can't
      * @param player: Player object
      */
@@ -92,7 +92,7 @@ public class Boulder extends Entity implements playerSubject, playerObserver{
     	}
     }
     
-    /*
+    /**
      * Moves the boulder depending on the change in direction
      * of the player given by dX and dY
      * Also checks if the boulder is being pushed into another

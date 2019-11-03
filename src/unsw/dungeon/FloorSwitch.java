@@ -10,12 +10,12 @@ public class FloorSwitch extends Entity implements playerObserver{
 	Boulder boulder = null;
 	Dungeon dungeon;
 	
-    public FloorSwitch(int x, int y, Dungeon dungeon) {
-	/*
+	/**
 	 * Constructs a floor switch object that holds x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
 	 */
+    public FloorSwitch(int x, int y, Dungeon dungeon) {
         super(x, y);
         this.dungeon = dungeon;
     }
@@ -24,7 +24,7 @@ public class FloorSwitch extends Entity implements playerObserver{
     	return boulder;
     }
     
-    /*
+    /**
      * Checks if boulder is moved onto switch, then sets the boulder
      * reference within the class if so.
      * Otherwise if the boulder was on the switch, checks the boulder

@@ -31,14 +31,14 @@ public class Door extends Entity implements playerObserver{
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		if (obj instanceof Player) {
-    		if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && ((Player)obj).getKey()) {
+    		if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !((Player)obj).getKey() && !getOpened()) {
+    			isOpened = false;
+    			System.out.println("Cannot open the door");
+    		}
+    		else if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY())){
     			isOpened = true;
     			((Player)obj).setKey(false);
     			System.out.println("Door unlocked");
-    		}
-    		else if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY())){
-    			isOpened = false;
-    			System.out.println("Cannot open the door");
     		}
     	}
     } 

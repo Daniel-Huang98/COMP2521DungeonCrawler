@@ -3,6 +3,13 @@ import java.util.*;
 import java.lang.*; 
 import java.io.*; 
 
+/**
+ * A movement entity which contains a 1 to 1 entity map as 
+ * well as an adjacency matrix generated from this map. The
+ * class has a method which calculates the shortest path
+ * from the source attribute.
+ *
+ */
 class Movement {
 	private int graphDimension;
 	private int graph[][];
@@ -10,6 +17,12 @@ class Movement {
 	
 	ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
+	/**
+	 * Constructs a Movement object
+	 * @param height : height of the dungeon
+     * @param width : width of the dungeon
+     * @param map : 1 to 1 entity map of the dungeon
+	 */
 	public Movement(int height, int width, ArrayList<ArrayList<Entity>> map) {
 		this.graphDimension = height*width;
 		this.map = map;
@@ -17,17 +30,19 @@ class Movement {
 		generateGraph(height,width);
 	}
 	
-	/*
+	/**
 	 * Generate an adjacency matrix for every dirt square
 	 * Graph is width*height by width*height
 	 * If a square i is reachable from square j, graph[i][j] = 1
 	 * and graph[j][i] = 1
+	 * @param height : height of the dungeon
+	 * @param width : width of the dungeon
 	 */
 	public void generateGraph(int height, int width) {
 		for(int i = 0; i < map.size(); i++) {
-		    for(int j = 0; j < map.get(i).size(); j++) {
+			for(int j = 0; j < map.get(i).size(); j++) {
 		    	//find the enemy and set it as the source
-		    	if (map.get(i).get(j) instanceof Enemy) {
+				if (map.get(i).get(j) instanceof Enemy) {
 		    		src =i*width+j;
 		    	}
 		    	//see if adjacent squares are reachable
@@ -56,31 +71,33 @@ class Movement {
 		}
 	}
 	
-	 /*
+	 /**
 	  * Find the distances to all reachable squares
 	  * and return the shortest distance
+	  * @param dist : array of distances to each vertex
+	  * @param sptSet : array indicating if vertex is reachable
+	  * @return : index of the minimum reachable distance
 	  */
 	 public int minDistance(int dist[], Boolean sptSet[]) { 
-	        // Initialize min value 
-	        int min = Integer.MAX_VALUE, min_index = -1;
-	  
-	        for (int v = 0; v < graphDimension; v++) 
-	            if (sptSet[v] == false && dist[v] <= min) { 
-	                min = dist[v]; 
-	                min_index = v; 
-	            } 
-	        return min_index; 
+		 // Initialise minimum value to max integer value,
+		 //set minimum index to -1
+		 int min = Integer.MAX_VALUE;
+		 int min_index = -1;
+	        
+        //for all the vertices, check if it is reachable and
+        //save the minimum distance and index
+        for (int v = 0; v < graphDimension; v++) 
+            if (sptSet[v] == false && dist[v] <= min) { 
+                min = dist[v]; 
+                min_index = v; 
+            } 
+        return min_index; 
 	 } 
-/*	
-	void printSolution(int dist[]) { 
-	        System.out.println("Vertex \t\t Distance from Source"); 
-	        for (int i = 0; i < graphDimension; i++) 
-	            System.out.println(i + " \t\t " + dist[i]); 
-	} 
-*/	
-	 
-	 /*
+
+	 /**
 	  * Function that implements Dijkstra's algorithm
+	  * @return : traceback array that holds the previous index of
+	  * 		  the shortest path
 	  */
 	 public int[] dijkstra() { 
 		//dist[i] is shortest distance from src to i
@@ -89,16 +106,18 @@ class Movement {
 		//from[i] holds the previous step before reaching i
 		int from[] = new int[graphDimension];
 		
+		//initialise the traceback array to -1
 		for (int i = 0; i < graphDimension; i++) {
 			from[i] = -1;
 		}
+		//source is always reachable from source
 		from[src] = src;
 		
-		// sptSet[i] will true if vertex i is included in shortest 
+		// sptSet[i] will be true if vertex i is included in shortest 
 		// path tree or shortest distance from src to i is finalized 
 		Boolean sptSet[] = new Boolean[graphDimension]; 
 		
-		// Initialize all distances as INFINITE and stpSet[] as false 
+		// Initialize all distances to be max integer and stpSet[] as false 
 		for (int i = 0; i < graphDimension; i++) { 
 			dist[i] = Integer.MAX_VALUE; 
 			sptSet[i] = false; 
@@ -108,7 +127,7 @@ class Movement {
 		dist[src] = 0; 
 		
 		// Find shortest path for all vertices 
-		for (int count = 0; count < graphDimension - 1; count++) { 
+		for (int i = 0; i < graphDimension - 1; count++) { 
 			// Pick the minimum distance vertex from the set of vertices 
 			// not yet processed. u is always equal to src in first 
 			// iteration. 
@@ -116,17 +135,19 @@ class Movement {
 		
 			// Mark the picked vertex as processed 
 			sptSet[u] = true; 
+			
 			// Update dist value of the adjacent vertices of the 
 			// picked vertex. 
-			for (int v = 0; v < graphDimension; v++) 
-		
+			for (int v = 0; v < graphDimension; v++) {		
 				// Update dist[v] only if is not in sptSet, there is an 
 				// edge from u to v, and total weight of path from src to 
 				// v through u is smaller than current value of dist[v] 
-				if (!sptSet[v] && graph[u][v] != 0 && dist[u] != Integer.MAX_VALUE && dist[u] + graph[u][v] < dist[v]) { 
+				// fill in the traceback array
+				if (!sptSet[v] && graph[u][v] != 0 && dist[u] + graph[u][v] < dist[v] && dist[u] != Integer.MAX_VALUE) { 
 					dist[v] = dist[u] + graph[u][v]; 
 					from[v] = u;
 				}
+			}
 		} 
 		return from;
 	}

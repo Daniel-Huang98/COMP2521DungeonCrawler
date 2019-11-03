@@ -7,7 +7,7 @@ package unsw.dungeon;
 public class Wall extends Entity implements playerObserver {
 	boolean deleted = false;
 
-	/*
+	/**
 	 * Constructs a wall object that has x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -16,8 +16,8 @@ public class Wall extends Entity implements playerObserver {
         super(x, y);
     }
     
-    /*
-     * Checks if player or boulder will go into the wall and
+    /**
+     * Checks if player, boulder or enemy will go into the wall and
      * sets the corresponding movement to false if so
      * @param obj: a subject that is observed
      * @param dX: the subject's change in X direction

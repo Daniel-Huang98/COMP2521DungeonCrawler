@@ -9,7 +9,7 @@ public class Potion extends Entity implements playerObserver{
 	boolean deleted = false;
 	int health;
 	 
-	/*
+	/**
 	 * Constructs a potion object at x,y coordinates with 15
 	 * steps of use
 	 * @param x : x coordinate
@@ -20,7 +20,7 @@ public class Potion extends Entity implements playerObserver{
         this.health = 15;
     }
     
-    /*
+    /**
      * Decrements health by 1
      */
     public boolean decrementHealth(){
@@ -32,7 +32,7 @@ public class Potion extends Entity implements playerObserver{
     	return false;
     }
     
-    /*
+    /**
      * Checks if player is standing over the potion, if so set the boolean
      * in player and change the battle strategy
      * @param obj: a subject that is observed

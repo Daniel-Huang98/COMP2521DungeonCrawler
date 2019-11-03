@@ -6,7 +6,7 @@ package unsw.dungeon;
 public class Key extends Entity implements playerObserver{
 	boolean deleted = false;
 	
-	/*
+	/**
 	 * Constructs key object that contains x, y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -15,7 +15,7 @@ public class Key extends Entity implements playerObserver{
         super(x, y);
     }
 
-    /*
+    /**
      * Checks if player is on key and sets a boolean within the player
      * indicating if he has the key or not
      * @param obj: a subject that is observed
