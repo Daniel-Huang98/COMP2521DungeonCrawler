@@ -8,7 +8,7 @@ public class Portal extends Entity implements playerObserver {
 	boolean deleted = false;
 	Portal destination = null;
 	
-	/*
+	/**
 	 * Constructs portal at given x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -21,9 +21,12 @@ public class Portal extends Entity implements playerObserver {
     	this.destination = portal;
     }
     
-    /*
+    /**
      * Checks if player is over a portal and if so, moves them to
      * the coordinates of the other portal in the pair
+     * @param obj: a subject that is observed
+     * @param dX: the subject's change in X direction
+     * @param dY: the subject's change in Y direction
      */
     @Override
     public void update(playerSubject obj, int dX, int dY) {

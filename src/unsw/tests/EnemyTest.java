@@ -13,10 +13,11 @@ import unsw.dungeon.Player;
 import unsw.dungeon.Potion;
 import unsw.dungeon.Sword;
 import unsw.dungeon.Wall;
+import wincheck.AndWinCheck;
 
 class EnemyTest {
 	
-	/*
+	/**
 	 * A player that is not holding a sword who collides with an enemy 
 	 * should be immediately defeated by the enemy
 	 */
@@ -24,6 +25,7 @@ class EnemyTest {
 	void deathBattleTest1() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,6);
 		enemy.addObserver(player);
@@ -35,7 +37,7 @@ class EnemyTest {
 		assertEquals(false,player.isAlive(), "Battle Test 1");
 	}
 	
-	/*
+	/**
 	 * A player that is not holding a sword who collides with an enemy 
 	 * should be immediately defeated by the enemy
 	 */
@@ -43,6 +45,7 @@ class EnemyTest {
 	void deathBattleTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,7);
 		enemy.addObserver(player);
@@ -58,13 +61,14 @@ class EnemyTest {
 		assertEquals(true,player.isAlive(), "Battle Test 2");
 	}
 	
-	/*
+	/**
 	 * An enemy that kills the player is still alive
 	 */
 	@Test
 	void healthTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,3);
 		Enemy enemy = new Enemy(5,6);
 		enemy.addObserver(player);
@@ -80,13 +84,14 @@ class EnemyTest {
 		assertEquals(false,enemy.isDeleted(), "Health Test");
 	}
 	
-	/*
+	/**
 	 * If the player is invincible, enemies walk away from them
 	 */
 	@Test
 	void potionBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		Enemy enemy = new Enemy(5,8);
@@ -108,7 +113,7 @@ class EnemyTest {
 	}
 	
 	
-	/*
+	/**
 	 * When an invincible player collides with an enemy, the enemy is 
 	 * defeated
 	 */
@@ -116,6 +121,7 @@ class EnemyTest {
 	void potionBattleTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(1,4);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,0,0);
 		Potion potion = new Potion(0,1);
 		Enemy enemy = new Enemy(0,3);
@@ -133,7 +139,7 @@ class EnemyTest {
 		assertEquals(true,enemy.isDeleted(), "Potion Test 2 - enemy dead");
 	}
 	
-	/*
+	/**
 	 * When a player who is holding a sword collides with an enemy, the 
 	 * enemy dies
 	 */
@@ -141,6 +147,7 @@ class EnemyTest {
 	void swordBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		Enemy enemy = new Enemy(5,9);
@@ -157,12 +164,13 @@ class EnemyTest {
 		assertEquals(true,enemy.isDeleted(), "Sword Test - enemy dead");
 	}
 	
-	/*
+	/**
 	 * The enemy must always walk closer to the player
 	 */
 	void wallTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Enemy enemy = new Enemy(3,6);
 		Wall wall = new Wall(4,6);
@@ -182,12 +190,13 @@ class EnemyTest {
 		assertEquals(false,enemy.isDeleted(), "wall Test - enemy alive");
 	}
 	
-	/*
+	/**
 	 * 	If the enemy cannot move any closer to the player, it stops
 	 */
 	void wallTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(5, 1);
+		dungeon.setWinCheck(new AndWinCheck());
 		Player player = new Player(dungeon,3,0);
 		Enemy enemy = new Enemy(1,0);
 		Wall wall = new Wall(2,0);
@@ -207,6 +216,14 @@ class EnemyTest {
 		assertEquals(false,enemy.isDeleted(), "Wall Test 2 - enemy alive");
 	}
 	
+	/**
+	 * Sets up the 1 to 1 entity map so enemies know the layout
+	 * of the map
+	 * @param entities : a list of all generated entities
+	 * @param height : height of dungeon
+	 * @param width : width of the dungeon
+	 * @param enemy : the enemy entity
+	 */
 	void setMap(ArrayList<Entity> entities, int height, int width, Enemy enemy) {
 		ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 		for (int i = 0; i < height; i++) {

@@ -11,7 +11,7 @@ import unsw.dungeon.playerObserver;
 
 class PortalTest {
 	
-	/*
+	/**
 	 * When a player steps in one of the portal pairs, they are 
 	 * immediately transported to the other portal in the pair
 	 * Each level has pairs of portals that only work within the 
@@ -27,7 +27,7 @@ class PortalTest {
 		player.addObserver((playerObserver)portal1);
 		player.addObserver((playerObserver)portal2);
 		player.moveRight();
-		assertEquals(player.getX(), 3);
-		assertEquals(player.getY(), 3);
+		assertEquals(player.getX(), 3, "Portal Test");
+		assertEquals(player.getY(), 3, "Portal Test");
 	}
 }

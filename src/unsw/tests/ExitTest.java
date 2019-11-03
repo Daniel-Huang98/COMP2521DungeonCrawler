@@ -18,6 +18,11 @@ import wincondition.GoldWin;
 import wincondition.SwitchWin;
 
 public class ExitTest {
+	
+	/**
+	 * When the player reaches the exit without achieving the level criteria, 
+	 * the level will not be complete.
+	 */
 	@Test
 	void ExitTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
@@ -30,6 +35,10 @@ public class ExitTest {
 		assertEquals(false,dungeon.getState() instanceof EndState , "Trying to exit when win state not entered");
 	}
 	
+	/**
+	 * When the player reaches the exit after achieving the level criteria, the 
+	 * level will be complete.
+	 */
 	@Test
 	void ExitTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);

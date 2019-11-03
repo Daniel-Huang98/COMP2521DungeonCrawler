@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Player;
 import unsw.dungeon.Sword;
+import wincheck.OrWinCheck;
 
 class SwordTest {
 	
@@ -17,6 +18,7 @@ class SwordTest {
 	@Test
 	void pickupTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -28,6 +30,7 @@ class SwordTest {
 	@Test
 	void pickupTestDown() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		player.addObserver(sword);
@@ -39,6 +42,7 @@ class SwordTest {
 	@Test
 	void pickupTestLeft() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,5);
 		player.addObserver(sword);
@@ -50,6 +54,7 @@ class SwordTest {
 	@Test
 	void pickupTestRight() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(6,5);
 		player.addObserver(sword);
@@ -61,6 +66,7 @@ class SwordTest {
 	@Test
 	void deleteTestUp2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -72,6 +78,7 @@ class SwordTest {
 	@Test
 	void deleteTestDown2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		player.addObserver(sword);
@@ -83,6 +90,7 @@ class SwordTest {
 	@Test
 	void deleteTestLeft2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,5);
 		player.addObserver(sword);
@@ -94,6 +102,7 @@ class SwordTest {
 	@Test
 	void deleteTestRight2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(6,5);
 		player.addObserver(sword);
@@ -104,6 +113,7 @@ class SwordTest {
 	@Test
 	void deleteTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		sword.delete();
@@ -113,6 +123,7 @@ class SwordTest {
 	@Test
 	void deleteTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		assertEquals(false,sword.isDeleted() , "check if deleted 1");
@@ -129,6 +140,7 @@ class SwordTest {
 	@Test
 	void addTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		player.setSword(sword);
@@ -138,6 +150,7 @@ class SwordTest {
 	@Test
 	void swordActionTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		player.setSword(sword);
@@ -147,6 +160,7 @@ class SwordTest {
 	@Test
 	void swordActionTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -158,6 +172,7 @@ class SwordTest {
 	@Test
 	void swordHealthTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);

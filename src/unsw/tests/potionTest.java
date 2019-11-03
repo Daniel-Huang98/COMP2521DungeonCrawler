@@ -7,12 +7,14 @@ import org.junit.jupiter.api.Test;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Player;
 import unsw.dungeon.Potion;
+import wincheck.OrWinCheck;
 
 class potionTest {
 
 	@Test
 	void pickupTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,4);
 		player.addObserver(potion);
@@ -24,6 +26,7 @@ class potionTest {
 	@Test
 	void pickupTestDown() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		player.addObserver(potion);
@@ -35,6 +38,7 @@ class potionTest {
 	@Test
 	void pickupTestLeft() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(4,5);
 		player.addObserver(potion);
@@ -46,6 +50,7 @@ class potionTest {
 	@Test
 	void pickupTestRight() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -56,6 +61,7 @@ class potionTest {
 	@Test
 	void deleteTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,4);
 		player.addObserver(potion);
@@ -67,6 +73,7 @@ class potionTest {
 	@Test
 	void deleteTestDown() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		player.addObserver(potion);
@@ -89,6 +96,7 @@ class potionTest {
 	@Test
 	void deleteTestRight() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -100,6 +108,7 @@ class potionTest {
 	@Test
 	void battleTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -109,6 +118,7 @@ class potionTest {
 	@Test
 	void battleTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -120,6 +130,7 @@ class potionTest {
 	@Test
 	void battleTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -133,6 +144,7 @@ class potionTest {
 	@Test
 	void healthTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
+		dungeon.setWinCheck(new OrWinCheck());
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);

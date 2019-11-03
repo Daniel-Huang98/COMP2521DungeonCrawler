@@ -12,7 +12,7 @@ import unsw.dungeon.playerObserver;
 
 class BoulderTest {
 
-	/*
+	/**
 	 * When a player is touching the boulder and walks in the 
 	 * direction of the boulder, the boulder moves with the player
 	 */
@@ -22,13 +22,13 @@ class BoulderTest {
 		Boulder boulder = new Boulder(1,0);
 		player.addObserver((playerObserver)boulder);
 		player.moveRight();
-		assertEquals(boulder.getX(), 2);
-		assertEquals(boulder.getY(), 0);
-		assertEquals(player.getX(), 1);
-		assertEquals(player.getY(), 0);
+		assertEquals(boulder.getX(), 2, "Boulder Push Test");
+		assertEquals(boulder.getY(), 0, "Boulder Push Test");
+		assertEquals(player.getX(), 1, "Boulder Push Test");
+		assertEquals(player.getY(), 0, "Boulder Push Test");
 	}
 
-	/*
+	/**
 	 * Pushing a boulder against another boulder does nothing
 	 */
 	@Test
@@ -41,15 +41,15 @@ class BoulderTest {
 		boulder.addObserver((playerObserver)boulder2);
 		boulder2.addObserver((playerObserver)boulder);
 		player.moveRight();
-		assertEquals(boulder.getX(), 1);
-		assertEquals(boulder.getY(), 0);
-		assertEquals(boulder2.getX(), 2);
-		assertEquals(boulder2.getY(), 0);
-		assertEquals(player.getX(), 0);
-		assertEquals(player.getY(), 0);
+		assertEquals(boulder.getX(), 1, "Two Boulder Test");
+		assertEquals(boulder.getY(), 0, "Two Boulder Test");
+		assertEquals(boulder2.getX(), 2, "Two Boulder Test");
+		assertEquals(boulder2.getY(), 0, "Two Boulder Test");
+		assertEquals(player.getX(), 0, "Two Boulder Test");
+		assertEquals(player.getY(), 0, "Two Boulder Test");
 	}
 	
-	/*
+	/**
 	 * Pushing a boulder against a wall will do nothing
 	 */
 	@Test
@@ -61,9 +61,9 @@ class BoulderTest {
 		player.addObserver((playerObserver)wall);
 		boulder.addObserver((playerObserver)wall);
 		player.moveRight();
-		assertEquals(boulder.getX(), 1);
-		assertEquals(boulder.getY(), 0);
-		assertEquals(player.getX(), 0);
-		assertEquals(player.getY(), 0);
+		assertEquals(boulder.getX(), 1, "Boulder Against Wall Test");
+		assertEquals(boulder.getY(), 0, "Boulder Against Wall Test");
+		assertEquals(player.getX(), 0, "Boulder Against Wall Test");
+		assertEquals(player.getY(), 0, "Boulder Against Wall Test");
 	}	
 }

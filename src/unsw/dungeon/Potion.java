@@ -35,7 +35,7 @@ public class Potion extends Entity implements playerObserver{
     /**
      * Checks if player is standing over the potion, if so set the boolean
      * in player and change the battle strategy
-     * @param obj: a subject that is observed
+     * @param player: a subject that is observed
      * @param dX: the subject's change in X direction
      * @param dY: the subject's change in Y direction
      */

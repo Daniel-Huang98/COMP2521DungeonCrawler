@@ -262,7 +262,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     * @param dX: the subject's change in X direction
     * @param dY: the subject's change in Y direction
     */
-
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		//System.out.println("check player");

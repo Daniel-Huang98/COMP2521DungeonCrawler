@@ -8,7 +8,7 @@ public class Door extends Entity implements playerObserver{
 	private boolean isOpened = false;
 	boolean deleted = false;
 	
-	/*
+	/**
 	 * Constructs a door object that has x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
@@ -21,7 +21,7 @@ public class Door extends Entity implements playerObserver{
     	return isOpened;
     }
 
-    /*
+    /**
      * Checks if player is on the door and opens only if they have the
      * corresponding key
      * @param obj: a subject that is observed
