@@ -14,6 +14,9 @@ public class Gold extends Entity implements playerObserver{
 
     /**
      * If the player walks over the gold, the player will collect the gold
+     * @param obj: a subject that is observed
+     * @param dX: the subject's change in X direction
+     * @param dY: the subject's change in Y direction
      */
     @Override
     public void update(playerSubject obj, int dX, int dY) {

@@ -13,7 +13,12 @@ public class Exit extends Entity implements playerObserver{
     }
     
     /**
-     * When the player enters the exit, if the dungeon goals have been reached the player can complete the dungeon, else the player must continue playing
+     * When the player enters the exit, if the dungeon goals have been 
+     * reached the player can complete the dungeon, else the player must 
+     * continue playing
+     * @param obj: a subject that is observed
+     * @param dX: the subject's change in X direction
+     * @param dY: the subject's change in Y direction
      */
     @Override
     public void update(playerSubject obj, int dX, int dY) {

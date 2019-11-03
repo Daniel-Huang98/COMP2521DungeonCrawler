@@ -127,7 +127,7 @@ class Movement {
 		dist[src] = 0; 
 		
 		// Find shortest path for all vertices 
-		for (int i = 0; i < graphDimension - 1; count++) { 
+		for (int i = 0; i < graphDimension - 1; i++) { 
 			// Pick the minimum distance vertex from the set of vertices 
 			// not yet processed. u is always equal to src in first 
 			// iteration. 
