@@ -184,8 +184,17 @@ public abstract class DungeonLoader {
     		onLoad(exit);
     		entity = exit;
     		break;
-        }
-        
+        case "door":
+    		Door door = new Door(x,y);
+    		onLoad(door);
+    		entity = door;
+    		break;
+        case "key":
+    		Key key = new Key(x,y);
+    		onLoad(key);
+    		entity = key;
+    		break;
+	}   
         dungeon.addEntity(entity);
         if(entity instanceof Gold) dungeon.incTotalGold();
         else if(entity instanceof FloorSwitch) dungeon.incTotalSwitch();

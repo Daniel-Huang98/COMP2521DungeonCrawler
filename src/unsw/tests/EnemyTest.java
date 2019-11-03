@@ -80,13 +80,16 @@ class EnemyTest {
 		assertEquals(false,enemy.isDeleted(), "Health Test");
 	}
 	
+	/*
+	 * If the player is invincible, enemies walk away from them
+	 */
 	@Test
 	void potionBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
-		Enemy enemy = new Enemy(5,9);
+		Enemy enemy = new Enemy(5,8);
 		enemy.addObserver(player);
 		player.addObserver(enemy);
 		player.addObserver(potion);
@@ -126,10 +129,6 @@ class EnemyTest {
 		player.moveDown();
 		player.moveDown();
 		player.moveDown();
-		//assertEquals(enemy.getX(), 5);
-		//assertEquals(enemy.getY(), 7);
-		//assertEquals(player.getX(), 5);
-		//assertEquals(player.getY(), 6);
 		assertEquals(true,player.isAlive() , "Potion Test 2 - player alive");
 		assertEquals(true,enemy.isDeleted(), "Potion Test 2 - enemy dead");
 	}
@@ -154,10 +153,6 @@ class EnemyTest {
 		setMap(entities, 10, 10, enemy);
 		player.moveDown();
 		player.moveDown();
-		//assertEquals(enemy.getX(), 5);
-		//assertEquals(enemy.getY(), 7);
-		//assertEquals(player.getX(), 5);
-		//assertEquals(player.getY(), 6);
 		assertEquals(true,player.isAlive() , "Sword Test - player alive");
 		assertEquals(true,enemy.isDeleted(), "Sword Test - enemy dead");
 	}

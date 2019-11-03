@@ -9,6 +9,7 @@ public class potionBattle implements battle{
 
 	@Override
 	public boolean attacked(Player player) {
+		player.killEnemy();
 		return true;
 	}
 

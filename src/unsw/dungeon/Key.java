@@ -28,6 +28,7 @@ public class Key extends Entity implements playerObserver{
     		if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !isDeleted()) {
     			((Player)obj).setKey(true);
     			delete();
+    			System.out.println("Key has been added to inventory");
     		}
     	}
     }
