@@ -1,5 +1,10 @@
-package unsw.dungeon;
-import java.util.*; 
+package movement;
+import java.util.*;
+
+import unsw.dungeon.Enemy;
+import unsw.dungeon.Entity;
+import unsw.dungeon.Wall;
+
 import java.lang.*; 
 import java.io.*; 
 
@@ -17,7 +22,7 @@ public class Dijkstra{
 	private int graph[][];
 	private int src;
 	private int from[];
-	ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
 	/**
 	 * Constructs a Dijkstra object

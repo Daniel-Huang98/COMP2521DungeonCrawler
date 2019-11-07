@@ -1,5 +1,9 @@
-package unsw.dungeon;
-import java.util.*; 
+package movement;
+import java.util.*;
+
+import unsw.dungeon.Enemy;
+import unsw.dungeon.Entity;
+
 import java.lang.*; 
 import java.io.*; 
 
@@ -8,10 +12,10 @@ import java.io.*;
  * Contains a 1 to 1 entity map as well as height and width of the
  * dungeon.
  */
-class Further implements Movement{
+public class Further implements Movement{
 	private int height;
 	private int width;
-	ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
 	/**
 	 * Constructs a Further object

@@ -1,5 +1,9 @@
-package unsw.dungeon;
-import java.util.*; 
+package movement;
+import java.util.*;
+
+import unsw.dungeon.Enemy;
+import unsw.dungeon.Entity;
+
 import java.lang.*; 
 import java.io.*; 
 
