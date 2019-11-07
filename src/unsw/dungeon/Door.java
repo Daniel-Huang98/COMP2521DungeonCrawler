@@ -35,7 +35,7 @@ public class Door extends Entity implements playerObserver{
     			isOpened = false;
     			System.out.println("Cannot open the door");
     		}
-    		else if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY())){
+    		else if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !getOpened()){
     			isOpened = true;
     			((Player)obj).setKey(false);
     			System.out.println("Door unlocked");

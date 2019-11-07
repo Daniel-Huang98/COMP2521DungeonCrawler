@@ -7,10 +7,11 @@ import java.util.List;
  */
 public class Enemy extends Entity implements playerObserver, playerSubject{
 	
-	boolean deleted = false;
-    List<playerObserver>observers;
-    boolean canMove = true;
-    ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+	private boolean deleted = false;
+    private List<playerObserver>observers;
+    private boolean canMove = true;
+    private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+    private Movement movement;
     
 	/**
 	 * Constructs an enemy object that holds x,y coordinates
@@ -27,7 +28,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
      * @param player: Player object
      */
     public void moveEnemy(Player obj) {
-    	//run Dijkstra's algorithm on the map
+/*    	//run Dijkstra's algorithm on the map
     	Movement m = new Movement(map.size(), map.get(0).size(), map);
     	int prev[] = m.dijkstra();
     	int curr = obj.getY()*map.get(0).size()+obj.getX();
@@ -52,95 +53,45 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     	int nextX = curr%(map.get(0).size());
     	map.get(getY()).set(getX(),null);
     	if (obj.getPotion() == null) {
-	    	x().set(nextX);
-	    	y().set(nextY);
+    		setMove(nextX, nextY);
 	    	map.get(getY()).set(getX(),(Entity)this);
     	}
     	else {
     		int oldX = getX();
-    		int oldY = getY();
-    		int graph[][] = m.getGraph(); 
-    		if (oldX < nextX) {
-    			nextX-=2;
-    			if (nextX >= 0 && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(nextX);
-    		    	y().set(nextY);
-    			}
-    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(oldX);
-    		    	y().set(oldY+1);
-    			}
-    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
-    				x().set(oldX);
-    		    	y().set(oldY-1);
-    			}
-    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1){
-    				x().set(oldX+1);
-    		    	y().set(oldY);
-    			}
-    			map.get(getY()).set(getX(),(Entity)this);
+    		int oldY = getY(); 
+    		int dX = nextX-oldX;
+    		int dY = nextY-oldY;
+    		//check if the move opposite to Dijkstra is reachable
+    		if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1)) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
+    			setMove(oldX + (dX)*-1, oldY + (dY)*-1);
     		}
-    		else if (oldX > nextX) {
-    			nextX+=2;
-    			if (nextX < map.get(0).size() && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(nextX);
-    		    	y().set(nextY);
+    		//try other directions
+    		else if (dY == 0) {
+    			if (checkBounds(oldX, oldY+1) && map.get(oldY+1).get(oldX) == null) {
+    				setMove(oldX,oldY+1);
     			}
-    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(oldX);
-    		    	y().set(oldY+1);
+    			else if (checkBounds(oldX, oldY-1) && map.get(oldY - 1).get(oldX) == null) {
+    				setMove(oldX,oldY-1);
     			}
-    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1) {
-    				x().set(oldX);
-    		    	y().set(oldY-1);
-    			}
-    			else if (oldX-1 >= 0  && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1){
-    				x().set(oldX-1);
-    		    	y().set(oldY);
-    			}
-    			map.get(getY()).set(getX(),(Entity)this);
-    		}
-    		else if (oldY < nextY) {
-    			nextY-=2;
-    			if (nextY >= 0 && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(nextX);
-    		    	y().set(nextY);
-    			}
-    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(oldX+1);
-    		    	y().set(oldY);
-    			}
-    			else if (oldX-1 >= 0 && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1) {
-    				x().set(oldX-1);
-    		    	y().set(oldY);
-    			}
-    			else if (oldY+1 < map.size() && graph[(oldY+1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1){
-    				x().set(oldX);
-    		    	y().set(oldY+1);
+    			else {
+    				setMove(nextX, nextY);
     			}
     		}
-        	else if (oldY > nextY) {
-    			nextY+=2;
-    			if (nextY < map.size() && graph[nextY*map.get(0).size()+nextX][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(nextX);
-    		    	y().set(nextY);
+    		//try other directions
+    		else if (dX == 0) {
+    			if (checkBounds(oldX+1, oldY) && map.get(oldY).get(oldX+1) == null) {
+    				setMove(oldX+1,oldY);
     			}
-    			else if (oldX+1 < map.get(0).size() && graph[oldY*map.get(0).size()+(oldX+1)][oldY*map.get(0).size()+oldX] == 1) {
-    		    	x().set(oldX+1);
-    		    	y().set(oldY);
+    			else if (checkBounds(oldX-1, oldY) && map.get(oldY).get(oldX-1) == null) {
+    				setMove(oldX-1,oldY);
     			}
-    			else if (oldX-1 >= 0 && graph[oldY*map.get(0).size()+(oldX-1)][oldY*map.get(0).size()+oldX] == 1) {
-    				x().set(oldX-1);
-    		    	y().set(oldY);
+    			else {
+    				setMove(nextX, nextY);
     			}
-    			else if (oldY-1 >= 0 && graph[(oldY-1)*map.get(0).size()+oldX][oldY*map.get(0).size()+oldX] == 1){
-    				x().set(oldX);
-    		    	y().set(oldY-1);
-    			}
-        	}
+    		}	  		
     		map.get(getY()).set(getX(),(Entity)this);
-    	}
-    }  		
+    	}*/
+    }	
     
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
@@ -148,6 +99,20 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     
     public void setMap(ArrayList<ArrayList<Entity>> map) {
     	this.map = map;
+    	this.movement = new Closer(map.size(), map.get(0).size(), map);
+    }
+    
+    public void setMove(int x, int y) {
+    	x().set(x);
+    	y().set(y);
+    }
+    
+    public boolean checkBounds(int x, int y) {
+    	return (x < map.get(0).size() && x >= 0 && y < map.size() && y >= 0);
+    }
+    
+    public void setMovement(Movement m) {
+    	this.movement = m;
     }
     
     /**
@@ -162,11 +127,16 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
 		if (obj instanceof Player) {
-	    	moveEnemy((Player)obj);
+			if (((Player)obj).getPotion() != null)
+				movement = new Further(map.size(), map.get(0).size(), map);
+			else 
+				movement = new Closer(map.size(), map.get(0).size(), map);
+	    	map = movement.moveCharacter(this, (Entity)obj);
 	    	
 			if (!(map.get(((Player)obj).getY()+dY).get(((Player)obj).getX()+dX) instanceof Wall)) {
 				map.get(((Player)obj).getY()+dY).set(((Player)obj).getX()+dX, (Entity)obj);
 				map.get(((Player)obj).getY()).set(((Player)obj).getX(), null);
+				movement.setMap(map);
 			}
 			this.notifyEntities(0,0);
     	}
