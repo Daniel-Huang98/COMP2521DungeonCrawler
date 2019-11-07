@@ -23,80 +23,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
         this.observers = new ArrayList<playerObserver>();
     }
     
-    /**
-     * Moves enemy based on Dijkstra's algorithm
-     * @param player: Player object
-     */
-    public void moveEnemy(Player obj) {
-/*    	//run Dijkstra's algorithm on the map
-    	Movement m = new Movement(map.size(), map.get(0).size(), map);
-    	int prev[] = m.dijkstra();
-    	int curr = obj.getY()*map.get(0).size()+obj.getX();
-    	int next = prev[curr];
-    	int counter = 0;
-    	
-    	//backtrack the traceback array
-    	while (next != getY()*map.get(0).size()+getX() && counter < map.size()*map.get(0).size()) {
-    		curr = next;
-    		if (curr == -1) break;
-    		next = prev[curr];
-    		counter++;
-    	}
-    	if (curr == -1) return;
-    	//make sure no infinite loop occurs
-    	if (counter == map.size()*map.get(0).size()) {
-    		return;
-    	}
-    	
-    	//calculate next coordinate, move the enemy and update the map
-    	int nextY = curr/map.get(0).size();
-    	int nextX = curr%(map.get(0).size());
-    	map.get(getY()).set(getX(),null);
-    	if (obj.getPotion() == null) {
-    		setMove(nextX, nextY);
-	    	map.get(getY()).set(getX(),(Entity)this);
-    	}
-    	else {
-    		int oldX = getX();
-    		int oldY = getY(); 
-    		int dX = nextX-oldX;
-    		int dY = nextY-oldY;
-    		//check if the move opposite to Dijkstra is reachable
-    		if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1)) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
-    			setMove(oldX + (dX)*-1, oldY + (dY)*-1);
-    		}
-    		//try other directions
-    		else if (dY == 0) {
-    			if (checkBounds(oldX, oldY+1) && map.get(oldY+1).get(oldX) == null) {
-    				setMove(oldX,oldY+1);
-    			}
-    			else if (checkBounds(oldX, oldY-1) && map.get(oldY - 1).get(oldX) == null) {
-    				setMove(oldX,oldY-1);
-    			}
-    			else {
-    				setMove(nextX, nextY);
-    			}
-    		}
-    		//try other directions
-    		else if (dX == 0) {
-    			if (checkBounds(oldX+1, oldY) && map.get(oldY).get(oldX+1) == null) {
-    				setMove(oldX+1,oldY);
-    			}
-    			else if (checkBounds(oldX-1, oldY) && map.get(oldY).get(oldX-1) == null) {
-    				setMove(oldX-1,oldY);
-    			}
-    			else {
-    				setMove(nextX, nextY);
-    			}
-    		}	  		
-    		map.get(getY()).set(getX(),(Entity)this);
-    	}*/
-    }	
-    
     public void setCanMove(boolean flag) {
     	this.canMove = flag;
     }
     
+    /**
+     * Set the map and set default movement strategy to be move closer
+     * @param map : map of all entities in a 2D array
+     */
     public void setMap(ArrayList<ArrayList<Entity>> map) {
     	this.map = map;
     	this.movement = new Closer(map.size(), map.get(0).size(), map);
@@ -105,10 +39,6 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     public void setMove(int x, int y) {
     	x().set(x);
     	y().set(y);
-    }
-    
-    public boolean checkBounds(int x, int y) {
-    	return (x < map.get(0).size() && x >= 0 && y < map.size() && y >= 0);
     }
     
     public void setMovement(Movement m) {
