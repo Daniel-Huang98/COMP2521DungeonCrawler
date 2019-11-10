@@ -24,6 +24,17 @@
     }
   ],
   "goal-condition": {
-    "goal": "boulders"
-  }
+    "goal": "AND",
+    "subgoals": [
+      {
+        "goal": "switch"
+      },
+      {
+        "goal": "treasure"
+      },
+	{
+        "goal": "enemy"
+      }
+	]
+}
 }
