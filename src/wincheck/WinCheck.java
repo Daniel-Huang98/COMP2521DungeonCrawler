@@ -1,6 +1,8 @@
 package wincheck;
 
-import unsw.dungeon.Dungeon;
+import java.util.ArrayList;
+
+import compositecheck.CompositeCheck;
 
 public interface WinCheck {
 	
@@ -9,5 +11,5 @@ public interface WinCheck {
 	 * @param dungeon reference of the dungeon
 	 * @return true if all dungeon goals reached, false otherwise
 	 */
-	boolean canWin(Dungeon dungeon);
+	boolean canWin(ArrayList<CompositeCheck> SubChecks);
 }
