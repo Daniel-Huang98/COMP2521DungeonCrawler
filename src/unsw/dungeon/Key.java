@@ -5,14 +5,20 @@ package unsw.dungeon;
  */
 public class Key extends Entity implements playerObserver{
 	boolean deleted = false;
+	int id;
 	
 	/**
 	 * Constructs key object that contains x, y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
 	 */
-    public Key(int x, int y) {
+    public Key(int x, int y, int id) {
         super(x, y);
+        this.id = id;
+    }
+    
+    public int getId() {
+    	return id;
     }
 
     /**
@@ -26,7 +32,7 @@ public class Key extends Entity implements playerObserver{
     public void update(playerSubject obj, int dX, int dY) {
 		if (obj instanceof Player) {
     		if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !isDeleted()) {
-    			((Player)obj).setKey(true);
+    			((Player)obj).setKey(this);
     			delete();
     			System.out.println("Key has been added to inventory");
     		}

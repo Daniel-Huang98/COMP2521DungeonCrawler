@@ -7,18 +7,24 @@ package unsw.dungeon;
 public class Portal extends Entity implements playerObserver {
 	boolean deleted = false;
 	Portal destination = null;
+	int id;
 	
 	/**
 	 * Constructs portal at given x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
 	 */
-    public Portal(int x, int y) {
+    public Portal(int x, int y, int id) {
         super(x, y);
+        this.id = id;
     }
 
     public void setPortalPair(Portal portal) {
     	this.destination = portal;
+    }
+    
+    public int getId() {
+    	return id;
     }
     
     /**

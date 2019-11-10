@@ -17,12 +17,12 @@ class KeyTest {
 	@Test
 	void testOpen() {
 		Player player = new Player(new Dungeon(4,4), 0, 0);
-		Key key = new Key(1,0);
+		Key key = new Key(1,0,1);
 		player.addObserver((playerObserver)key);
-		assertEquals(player.getKey(),false, "player does not have key");
+		assertEquals(player.getKey(),null, "player does not have key");
 		player.moveRight();
 		assertEquals(player.getX(), 1);
 		assertEquals(player.getY(), 0);
-		assertEquals(player.getKey(),true, "player has key");
+		assertEquals(player.getKey(),key, "player has key");
 	}
 }

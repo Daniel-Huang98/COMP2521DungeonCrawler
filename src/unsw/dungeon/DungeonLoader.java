@@ -86,7 +86,7 @@ public abstract class DungeonLoader {
 	        		}
         		} else if (e instanceof Portal) {
         			for (Entity e2: dungeon.getEntities()) {
-        				if(e2 instanceof Portal && !e2.equals(e)) {
+        				if(e2 instanceof Portal && !e2.equals(e) && ((Portal)e2).getId() == ((Portal)e).getId()) {
         					((Portal)e).setPortalPair((Portal)e2);
         				}
         			}
@@ -129,6 +129,7 @@ public abstract class DungeonLoader {
         String type = json.getString("type");
         int x = json.getInt("x");
         int y = json.getInt("y");
+        int id;
 
         Entity entity = null;
         switch (type) {
@@ -175,7 +176,8 @@ public abstract class DungeonLoader {
             entity = potion;
             break;
     	case "portal":
-	    	Portal portal = new Portal(x,y);
+    		id = Integer.parseInt(json.getString("id"));
+	    	Portal portal = new Portal(x,y,id);
 	    	onLoad(portal);
 	        entity = portal;
 	        break;
@@ -185,12 +187,14 @@ public abstract class DungeonLoader {
     		entity = exit;
     		break;
         case "door":
-    		Door door = new Door(x,y);
+        	id = Integer.parseInt(json.getString("id"));
+    		Door door = new Door(x,y, id);
     		onLoad(door);
     		entity = door;
     		break;
         case "key":
-    		Key key = new Key(x,y);
+        	id = Integer.parseInt(json.getString("id"));
+    		Key key = new Key(x,y, id);
     		onLoad(key);
     		entity = key;
     		break;

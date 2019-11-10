@@ -7,14 +7,16 @@ public class Door extends Entity implements playerObserver{
 
 	private boolean isOpened = false;
 	boolean deleted = false;
+	int id;
 	
 	/**
 	 * Constructs a door object that has x,y coordinates
 	 * @param x : x coordinate
      * @param y : y coordinate
 	 */
-    public Door(int x, int y) {
+    public Door(int x, int y, int id) {
         super(x, y);
+        this.id = id;
     }
     
     public boolean getOpened() {
@@ -31,15 +33,19 @@ public class Door extends Entity implements playerObserver{
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		if (obj instanceof Player) {
-    		if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !((Player)obj).getKey() && !getOpened()) {
-    			isOpened = false;
-    			System.out.println("Cannot open the door");
-    		}
-    		else if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && !getOpened()){
-    			isOpened = true;
-    			((Player)obj).setKey(false);
-    			System.out.println("Door unlocked");
-    		}
+			if (((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY())) {
+				Key k = ((Player)obj).getKey();
+	    		if((k == null || k.getId() != this.id) && !getOpened()) {
+	    			isOpened = false;
+	    			((Player)obj).setCanMove(false);
+	    			System.out.println("Cannot open the door");
+	    		}
+	    		else if (!getOpened() && k.getId() == this.id){
+	    			isOpened = true;
+	    			((Player)obj).setKey(null);
+	    			System.out.println("Door unlocked");
+	    		}
+			}
     	}
     } 
 		

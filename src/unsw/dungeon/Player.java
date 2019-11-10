@@ -22,7 +22,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     Sword sword;
     Potion potion;
     boolean alive;
-    boolean hasKey = false;
+    Key key;
     battle action;
     int dy = 0;
     int dx = 0;
@@ -40,6 +40,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         this.observers = new ArrayList<playerObserver>();
         this.alive = true;
         this.sword = null;
+        this.key = null;
         this.action = new deathBattle();
     }
 
@@ -112,12 +113,12 @@ public class Player extends Entity implements playerSubject, playerObserver {
     }
     
    
-    public boolean getKey() {
-    	return hasKey;
+    public Key getKey() {
+    	return key;
     }
     
-    public void setKey(boolean flag) {
-    	this.hasKey = flag;
+    public void setKey(Key key) {
+    	this.key = key;
     }
     
     /**
