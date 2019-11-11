@@ -7,10 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import compositecheck.CompositeCheck;
-import state.CanWinState;
-import state.CantWinState;
-import state.EndState;
-import state.State;
 import wincheck.WinCheck;
 import wincondition.WinCondition;
 
