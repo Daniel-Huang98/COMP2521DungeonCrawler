@@ -6,6 +6,7 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
+import compositecheck.CompositeCheck;
 import state.CanWinState;
 import state.CantWinState;
 import state.EndState;
@@ -33,13 +34,12 @@ public class Dungeon {
     int activated = 0;
     int enemiesKilled = 0;
     int totalEnemies = 0;
-    ArrayList<WinCondition> checks;
     State canWinState; 
     State cantWinState; 
     State endState; 
     State state; 
     
-    WinCheck check;
+    CompositeCheck check;
     /**
      * Contructor for the dungeon class
      * @param width Is the width of the game window
@@ -54,39 +54,31 @@ public class Dungeon {
         this.cantWinState = new CantWinState(this);
         this.endState = new EndState(this);
         this.state = this.cantWinState;
-        this.checks = new  ArrayList<WinCondition>();
     }
     
-    /**
-     * adds a subgoal condition
-     * @param obj Is a reference to a sub-goal strategy object
-     */
-    public void addWinCondition(WinCondition obj) {
-    	this.checks.add(obj);
-    }
     
     /**
      * add the check condition OR or AND
      * @param check reference to the check strategy object
      */
-    public void setWinCheck(WinCheck check) {
+    public void setWinCheck(CompositeCheck check) {
     	this.check = check;
     }
     
-    /**
-     * returns the list of subgoals
-     * @return the reference to the dungeon's arraylist of subgoals
-     */
-    public  ArrayList<WinCondition> getChecks(){
-    	return this.checks;
-    }
     
     /**
      * Returns true or false based on whether the player has satisfied the dungeon goal
      * @return true or false boolean 
      */
     public boolean canWin() {
-    	return this.check.canWin(this);
+    	boolean result = false;
+    	try {
+    		assert(this.check != null);
+    		result = this.check.check();
+    	} catch(NullPointerException e) {
+    		System.out.println("There is a null exception here");
+    	}
+    	return result;
     }
     
     

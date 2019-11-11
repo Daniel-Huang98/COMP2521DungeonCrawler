@@ -3,6 +3,7 @@ package wincheck;
 import java.util.ArrayList;
 
 import compositecheck.CompositeCheck;
+import compositecheck.NodeCheck;
 
 public interface WinCheck {
 	
@@ -11,5 +12,5 @@ public interface WinCheck {
 	 * @param dungeon reference of the dungeon
 	 * @return true if all dungeon goals reached, false otherwise
 	 */
-	boolean canWin(ArrayList<CompositeCheck> SubChecks);
+	boolean canWin(NodeCheck objs);
 }

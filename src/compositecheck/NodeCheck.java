@@ -14,14 +14,37 @@ public class NodeCheck implements CompositeCheck{
 		this.SubChecks = new ArrayList<CompositeCheck>();
 		this.dungeon = obj;
 	}
+	
+	public ArrayList<CompositeCheck> getSubCheck(){
+		return this.SubChecks;
+	}
+	
 	@Override
 	public boolean check() {
-		return checker.canWin(SubChecks);
+		
+		try {
+			if(dungeon == null) {
+				throw new AssertionError("dungon null");
+			}
+			if(checker == null) {
+				throw new AssertionError("checker null");
+			}
+			if(SubChecks == null) {
+				throw new AssertionError("SubChecks null");
+			}
+			return checker.canWin(this);
+		} catch(NullPointerException e) {
+			System.out.println("null exception at: " + this.checker.getClass());
+		} catch(AssertionError e) {
+			System.out.println("assert failed  " + e.getMessage());
+		}
+		return false;
+		
 	}
 
 	@Override
 	public void addCheck(CompositeCheck obj) {
-		SubChecks.add(obj);
+		this.SubChecks.add(obj);
 		
 	}
 

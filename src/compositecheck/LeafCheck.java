@@ -14,7 +14,21 @@ public class LeafCheck implements CompositeCheck{
 
 	@Override
 	public boolean check() {
-		return checker.canWin(dungeon);
+		
+		try {
+			if(dungeon == null) {
+				throw new AssertionError("dungon null");
+			}
+			if(checker == null) {
+				throw new AssertionError("checker null");
+			}
+			return checker.canWin(dungeon);
+		} catch(NullPointerException e) {
+			System.out.println("null exception at: " + this.checker.getClass());
+		} catch(AssertionError e) {
+			System.out.println("Assertion fail" + e.getMessage());
+		}
+		return false;
 	}
 
 	@Override
