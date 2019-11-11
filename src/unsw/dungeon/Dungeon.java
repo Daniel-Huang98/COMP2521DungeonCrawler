@@ -34,11 +34,9 @@ public class Dungeon {
     int activated = 0;
     int enemiesKilled = 0;
     int totalEnemies = 0;
-    State canWinState; 
-    State cantWinState; 
-    State endState; 
-    State state; 
-    
+    boolean exitReached = false;
+    boolean dead = false;
+  
     CompositeCheck check;
     /**
      * Contructor for the dungeon class
@@ -50,10 +48,6 @@ public class Dungeon {
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
-        this.canWinState = new CanWinState(this);
-        this.cantWinState = new CantWinState(this);
-        this.endState = new EndState(this);
-        this.state = this.cantWinState;
     }
     
     
@@ -82,54 +76,34 @@ public class Dungeon {
     }
     
     
-    /**
-     * Returns the canWinState Reference
-     * @return reference to the canWinState object
-     */
-    public State getCanWinState() {
-    	return this.canWinState;
-    }
-    
-    /**
-     * Returns the cantWinState Reference
-     * @return reference to the cantWinState object
-     */
-    public State getCantWinState() {
-    	return this.cantWinState;
-    }
-    
-    /**
-     * Returns the endState reference
-     * @return reference to the endState object
-     */
-    public State getEndState() {
-    	return this.endState;
-    }
-    
-    /**
-     * Sets the dungeons current state
-     * @param state reference to a state object
-     */
-    public void setState(State state) {
-    	this.state = state;
-    }
-    
-    public State getState() {
-    	return this.state;
-    }
+    public void tryWin() {
+    	if(this.canWin() && !dead) {
+    		System.out.println("You have won");
+    	} else if(dead){
+    		System.out.println("You are dead");
+    	} else {
+    		System.out.println("Can't win yet");
+    	}
+    } 
     
     /**
      * invokes exit function of current state
      */
 	public void exit() {
-		this.state.exit();
+		this.exitReached = true;
+		if(!canWin()) {
+			exitReached = false;
+			System.out.println("Can't exit yet");
+		}
+		this.tryWin();
 	}
 
 	/**
 	 * invokes the collect gold function of the current state
 	 */
 	public void collectGold() {
-		this.state.collectGold();
+		this.collected++;
+		this.tryWin();
 		
 	}
 	
@@ -137,7 +111,8 @@ public class Dungeon {
 	 * invokes the activate switch function of the current state
 	 */
 	public void activateSwitch() {
-		this.state.activateSwitch();
+		this.activated++;
+		this.tryWin();
 		
 	}
 
@@ -145,7 +120,8 @@ public class Dungeon {
 	 * invokes the deactivate switch function of the current state
 	 */
 	public void deactivateSwitch() {
-		this.state.deactivateSwitch();
+		this.activated--;
+		this.tryWin();
 		
 	}
 	
@@ -153,16 +129,22 @@ public class Dungeon {
 	 * invokes the kill enemy function of the current state
 	 */
 	void killEnemy() {
-		this.state.killEnemy();
+		this.enemiesKilled++;
+		this.tryWin();
 	}
 
 	/**
 	 * invokes the die function of the current state
 	 */
 	public void die() {
-		this.state.die();
+		this.dead = true;
+		this.tryWin();
 	}
     
+	public boolean exitted() {
+		return this.exitReached;
+	}
+	
 	/**
 	 * returns booleans based on whether all the gold has been collected
 	 * @return true is all gold collect, false otherwise

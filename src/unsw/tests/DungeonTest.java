@@ -87,8 +87,7 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalSwitch();
 		dungeon.addSwitch();
 		assertEquals(true,dungeon.canWin(), "add test 2");
@@ -112,9 +111,7 @@ class DungeonTest {
 	@Test
 	void CantWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		assertEquals(true,dungeon.getState() instanceof CantWinState , "add test 2");

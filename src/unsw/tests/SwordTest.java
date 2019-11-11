@@ -97,7 +97,7 @@ class SwordTest {
 	@Test
 	void swordActionTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		player.setSword(sword);

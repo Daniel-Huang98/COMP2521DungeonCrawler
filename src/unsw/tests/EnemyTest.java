@@ -25,7 +25,7 @@ class EnemyTest {
 	void deathBattleTest1() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,6);
 		enemy.addObserver(player);
@@ -45,7 +45,7 @@ class EnemyTest {
 	void deathBattleTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,4);
 		Enemy enemy = new Enemy(5,7);
 		enemy.addObserver(player);
@@ -68,7 +68,7 @@ class EnemyTest {
 	void healthTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,3);
 		Enemy enemy = new Enemy(5,6);
 		enemy.addObserver(player);
@@ -91,7 +91,7 @@ class EnemyTest {
 	void potionBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,6);
 		Enemy enemy = new Enemy(5,8);
@@ -121,7 +121,7 @@ class EnemyTest {
 	void potionBattleTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(1,4);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,0,0);
 		Potion potion = new Potion(0,1);
 		Enemy enemy = new Enemy(0,3);
@@ -147,7 +147,7 @@ class EnemyTest {
 	void swordBattleTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,6);
 		Enemy enemy = new Enemy(5,9);
@@ -170,7 +170,7 @@ class EnemyTest {
 	void wallTest() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(10, 10);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Enemy enemy = new Enemy(3,6);
 		Wall wall = new Wall(4,6);
@@ -196,7 +196,7 @@ class EnemyTest {
 	void wallTest2() {
 		ArrayList<Entity> entities = new ArrayList<Entity>();
 		Dungeon dungeon = new Dungeon(5, 1);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,3,0);
 		Enemy enemy = new Enemy(1,0);
 		Wall wall = new Wall(2,0);

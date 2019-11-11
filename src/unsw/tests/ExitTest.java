@@ -26,9 +26,7 @@ public class ExitTest {
 	@Test
 	void ExitTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,4);
 		player.addObserver(new Exit(5,5));
 		player.moveDown();
@@ -42,9 +40,7 @@ public class ExitTest {
 	@Test
 	void ExitTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,4);
 		player.addObserver(new Exit(5,5));
 		player.collectGold();
