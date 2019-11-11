@@ -20,7 +20,7 @@ class SwitchTest {
 	@Test
 	void testBoulderOnSwitch () {
 		Dungeon dungeon = new Dungeon(4,4);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
 		FloorSwitch floorSwitch = new FloorSwitch(2,0, dungeon);
@@ -42,7 +42,7 @@ class SwitchTest {
 	@Test
 	void testNotOnSwitch () {
 		Dungeon dungeon = new Dungeon(4,4);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
 		FloorSwitch floorSwitch = new FloorSwitch(3,1, dungeon);
@@ -64,7 +64,7 @@ class SwitchTest {
 	@Test
 	void testMoveAnotherBoulder () {
 		Dungeon dungeon = new Dungeon(4,4);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
 		Boulder boulder2 = new Boulder(1,1);
@@ -96,7 +96,7 @@ class SwitchTest {
 	@Test
 	void testMoveOffSwitch() {
 		Dungeon dungeon = new Dungeon(4,4);
-		dungeon.setWinCheck(new AndWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon, 0, 0);
 		Boulder boulder = new Boulder(1,0);
 		FloorSwitch floorSwitch = new FloorSwitch(1,0, dungeon);

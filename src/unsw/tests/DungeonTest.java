@@ -2,6 +2,11 @@ package unsw.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.Test;
 
 import state.CanWinState;
@@ -17,14 +22,15 @@ import wincondition.SwitchWin;
 
 class DungeonTest {
 	
+	
+	
 	/**
 	 * tests that dungeon can detect when all enemies have been killed
 	 */
 	@Test
 	void EnemyWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalEnemies();
 		assertEquals(false,dungeon.canWin() , "add test 2");
 	}
@@ -35,8 +41,7 @@ class DungeonTest {
 	@Test
 	void EnemyWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalEnemies();
 		dungeon.killedEnemy();
 		assertEquals(true,dungeon.canWin() , "add test 2");
@@ -48,8 +53,7 @@ class DungeonTest {
 	@Test
 	void GoldWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		assertEquals(false,dungeon.canWin(), "add test 2");
 	}
@@ -60,8 +64,7 @@ class DungeonTest {
 	@Test
 	void GoldWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.addGold();
 		assertEquals(true,dungeon.canWin() , "add test 2");
@@ -73,8 +76,7 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalSwitch();
 		assertEquals(false,dungeon.canWin() , "add test 2");
 	}
@@ -98,8 +100,7 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalSwitch();
 		dungeon.deactivateSwitch();
 		assertEquals(false,dungeon.canWin() , "add test 2");
@@ -125,8 +126,7 @@ class DungeonTest {
 	@Test
 	void CantWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalSwitch();
 		dungeon.activateSwitch();
 		dungeon.setState(dungeon.getCanWinState());
@@ -141,9 +141,7 @@ class DungeonTest {
 	@Test
 	void CanWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);
@@ -161,9 +159,7 @@ class DungeonTest {
 	@Test
 	void ExitTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);
@@ -180,9 +176,7 @@ class DungeonTest {
 	@Test
 	void OrTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);
@@ -198,9 +192,7 @@ class DungeonTest {
 	@Test
 	void OrTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);
@@ -216,9 +208,7 @@ class DungeonTest {
 	@Test
 	void AndTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);
@@ -235,9 +225,7 @@ class DungeonTest {
 	@Test
 	void AndTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
 		Player player = new Player(dungeon,5,4);

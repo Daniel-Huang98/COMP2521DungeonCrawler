@@ -20,7 +20,7 @@ class SwordTest {
 	@Test
 	void pickupTestUp() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -36,7 +36,7 @@ class SwordTest {
 	@Test
 	void pickupTestUp2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		Sword sword2 = new Sword(5,3);
@@ -55,7 +55,7 @@ class SwordTest {
 	@Test
 	void deleteTestUp2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -83,7 +83,7 @@ class SwordTest {
 	@Test
 	void addTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(4,4);
 		player.setSword(sword);
@@ -111,7 +111,7 @@ class SwordTest {
 	@Test
 	void swordActionTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
@@ -127,7 +127,7 @@ class SwordTest {
 	@Test
 	void swordHealthTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Sword sword = new Sword(5,4);
 		player.addObserver(sword);
