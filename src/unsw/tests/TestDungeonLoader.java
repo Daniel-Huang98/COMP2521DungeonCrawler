@@ -25,7 +25,8 @@ public class TestDungeonLoader {
 		try {
 	        json = new JSONObject(new JSONTokener(new FileReader("testfiles/" + filename)));
 	        JSONObject goalCondition = json.getJSONObject("goal-condition");
-	        dungeon.setWinCheck(loadGoals(goalCondition));
+	        this.dungeon = dungeon;
+	        this.dungeon.setWinCheck(loadGoals(goalCondition));
 		} catch(Exception e) {
 			System.out.println("failed to load file");
 		}
@@ -42,7 +43,7 @@ public class TestDungeonLoader {
         	System.out.println("goal: " + goal);
         	switch(goal) {
         		case "enemy":
-        			obj = new LeafCheck(dungeon,new EnemyWin());
+        			obj = new LeafCheck(this.dungeon,new EnemyWin());
         			break;
         		case "treasure":
         			obj = new LeafCheck(dungeon,new GoldWin());
