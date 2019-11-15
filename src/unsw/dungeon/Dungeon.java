@@ -6,10 +6,7 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-import state.CanWinState;
-import state.CantWinState;
-import state.EndState;
-import state.State;
+import compositecheck.CompositeCheck;
 import wincheck.WinCheck;
 import wincondition.WinCondition;
 
@@ -33,13 +30,10 @@ public class Dungeon {
     int activated = 0;
     int enemiesKilled = 0;
     int totalEnemies = 0;
-    ArrayList<WinCondition> checks;
-    State canWinState; 
-    State cantWinState; 
-    State endState; 
-    State state; 
-    
-    WinCheck check;
+    boolean exitReached = false;
+    boolean dead = false;
+  
+    CompositeCheck check;
     /**
      * Contructor for the dungeon class
      * @param width Is the width of the game window
@@ -50,94 +44,62 @@ public class Dungeon {
         this.height = height;
         this.entities = new ArrayList<>();
         this.player = null;
-        this.canWinState = new CanWinState(this);
-        this.cantWinState = new CantWinState(this);
-        this.endState = new EndState(this);
-        this.state = this.cantWinState;
-        this.checks = new  ArrayList<WinCondition>();
     }
     
-    /**
-     * adds a subgoal condition
-     * @param obj Is a reference to a sub-goal strategy object
-     */
-    public void addWinCondition(WinCondition obj) {
-    	this.checks.add(obj);
-    }
     
     /**
      * add the check condition OR or AND
      * @param check reference to the check strategy object
      */
-    public void setWinCheck(WinCheck check) {
+    public void setWinCheck(CompositeCheck check) {
     	this.check = check;
     }
     
-    /**
-     * returns the list of subgoals
-     * @return the reference to the dungeon's arraylist of subgoals
-     */
-    public  ArrayList<WinCondition> getChecks(){
-    	return this.checks;
-    }
     
     /**
      * Returns true or false based on whether the player has satisfied the dungeon goal
      * @return true or false boolean 
      */
     public boolean canWin() {
-    	return this.check.canWin(this);
+    	boolean result = false;
+    	try {
+    		assert(this.check != null);
+    		result = this.check.check();
+    	} catch(NullPointerException e) {
+    		System.out.println("There is a null exception here");
+    	}
+    	return result;
     }
     
     
-    /**
-     * Returns the canWinState Reference
-     * @return reference to the canWinState object
-     */
-    public State getCanWinState() {
-    	return this.canWinState;
-    }
-    
-    /**
-     * Returns the cantWinState Reference
-     * @return reference to the cantWinState object
-     */
-    public State getCantWinState() {
-    	return this.cantWinState;
-    }
-    
-    /**
-     * Returns the endState reference
-     * @return reference to the endState object
-     */
-    public State getEndState() {
-    	return this.endState;
-    }
-    
-    /**
-     * Sets the dungeons current state
-     * @param state reference to a state object
-     */
-    public void setState(State state) {
-    	this.state = state;
-    }
-    
-    public State getState() {
-    	return this.state;
-    }
+    public void tryWin() {
+    	if(this.canWin() && !dead) {
+    		System.out.println("You have won");
+    	} else if(dead){
+    		System.out.println("You are dead");
+    	} else {
+    		System.out.println("Can't win yet");
+    	}
+    } 
     
     /**
      * invokes exit function of current state
      */
 	public void exit() {
-		this.state.exit();
+		this.exitReached = true;
+		if(!canWin()) {
+			exitReached = false;
+			System.out.println("Can't exit yet");
+		}
+		this.tryWin();
 	}
 
 	/**
 	 * invokes the collect gold function of the current state
 	 */
 	public void collectGold() {
-		this.state.collectGold();
+		this.collected++;
+		this.tryWin();
 		
 	}
 	
@@ -145,7 +107,8 @@ public class Dungeon {
 	 * invokes the activate switch function of the current state
 	 */
 	public void activateSwitch() {
-		this.state.activateSwitch();
+		this.activated++;
+		this.tryWin();
 		
 	}
 
@@ -153,7 +116,8 @@ public class Dungeon {
 	 * invokes the deactivate switch function of the current state
 	 */
 	public void deactivateSwitch() {
-		this.state.deactivateSwitch();
+		this.activated--;
+		this.tryWin();
 		
 	}
 	
@@ -161,16 +125,22 @@ public class Dungeon {
 	 * invokes the kill enemy function of the current state
 	 */
 	void killEnemy() {
-		this.state.killEnemy();
+		this.enemiesKilled++;
+		this.tryWin();
 	}
 
 	/**
 	 * invokes the die function of the current state
 	 */
 	public void die() {
-		this.state.die();
+		this.dead = true;
+		this.tryWin();
 	}
     
+	public boolean exitted() {
+		return this.exitReached;
+	}
+	
 	/**
 	 * returns booleans based on whether all the gold has been collected
 	 * @return true is all gold collect, false otherwise

@@ -2,11 +2,13 @@ package unsw.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.junit.jupiter.api.Test;
 
-import state.CanWinState;
-import state.CantWinState;
-import state.EndState;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Player;
 import wincheck.AndWinCheck;
@@ -17,16 +19,18 @@ import wincondition.SwitchWin;
 
 class DungeonTest {
 	
+	
+	
 	/**
 	 * tests that dungeon can detect when all enemies have been killed
 	 */
 	@Test
 	void EnemyWinTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalEnemies();
-		assertEquals(false,dungeon.canWin() , "add test 2");
+		assertEquals(false,dungeon.allEnemiesKilled() , "add test 2");
 	}
 	
 	/**
@@ -35,11 +39,11 @@ class DungeonTest {
 	@Test
 	void EnemyWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalEnemies();
 		dungeon.killedEnemy();
-		assertEquals(true,dungeon.canWin() , "add test 2");
+		assertEquals(true,dungeon.allEnemiesKilled() , "add test 2");
 	}
 	
 	/**
@@ -48,10 +52,10 @@ class DungeonTest {
 	@Test
 	void GoldWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
-		assertEquals(false,dungeon.canWin(), "add test 2");
+		assertEquals(false,dungeon.allGoldCollected(), "add test 2");
 	}
 	
 	/**
@@ -60,11 +64,11 @@ class DungeonTest {
 	@Test
 	void GoldWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
 		dungeon.addGold();
-		assertEquals(true,dungeon.canWin() , "add test 2");
+		assertEquals(true,dungeon.allGoldCollected() , "add test 2");
 	}
 	
 	/**
@@ -73,10 +77,10 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalSwitch();
-		assertEquals(false,dungeon.canWin() , "add test 2");
+		assertEquals(false,dungeon.allSwitchesActivated() , "add test 2");
 	}
 	
 	/**
@@ -85,11 +89,11 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalSwitch();
 		dungeon.addSwitch();
-		assertEquals(true,dungeon.canWin(), "add test 2");
+		assertEquals(true,dungeon.allSwitchesActivated(), "add test 2");
 	}
 
 	/**
@@ -98,153 +102,155 @@ class DungeonTest {
 	@Test
 	void SwitchWinTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalSwitch();
 		dungeon.deactivateSwitch();
-		assertEquals(false,dungeon.canWin() , "add test 2");
-	}
-
-	/**
-	 * tests dungeon CantWinState
-	 */
-	@Test
-	void CantWinTest() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
-		dungeon.incTotalGold();
-		dungeon.incTotalEnemies();
-		assertEquals(true,dungeon.getState() instanceof CantWinState , "add test 2");
+		assertEquals(false,dungeon.allSwitchesActivated() , "add test 2");
 	}
 	
-	/**
-	 * tests complex goals AND case
-	 */
 	@Test
-	void CantWinTest2() {
+	void ORGoalTest0() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new SwitchWin());
-		dungeon.incTotalSwitch();
-		dungeon.activateSwitch();
-		dungeon.setState(dungeon.getCanWinState());
-		dungeon.deactivateSwitch();
-		assertEquals(false,dungeon.canWin(), "add test 2");
-	}
-
-	/**
-	 * tests dungeon CanWinState
-	 * Win state is reached when goals completed
-	 */
-	@Test
-	void CanWinTest() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ORTest.json",dungeon);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		assertEquals(true,dungeon.getState() instanceof CantWinState , "add test 2");
-		player.collectGold();
-		player.killEnemy();
-		assertEquals(true,dungeon.getState() instanceof CanWinState , "add test 2");
-
-	}
-
-	/**
-	 * tests dungeon EndState
-	 * End state is reached when goals completed + player exits
-	 */
-	@Test
-	void ExitTest() {
-		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
-		dungeon.incTotalGold();
-		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		player.collectGold();
-		player.killEnemy();
-		player.exit();	
-		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
+		assertEquals(false, dungeon == null);
+		assertEquals(false,dungeon.canWin() , "enemy or gold, activate none");
 	}
 	
-	/**
-	 * tests complex goals OR case
-	 * tests some goals reached
-	 */
 	@Test
-	void OrTest() {
+	void ORGoalTest1() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ORTest.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		player.killEnemy();
-		player.exit();	
-		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
+		dungeon.addGold();
+		assertEquals(true,dungeon.canWin() , "enemy or gold, activate gold");
 	}
 	
-	/**
-	 * tests complex goals OR case
-	 * tests some goals reached
-	 */
 	@Test
-	void OrTest2() {
+	void ORGoalTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ORTest.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		player.collectGold();
-		player.exit();	
-		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
+		dungeon.killedEnemy();
+		assertEquals(true,dungeon.canWin() , "enemy or gold, activate enemy");
 	}
 	
-	/**
-	 * tests complex goals AND case
-	 * tests all goals reached
-	 */
 	@Test
-	void AndTest1() {
+	void ORGoalTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ORTest.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		player.collectGold();
-		player.killEnemy();
-		player.exit();	
-		assertEquals(true,dungeon.getState() instanceof EndState , "add test 2");
+		dungeon.addGold();
+		dungeon.killedEnemy();
+		assertEquals(true,dungeon.canWin() , "enemy or gold, activate both");
 	}
 	
-	/**
-	 * tests complex goals AND case
-	 * Not all goals reached
-	 */
 	@Test
-	void AndTest2() {
+	void AndGoalWinTest0() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new AndWinCheck());
-		dungeon.addWinCondition(new EnemyWin());
-		dungeon.addWinCondition(new GoldWin());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ANDTest.json",dungeon);
+		assertEquals(false, dungeon == null);
 		dungeon.incTotalGold();
 		dungeon.incTotalEnemies();
-		Player player = new Player(dungeon,5,4);
-		player.collectGold();
-		player.exit();	
-		assertEquals(true,dungeon.getState() instanceof CantWinState , "add test 2");
+		assertEquals(false,dungeon.canWin() , "enemy and gold, activate none");
 	}
+	
+	@Test
+	void AndGoalWinTest1() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ANDTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.addGold();
+		assertEquals(false,dungeon.canWin() , "enemy and gold, activate gold");
+	}
+	
+	@Test
+	void AndGoalWinTest2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ANDTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.killedEnemy();
+		assertEquals(false,dungeon.canWin() , "enemy and gold, activate enemy");
+	}
+	
+	@Test
+	void AndGoalWinTest3() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ANDTest.json",dungeon);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.addGold();
+		dungeon.killedEnemy();
+		assertEquals(true,dungeon.canWin() , "enemy and gold, activate both");
+	}
+	
+	
+	@Test
+	void ComplexWinTest1() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ComplexTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		assertEquals(false,dungeon.canWin() , "Complex goal exit or (gold and enemies), activate nothing");
+	}
+	
+	@Test
+	void ComplexWinTest2() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ComplexTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.exit();
+		assertEquals(true,dungeon.canWin() , "Complex goal exit or (gold and enemies), exit");
+	}
+	
+	@Test
+	void ComplexWinTest3() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ComplexTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.addGold();
+		dungeon.killedEnemy();
+		assertEquals(true,dungeon.canWin() , "Complex goal exit or (gold and enemies), gold and enemies");
+	}
+	
+	@Test
+	void ComplexWinTest4() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ComplexTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.killedEnemy();
+		assertEquals(false,dungeon.canWin() , "Complex goal exit or (gold and enemies), just enemies");
+	}
+	
+	@Test
+	void ComplexWinTest5() {
+		Dungeon dungeon = new Dungeon(100, 100);
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/ComplexTest.json",dungeon);
+		assertEquals(false, dungeon == null);
+		dungeon.incTotalGold();
+		dungeon.incTotalEnemies();
+		dungeon.addGold();
+		assertEquals(false,dungeon.canWin() , "Complex goal exit or (gold and enemies), just gold");
+	}
+	
+	
 	
 
 }

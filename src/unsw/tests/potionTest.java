@@ -18,7 +18,7 @@ class potionTest {
 	@Test
 	void pickupTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,4);
 		player.addObserver(potion);
@@ -34,7 +34,7 @@ class potionTest {
 	@Test
 	void deleteTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(5,4);
 		player.addObserver(potion);
@@ -50,7 +50,7 @@ class potionTest {
 	@Test
 	void battleTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -64,7 +64,7 @@ class potionTest {
 	@Test
 	void battleTest2() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -80,7 +80,7 @@ class potionTest {
 	@Test
 	void battleTest3() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
@@ -98,7 +98,7 @@ class potionTest {
 	@Test
 	void healthTest() {
 		Dungeon dungeon = new Dungeon(100, 100);
-		dungeon.setWinCheck(new OrWinCheck());
+		TestDungeonLoader test = new TestDungeonLoader("./../dungeons/testgoals1.json",dungeon);
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);

@@ -8,9 +8,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+import compositecheck.CompositeCheck;
+import compositecheck.LeafCheck;
+import compositecheck.NodeCheck;
 import wincheck.AndWinCheck;
 import wincheck.OrWinCheck;
 import wincondition.EnemyWin;
+import wincondition.ExitWin;
 import wincondition.GoldAndSwitch;
 import wincondition.GoldWin;
 import wincondition.SwitchWin;
@@ -32,6 +36,45 @@ public abstract class DungeonLoader {
     public DungeonLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
     }
+    
+    public CompositeCheck loadGoals(JSONObject goalCondition, Dungeon dungeon) {
+    	CompositeCheck obj = null;
+    	String goal = goalCondition.getString("goal");
+    	JSONArray subgoals = null;
+    	if(goalCondition.has("subgoals")) {
+    		subgoals = goalCondition.getJSONArray("subgoals");
+    	} 
+        if(subgoals == null) {
+        	System.out.println("goal: " + goal);
+        	switch(goal) {
+        		case "enemy":
+        			obj = new LeafCheck(dungeon,new EnemyWin());
+        			break;
+        		case "treasure":
+        			obj = new LeafCheck(dungeon,new GoldWin());
+        			break;
+        		case "exit":
+        			obj = new LeafCheck(dungeon,new ExitWin());
+        			break;
+        		case "switch":
+        			obj = new LeafCheck(dungeon,new SwitchWin());
+        			break;
+        	}
+        } else {
+        	switch(goal) {
+        		case "AND":
+        			obj = new NodeCheck(dungeon, new AndWinCheck());
+        			break;
+        		case "OR":
+        			obj = new NodeCheck(dungeon, new OrWinCheck());
+        			break;
+        	}
+        	for(int i = 0; i < subgoals.length(); i++) {
+				obj.addCheck(loadGoals(subgoals.getJSONObject(i),dungeon));
+			}
+        }
+        return obj;
+    }
 
     /**
      * Parses the JSON to create a dungeon.
@@ -45,24 +88,15 @@ public abstract class DungeonLoader {
         JSONArray jsonEntities = json.getJSONArray("entities");
         
         JSONObject goalCondition = json.getJSONObject("goal-condition");
-        String goal = goalCondition.getString("goal");
-        JSONArray goals = goalCondition.getJSONArray("subgoals");
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
 
+       
         
-        if(goal.equals("AND")) {
-        	dungeon.setWinCheck(new AndWinCheck());
-        } else if(goal.equals("OR")) {
-        	dungeon.setWinCheck(new OrWinCheck());
-        } 
+        dungeon.setWinCheck(loadGoals(goalCondition,dungeon));
         
-        System.out.println(goal);
-        for(int i = 0; i < goals.length(); i++) {
-        	loadGoal(dungeon, goals.getJSONObject(i));
-        }
         
         
         ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
@@ -107,23 +141,6 @@ public abstract class DungeonLoader {
         return dungeon;
     }
 
-    private void loadGoal(Dungeon dungeon, JSONObject jsonObject) {
-		WinCondition condition = null;
-		String goal = jsonObject.getString("goal");
-		System.out.println(goal);
-		switch(goal) {
-			case "treasure":
-				condition = new GoldWin();
-				break;
-			case "switch":
-				condition = new SwitchWin();
-				break;
-			case "enemy":
-				condition = new EnemyWin();
-				break;
-		}
-    	if(condition != null)dungeon.addWinCondition(condition);
-	}
 
 	private void loadEntity(Dungeon dungeon, JSONObject json) {
         String type = json.getString("type");
