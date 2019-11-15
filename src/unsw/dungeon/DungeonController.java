@@ -35,7 +35,7 @@ public class DungeonController implements Observer{
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
         for (Entity e : dungeon.getEntities()) {
-        	if (e instanceof Enemy) {
+        	if (e instanceof Enemy || e instanceof Player) {
         		timeline.addObserver((playerObserver)e);
         	}
         }  
@@ -59,22 +59,24 @@ public class DungeonController implements Observer{
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
-        switch (event.getCode()) {
-        case UP:
-            player.moveUp();
-            break;
-        case DOWN:
-            player.moveDown();
-            break;
-        case LEFT:
-            player.moveLeft();
-            break;
-        case RIGHT:
-            player.moveRight();
-            break;
-        default:
-            break;
-        }
+    	if (player.getCanMove()) {
+	        switch (event.getCode()) {
+	        case UP:
+	            player.moveUp();
+	            break;
+	        case DOWN:
+	            player.moveDown();
+	            break;
+	        case LEFT:
+	            player.moveLeft();
+	            break;
+	        case RIGHT:
+	            player.moveRight();
+	            break;
+	        default:
+	            break;
+	        }
+    	}
     }
 
     public String getFile() {
@@ -82,10 +84,12 @@ public class DungeonController implements Observer{
     }
     
     public void startGame() {
+    	player.setCanMove(true);
     	timeline.begin();
     }
     
     public void pauseGame() {
+    	player.setCanMove(false);
     	timeline.end();
     }
     
@@ -95,8 +99,10 @@ public class DungeonController implements Observer{
 
 	@Override
 	public void update(Subject obj, String fileName) {
-		if (((UiController)obj).getStart()) startGame();
-		else pauseGame();
+		if (fileName.equals("start"))
+			startGame();
+		else if (fileName.equals("pause") || fileName.equals("reset"))
+			pauseGame();
 	}
 }
 

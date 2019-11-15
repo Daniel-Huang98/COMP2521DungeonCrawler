@@ -233,6 +233,7 @@ public class Dungeon {
 
     public void setPlayer(Player player) {
         this.player = player;
+        this.player.setCanMove(false);
     }
 
     public void addEntity(Entity entity) {

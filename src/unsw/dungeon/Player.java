@@ -60,7 +60,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
         if (getY() > 0)
             y().set(getY() - 1);
-        if(this.potion != null)this.decrementPotionHealth();
         updateStatus();
     }
 
@@ -76,7 +75,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
         if (getY() < dungeon.getHeight() - 1)
             y().set(getY() + 1);
-        if(this.potion != null)this.decrementPotionHealth();
         updateStatus();
     }
 
@@ -92,7 +90,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
         if (getX() > 0)
             x().set(getX() - 1);
-        if(this.potion != null)this.decrementPotionHealth();
         updateStatus();
     }
 
@@ -108,7 +105,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
         if (getX() < dungeon.getWidth() - 1)
             x().set(getX() + 1);
-        if(this.potion != null)this.decrementPotionHealth();
         updateStatus();
     }
     
@@ -120,6 +116,9 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	this.canMove = flag;
     }
     
+    public boolean getCanMove() {
+    	return this.canMove;
+    }
    
     public Key getKey() {
     	return key;
@@ -261,10 +260,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	if (key == null) {
     		keyStatus.set((float)0);
     	}
-    	if (potion != null) {
-    		int potionHealth = potion.getHealth();
-    		potionStatus.set((float)potionHealth/15);
-    	}
     	if (sword != null) {
     		int swordHealth = sword.getHealth();
     		swordStatus.set((float)swordHealth/5);
@@ -318,6 +313,14 @@ public class Player extends Entity implements playerSubject, playerObserver {
 	    		}
 	    	}
 		}
+		else if (obj instanceof TimelineObject) {
+			if(this.potion != null) {
+				int potionHealth = potion.getHealth();
+				potionStatus.set((float)potionHealth/15);
+				this.decrementPotionHealth();
+			}
+		}
+		updateStatus();
 	}
 
 	@Override
