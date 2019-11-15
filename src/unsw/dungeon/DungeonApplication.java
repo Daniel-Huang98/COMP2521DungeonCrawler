@@ -6,8 +6,10 @@ import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class DungeonApplication extends Application implements Observer {
@@ -84,6 +86,17 @@ public class DungeonApplication extends Application implements Observer {
 	            }
 	        });
 	        
+	        controller.getDungeon().getHasWon().addListener(new ChangeListener<Boolean>() {
+	        	@Override
+	            public void changed(ObservableValue<? extends Boolean> observable,
+	                    Boolean oldValue, Boolean newValue) {
+	                if(!newValue) {
+	                	update(null,"menu");
+	                	controller.pauseGame();
+	                }
+	            }
+	        });
+	        
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
 	        
 	        UiController uiController = new UiController(controller.getDungeon());
@@ -98,16 +111,21 @@ public class DungeonApplication extends Application implements Observer {
 	        }
 	        catch (Exception e){	
 	        }
-	        secondStage = new Stage();
-	        secondStage.setScene(new Scene(root2));
-            secondStage.show();
 	        
 	        loader.setController(controller);
 	        Parent root = loader.load();
 	        Scene scene = new Scene(root);
-	        root.requestFocus();
+	        root2.requestFocus();
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
+	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+	        secondStage = new Stage();
+	        secondStage.setScene(new Scene(root2));
+            secondStage.show();
+            secondStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2 + primaryStage.getWidth());
+            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);            
 	        state = 1;
 		} catch (IOException e) {
 			e.printStackTrace();

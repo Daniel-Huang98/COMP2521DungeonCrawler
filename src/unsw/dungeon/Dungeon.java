@@ -40,6 +40,7 @@ public class Dungeon {
     boolean dead = false;
     FloatProperty goldStatus = new SimpleFloatProperty((float)0);
     BooleanProperty alive = new SimpleBooleanProperty(true);
+    BooleanProperty hasWon = new SimpleBooleanProperty(false);
   
     CompositeCheck check;
     /**
@@ -82,6 +83,7 @@ public class Dungeon {
     
     public void tryWin() {
     	if(this.canWin() && !dead) {
+    		hasWon.set(true);
     		System.out.println("You have won");
     	} else if(dead){
     		System.out.println("You are dead");
@@ -256,5 +258,9 @@ public class Dungeon {
     
     public BooleanProperty getAlive() {
     	return alive;
+    }
+    
+    public BooleanProperty getHasWon() {
+    	return hasWon;
     }
 }
