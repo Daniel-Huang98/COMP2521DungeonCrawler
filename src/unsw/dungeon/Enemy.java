@@ -41,6 +41,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     	this.canMove = flag;
     }
     
+    public void setCloser(Movement closer) {
+    	this.closer = closer;
+    }
+    
+    public void setFurther(Movement further) {
+    	this.further = further;
+    }
+    
     /**
      * Set the map and set default movement strategy to be move closer
      * @param map : map of all entities in a 2D array
