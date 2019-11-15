@@ -110,7 +110,7 @@ public class Dungeon {
 	 */
 	public void collectGold() {
 		this.collected++;
-		goldStatus.set((float)(collected/totalGold));
+		goldStatus.set((float)collected/totalGold);
 		this.tryWin();
 		
 	}
@@ -211,7 +211,7 @@ public class Dungeon {
      */
     public void addGold() {
     	this.collected++;
-    	goldStatus.set((float)(collected/totalGold));
+    	goldStatus.set((float)collected/totalGold);
     }
     
     /**
