@@ -161,6 +161,9 @@ public class DungeonApplication extends Application implements Observer {
 	        root.requestFocus();
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
+	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 	        state = 2;
 		}
 		catch (IOException e) {

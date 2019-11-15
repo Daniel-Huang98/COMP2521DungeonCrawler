@@ -54,26 +54,26 @@ public class OrangeGhostFurther implements Movement{
 		if (map.get(nextY).get(nextX) instanceof Wall) {
 			//try other directions
 			if (dY == 0) {
-				if (checkBounds(oldX, oldY+1,map) && map.get(oldY+1).get(oldX) == null) {
+				if (checkBounds(oldX, oldY+1,map) && map.get(oldY+1).get(oldX) == null && pathing.isReachable(oldY+1, oldX, oldY, oldX)) {
 					e.setMove(oldX,oldY+1);
 				}
-				else if (checkBounds(oldX, oldY-1,map) && map.get(oldY - 1).get(oldX) == null) {
+				else if (checkBounds(oldX, oldY-1,map) && map.get(oldY - 1).get(oldX) == null && pathing.isReachable(oldY-1, oldX, oldY, oldX)) {
 					e.setMove(oldX,oldY-1);
 				}
-				else if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1),map) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
+				else {
 					e.setMove(oldX + (dX)*-1, oldY + (dY)*-1);
 				}
 			}
 			
 			//try other directions
 			else if (dX == 0) {
-				if (checkBounds(oldX+1, oldY,map) && map.get(oldY).get(oldX+1) == null) {
+				if (checkBounds(oldX+1, oldY,map) && map.get(oldY).get(oldX+1) == null && pathing.isReachable(oldY, oldX+1, oldY, oldX)) {
 					e.setMove(oldX+1,oldY);
 				}
-				else if (checkBounds(oldX-1, oldY,map) && map.get(oldY).get(oldX-1) == null) {
+				else if (checkBounds(oldX-1, oldY,map) && map.get(oldY).get(oldX-1) == null && pathing.isReachable(oldY, oldX-1, oldY, oldX)) {
 					e.setMove(oldX-1,oldY);
 				}
-				else if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1),map) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
+				else {
 					e.setMove(oldX + (dX)*-1, oldY + (dY)*-1);
 				}
 			}

@@ -183,4 +183,11 @@ public class Dijkstra{
 	public int[] getFrom() {
 		return from;
 	}
+	
+	public boolean isReachable(int newY, int newX, int oldY, int oldX) {
+		if (graph[newY*width+newX][oldY*width+oldX] == 0)
+			return false;
+		else
+			return true;
+	}
 }
