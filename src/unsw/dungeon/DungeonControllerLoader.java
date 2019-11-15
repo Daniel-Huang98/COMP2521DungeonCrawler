@@ -106,7 +106,9 @@ public class DungeonControllerLoader extends DungeonLoader {
 
 	@Override
 	public void onLoad(Potion potion,boolean pacman) {
-		ImageView view = new ImageView(potionImage);
+		ImageView view = null;
+    	if(pacman) view = new ImageView(potionImagePacman);
+    	else view = new ImageView(potionImage);
         addEntity(potion, view);
 	}
 
