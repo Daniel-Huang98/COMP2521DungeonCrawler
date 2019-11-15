@@ -15,6 +15,6 @@ import java.io.*;
  *
  */
 public interface Movement {
-	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest);
-	public void setMap(ArrayList<ArrayList<Entity>> map);
+	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map);
+	
 }

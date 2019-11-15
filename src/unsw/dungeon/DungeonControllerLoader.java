@@ -10,6 +10,11 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import movement.BlueGhostCloser;
+import movement.BlueGhostFurther;
+import movement.OrangeGhostFurther;
+import movement.PinkGhostFurther;
+import movement.RedGhostFurther;
 
 /**
  * A DungeonLoader that also creates the necessary ImageViews for the UI,
@@ -133,15 +138,19 @@ public class DungeonControllerLoader extends DungeonLoader {
 		switch(ghost) {
 			case 0:
 				view = new ImageView(ghostImage1);
+				enemy.setFurther(new BlueGhostFurther());
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
+				enemy.setFurther(new RedGhostFurther());
 				break;
 			case 2:
 				view = new ImageView(ghostImage3);
+				enemy.setFurther(new OrangeGhostFurther());
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
+				enemy.setFurther(new PinkGhostFurther());
 				break;
 		}
 		addEntity(enemy, view);

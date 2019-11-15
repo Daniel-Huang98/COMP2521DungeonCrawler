@@ -13,9 +13,6 @@ import java.io.*;
  * dungeon.
  */
 public class Further implements Movement{
-	private int height;
-	private int width;
-	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
 	/**
 	 * Constructs a Further object
@@ -23,10 +20,7 @@ public class Further implements Movement{
      * @param width : width of the dungeon
      * @param map : 1 to 1 entity map of the dungeon
 	 */
-	public Further(int height, int width, ArrayList<ArrayList<Entity>> map) {
-		this.height = height;
-		this.width = width;
-		this.map = map;
+	public Further() {
 	}
 	
     /**
@@ -35,7 +29,7 @@ public class Further implements Movement{
      * @param y : y coordinate
      * @return true if it is within the index bounds
      */
-    public boolean checkBounds(int x, int y) {
+    public boolean checkBounds(int x, int y,ArrayList<ArrayList<Entity>> map) {
     	return (x < map.get(0).size() && x >= 0 && y < map.size() && y >= 0);
     }
 	
@@ -47,7 +41,7 @@ public class Further implements Movement{
      * @return : updated map after the enemy has moved
      */
 	@Override
-	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest) {
+	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
 		pathing.dijkstra(e);
     	int curr = dest.getY()*map.get(0).size()+dest.getX();
@@ -77,15 +71,15 @@ public class Further implements Movement{
 		int dY = nextY-oldY;
 		
 		//check if the move opposite to Dijkstra is reachable
-		if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1)) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
+		if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1),map) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
 			e.setMove(oldX + (dX)*-1, oldY + (dY)*-1);
 		}
 		//try other directions
 		else if (dY == 0) {
-			if (checkBounds(oldX, oldY+1) && map.get(oldY+1).get(oldX) == null) {
+			if (checkBounds(oldX, oldY+1,map) && map.get(oldY+1).get(oldX) == null) {
 				e.setMove(oldX,oldY+1);
 			}
-			else if (checkBounds(oldX, oldY-1) && map.get(oldY - 1).get(oldX) == null) {
+			else if (checkBounds(oldX, oldY-1,map) && map.get(oldY - 1).get(oldX) == null) {
 				e.setMove(oldX,oldY-1);
 			}
 			else {
@@ -94,10 +88,10 @@ public class Further implements Movement{
 		}
 		//try other directions
 		else if (dX == 0) {
-			if (checkBounds(oldX+1, oldY) && map.get(oldY).get(oldX+1) == null) {
+			if (checkBounds(oldX+1, oldY,map) && map.get(oldY).get(oldX+1) == null) {
 				e.setMove(oldX+1,oldY);
 			}
-			else if (checkBounds(oldX-1, oldY) && map.get(oldY).get(oldX-1) == null) {
+			else if (checkBounds(oldX-1, oldY,map) && map.get(oldY).get(oldX-1) == null) {
 				e.setMove(oldX-1,oldY);
 			}
 			else {
@@ -108,8 +102,5 @@ public class Further implements Movement{
 		return map;
 	}
 	
-	@Override
-	public void setMap(ArrayList<ArrayList<Entity>> map) {
-		this.map = map;	
-	}
+
 }

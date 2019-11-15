@@ -17,7 +17,7 @@ public class Potion extends Entity implements playerObserver{
 	 */
     public Potion(int x, int y) {
         super(x, y);
-        this.health = 15;
+        this.health = 50;
     }
     
     /**
