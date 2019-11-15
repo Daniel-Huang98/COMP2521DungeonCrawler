@@ -43,8 +43,12 @@ public class DungeonController implements Observer{
 
     @FXML
     public void initialize() {
-        Image ground = new Image("/dirt_0_new.png");
-
+    	Image ground = null;
+    	if(dungeon.isPacman) {
+    		ground = new Image("/dirt-pacman.png");
+    	} else {
+    		ground = new Image("/dirt_0_new.png");
+    	}
         // Add the ground first so it is below all other entities
         for (int x = 0; x < dungeon.getWidth(); x++) {
             for (int y = 0; y < dungeon.getHeight(); y++) {

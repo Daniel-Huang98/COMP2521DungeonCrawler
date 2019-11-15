@@ -35,6 +35,7 @@ public class Dungeon {
     boolean exitReached = false;
     boolean dead = false;
     FloatProperty goldStatus = new SimpleFloatProperty((float)0);
+    public boolean isPacman = false;
   
     CompositeCheck check;
     /**

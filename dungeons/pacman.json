@@ -2703,22 +2703,22 @@
    	{
    		"x": 13,
    		"y": 14,
-   		"type":"enemy"
+   		"type":"ghost"
    	},
    	{
    		"x": 13,
    		"y": 15,
-   		"type":"enemy"
+   		"type":"ghost"
    	},
    	{
    		"x": 14,
    		"y": 14,
-   		"type":"enemy"
+   		"type":"ghost"
    	},
    	{
    		"x": 14,
    		"y": 15,
-   		"type":"enemy"
+   		"type":"ghost"
    	},
    	
    	
