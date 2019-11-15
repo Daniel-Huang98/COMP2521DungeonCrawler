@@ -3,6 +3,8 @@ package unsw.dungeon;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +19,7 @@ public class DungeonApplication extends Application implements Observer {
 	Stage primaryStage;
 	Stage secondStage;
 	String fileName;
+	Dungeon dungeon;
 	
 	int state = 0;
 	
@@ -32,11 +35,14 @@ public class DungeonApplication extends Application implements Observer {
 
 	@Override
 	public void update(Subject obj, String fileName) {	
-		if ((state == 0 && obj instanceof MenuController) || (obj instanceof UiController && fileName.equals("reset"))) {
+		if ((state == 0 && obj instanceof MenuController) ||  fileName.equals("reset")) {
 			loadDungeon(fileName);
 		}
-		else if (state == 1 && fileName.equals("menu")){
+		else if (fileName.equals("menu")){
 			loadMenu();
+		}
+		else if (fileName.equals("won") || fileName.equals("lost")) {
+			loadBanner();
 		}
 	}
 	
@@ -60,6 +66,9 @@ public class DungeonApplication extends Application implements Observer {
 	        root.requestFocus();
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
+	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
 	        state = 0;
 		}
 		catch (IOException e) {
@@ -80,7 +89,7 @@ public class DungeonApplication extends Application implements Observer {
 	            public void changed(ObservableValue<? extends Boolean> observable,
 	                    Boolean oldValue, Boolean newValue) {
 	                if(!newValue) {
-	                	update(null,"menu");
+	                	update(null,"lost");
 	                	controller.pauseGame();
 	                }
 	            }
@@ -91,15 +100,15 @@ public class DungeonApplication extends Application implements Observer {
 	            public void changed(ObservableValue<? extends Boolean> observable,
 	                    Boolean oldValue, Boolean newValue) {
 	                if(newValue) {
-	                	update(null,"menu");
+	                	update(null,"won");
 	                	controller.pauseGame();
 	                }
 	            }
 	        });
 	        
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
-	        
-	        UiController uiController = new UiController(controller.getDungeon());
+	        this.dungeon = controller.getDungeon();
+	        UiController uiController = new UiController(this.dungeon);
 	        uiController.addObserver((Observer)controller);
 	        uiController.addObserver(this);
 	        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("UiView.fxml"));
@@ -128,6 +137,33 @@ public class DungeonApplication extends Application implements Observer {
             secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);            
 	        state = 1;
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void loadBanner() {
+		try {
+			try {
+				secondStage.close();
+			}
+			catch(Exception e) {
+			}
+	    	primaryStage.setTitle("Message");
+	
+	        BannerController controller = new BannerController(dungeon);
+	        controller.addObserver(this);
+	
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("BannerView.fxml"));
+	        
+	        loader.setController(controller);
+	        Parent root = loader.load();
+	        Scene scene = new Scene(root);
+	        root.requestFocus();
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+	        state = 2;
+		}
+		catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
