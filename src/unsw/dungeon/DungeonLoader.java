@@ -95,29 +95,45 @@ public abstract class DungeonLoader {
         
         if(json.has("pacman")) {
         	pacman = json.getBoolean("pacman");
+        	dungeon.isPacman = pacman;
         }
         
         if(pacman) {
-        	System.out.println("loading pacman");
-        	dungeon.isPacman = true;
-        	 for (int x = 0; x < dungeon.getWidth(); x++) {
-                 for (int y = 0; y < dungeon.getHeight(); y++) {
-                	 Entity entity = null;
-                	 Gold gold = new Gold(x,y);
-                 	 onLoad(gold,true);
-                     entity = gold;
-                     dungeon.addEntity(entity);
-                     if(entity instanceof Gold) dungeon.incTotalGold();
-                 }
-             }
+        	for (int x = 0; x < dungeon.getWidth(); x++) {
+    	        for (int y = 0; y < dungeon.getHeight(); y++) {
+    	        	boolean add = true;
+    	        	for(Entity e: dungeon.getEntities()) {
+    	        		if(e.getX() == x && e.getY() == y) {
+    	        			add = false;
+    	        			break;
+    	        		}
+    	        	}
+    	        	for (int i = 0; i < jsonEntities.length(); i++) {
+    	                if(jsonEntities.getJSONObject(i).getInt("x") == x && jsonEntities.getJSONObject(i).getInt("y") == y) {
+    	        			add = false;
+    	        			break;
+    	        		}
+    	            }
+    	        	if(add) {
+    	       	 		Entity entity = null;
+    	       	 		Gold gold = new Gold(x,y);
+    	       	 		onLoad(gold,true);
+    	            	entity = gold;
+    	            	dungeon.addEntity(entity);
+    	            	dungeon.incTotalGold();
+    	        	}
+    	        }
+        	}
         }
+        
+        
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
         
-       
-
+        
+        
        
         
         dungeon.setWinCheck(loadGoals(goalCondition,dungeon));
@@ -130,6 +146,7 @@ public abstract class DungeonLoader {
         	}
         	map.add(inner);
         }
+        
         
         ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
         for(Entity e: dungeon.getEntities()) {
