@@ -61,16 +61,16 @@ public class Dijkstra{
 		    			graph[(i-1)*width+j][i*width+j] = 1;
 		    		}
 		    		else {
-		    			graph[i*width+j][(i-1)*width+j] = 10;
-		    			graph[(i-1)*width+j][i*width+j] = 10;
+		    			graph[i*width+j][(i-1)*width+j] = 20;
+		    			graph[(i-1)*width+j][i*width+j] = 20;
 		    		}		    		
 		    		if (i != height-1 && !(map.get(i+1).get(j) instanceof Wall)) {
 		    			graph[i*width+j][(i+1)*width+j] = 1;
 		    			graph[(i+1)*width+j][i*width+j] = 1;
 		    		}
 		    		else {
-		    			graph[i*width+j][(i+1)*width+j] = 10;
-		    			graph[(i+1)*width+j][i*width+j] = 10;
+		    			graph[i*width+j][(i+1)*width+j] = 20;
+		    			graph[(i+1)*width+j][i*width+j] = 20;
 		    		}
 		    			
 		    		if (j != 0 && !(map.get(i).get(j-1) instanceof Wall)) {
@@ -78,8 +78,8 @@ public class Dijkstra{
 		    			graph[i*width+(j-1)][i*width+j] = 1;
 		    		}
 		    		else {
-		    			graph[i*width+j][i*width+(j-1)] = 10;
-		    			graph[i*width+(j-1)][i*width+j] = 10;
+		    			graph[i*width+j][i*width+(j-1)] = 20;
+		    			graph[i*width+(j-1)][i*width+j] = 20;
 		    		}
 		    			
 		    		if (j != width-1 && !(map.get(i).get(j+1) instanceof Wall)) {
@@ -87,8 +87,8 @@ public class Dijkstra{
 		    			graph[i*width+(j+1)][i*width+j] = 1;
 		    		}
 		    		else {
-		    			graph[i*width+j][i*width+(j+1)] = 10;
-		    			graph[i*width+(j+1)][i*width+j] = 10;
+		    			graph[i*width+j][i*width+(j+1)] = 20;
+		    			graph[i*width+(j+1)][i*width+j] = 20;
 		    		}
 		    	}
 		    }
