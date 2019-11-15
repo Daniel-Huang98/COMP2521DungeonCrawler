@@ -15,6 +15,8 @@ import java.io.*;
 public class Closer implements Movement{
 	private int height;
 	private int width;
+	private int lastX = -1;
+	private int lastY = -1;
 	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
 	/**
@@ -39,6 +41,11 @@ public class Closer implements Movement{
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
+		int g[][] = pathing.getGraph();
+		if (lastX != -1 && lastY != -1) {
+	    	g[e.getY()*map.get(0).size()+e.getX()][lastY*map.get(0).size()+lastX] = 0;
+	    	g[lastY*map.get(0).size()+lastX][e.getY()*map.get(0).size()+e.getX()] = 0;
+		}
 		pathing.dijkstra(e);
     	int curr = dest.getY()*map.get(0).size()+dest.getX();
     	int next = pathing.getFrom()[curr];
@@ -61,9 +68,8 @@ public class Closer implements Movement{
     	int nextY = curr/map.get(0).size();
     	int nextX = curr%(map.get(0).size());
     	map.get(e.getY()).set(e.getX(),null);
-    	int g[][] = pathing.getGraph();
-    	g[e.getY()*map.get(0).size()+e.getX()][nextY*map.get(0).size()+nextX] = 0;
-    	g[nextY*map.get(0).size()+nextX][e.getY()*map.get(0).size()+e.getX()] = 0;
+    	lastX = e.getX();
+    	lastY = e.getY();
     	e.setMove(nextX, nextY);
 	    map.get(e.getY()).set(e.getX(),(Entity)e);		
 	    return map;

@@ -53,6 +53,16 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     }
     
     /**
+     * Sets the coordinate of the enemy in the dungeon
+     * @param x x coordinate of the player
+     * @param y y coordinate of the player
+     */
+    public void setCoordinates(int x, int y) {
+    	x().set(x);
+    	y().set(y);
+    }
+    
+    /**
     * Moves enemy, then updates the player on the map.
     * Checks if player has collided with it and checks to see what 
     * battle strategy is deployed

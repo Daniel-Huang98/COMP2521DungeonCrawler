@@ -171,6 +171,9 @@ public abstract class DungeonLoader {
         					((Enemy)e).addObserver((playerObserver)e2);
         					((Enemy)e).setPlayer((Player)e2);
         				}
+        				else if (e2 instanceof Portal) {
+        					((Enemy)e).addObserver((playerObserver)e2);
+        				}
         			}
         		}
         	}
