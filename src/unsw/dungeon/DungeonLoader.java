@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 import compositecheck.CompositeCheck;
 import compositecheck.LeafCheck;
 import compositecheck.NodeCheck;
+import javafx.scene.image.ImageView;
 import wincheck.AndWinCheck;
 import wincheck.OrWinCheck;
 import wincondition.EnemyWin;
@@ -83,15 +84,32 @@ public abstract class DungeonLoader {
     public Dungeon load() {
         int width = json.getInt("width");
         int height = json.getInt("height");
-
+        boolean pacman = json.getBoolean("pacman");
         Dungeon dungeon = new Dungeon(width, height);
         JSONArray jsonEntities = json.getJSONArray("entities");
         
         JSONObject goalCondition = json.getJSONObject("goal-condition");
+        
+        
+        if(pacman) {
+        	System.out.println("loading pacman");
+        	 for (int x = 0; x < dungeon.getWidth(); x++) {
+                 for (int y = 0; y < dungeon.getHeight(); y++) {
+                	 Entity entity = null;
+                	 Gold gold = new Gold(x,y);
+                 	 onLoad(gold);
+                     entity = gold;
+                     dungeon.addEntity(entity);
+                     if(entity instanceof Gold) dungeon.incTotalGold();
+                 }
+             }
+        }
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        
+       
 
        
         
