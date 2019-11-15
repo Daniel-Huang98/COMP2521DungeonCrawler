@@ -50,6 +50,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image ghostImage4;
     private Image goldImagePacman;
     private Image portalImagePacman;
+    private Image boulderImagePacman;
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -79,6 +80,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         ghostImage4 = new Image("/ghost4-pacman.png");
         goldImagePacman = new Image("/point-pacman.png");
         portalImagePacman = new Image("/dirt-pacman.png");
+        boulderImagePacman = new Image("/dirt-pacman.png");
     }
 
     @Override
@@ -99,7 +101,9 @@ public class DungeonControllerLoader extends DungeonLoader {
     
     @Override
     public void onLoad(Boulder boulder,boolean pacman) {
-        ImageView view = new ImageView(boulderImage);
+    	ImageView view = null;
+    	if(pacman) view = new ImageView(boulderImagePacman);
+    	else view = new ImageView(boulderImage);
         addEntity(boulder, view);
     }
     
