@@ -115,7 +115,7 @@ public class DungeonApplication extends Application implements Observer {
 	        loader.setController(controller);
 	        Parent root = loader.load();
 	        Scene scene = new Scene(root);
-	        root2.requestFocus();
+	        root.requestFocus();
 	        primaryStage.setScene(scene);
 	        primaryStage.show();
 	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();

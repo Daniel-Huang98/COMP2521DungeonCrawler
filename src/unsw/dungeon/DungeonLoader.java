@@ -11,6 +11,7 @@ import org.json.JSONTokener;
 import compositecheck.CompositeCheck;
 import compositecheck.LeafCheck;
 import compositecheck.NodeCheck;
+import javafx.scene.image.ImageView;
 import wincheck.AndWinCheck;
 import wincheck.OrWinCheck;
 import wincondition.EnemyWin;
@@ -32,6 +33,7 @@ import wincondition.WinCondition;
 public abstract class DungeonLoader {
 
     private JSONObject json;
+    int ghostNum = 0;
 
     public DungeonLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
@@ -83,16 +85,38 @@ public abstract class DungeonLoader {
     public Dungeon load() {
         int width = json.getInt("width");
         int height = json.getInt("height");
-
+        boolean pacman = false;
         Dungeon dungeon = new Dungeon(width, height);
         JSONArray jsonEntities = json.getJSONArray("entities");
         
         JSONObject goalCondition = json.getJSONObject("goal-condition");
+        
         System.out.println("Goals are: " + goalCondition.toString(2));
+        
+        if(json.has("pacman")) {
+        	pacman = json.getBoolean("pacman");
+        }
+        
+        if(pacman) {
+        	System.out.println("loading pacman");
+        	dungeon.isPacman = true;
+        	 for (int x = 0; x < dungeon.getWidth(); x++) {
+                 for (int y = 0; y < dungeon.getHeight(); y++) {
+                	 Entity entity = null;
+                	 Gold gold = new Gold(x,y);
+                 	 onLoad(gold,true);
+                     entity = gold;
+                     dungeon.addEntity(entity);
+                     if(entity instanceof Gold) dungeon.incTotalGold();
+                 }
+             }
+        }
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
+        
+       
 
        
         
@@ -154,66 +178,71 @@ public abstract class DungeonLoader {
         case "player":
             Player player = new Player(dungeon, x, y);
             dungeon.setPlayer(player);
-            onLoad(player);
+            onLoad(player,dungeon.isPacman);
             entity = player;
             dungeon.addEntity(entity);
             return;
         case "wall":
             Wall wall = new Wall(x, y);
-            onLoad(wall);
+            onLoad(wall,dungeon.isPacman);
             entity = wall;
             break;
         case "boulder":
         	Boulder boulder = new Boulder(x, y);
-            onLoad(boulder);
+            onLoad(boulder,dungeon.isPacman);
             entity = boulder;
             break;
         case "switch":
         	FloorSwitch floorSwitch = new FloorSwitch(x,y, dungeon);
-        	onLoad(floorSwitch);
+        	onLoad(floorSwitch, dungeon.isPacman);
             entity = floorSwitch;
             break;
         case "sword":
         	Sword sword = new Sword(x,y);
-        	onLoad(sword);
+        	onLoad(sword,dungeon.isPacman);
             entity = sword;
+            break;
+        case "ghost":
+        	Enemy ghost = new Enemy(x,y);
+        	onLoad(ghost,dungeon.isPacman,ghostNum++);
+            entity = ghost;
             break;
         case "enemy":
         	Enemy enemy = new Enemy(x,y);
-        	onLoad(enemy);
+        	onLoad(enemy,dungeon.isPacman);
             entity = enemy;
             break;
         case "treasure":
         	Gold gold = new Gold(x,y);
-        	onLoad(gold);
+        	onLoad(gold,dungeon.isPacman);
             entity = gold;
             break;
         case "invincibility":
         	Potion potion = new Potion(x,y);
-        	onLoad(potion);
+        	onLoad(potion,dungeon.isPacman);
             entity = potion;
             break;
     	case "portal":
     		id = Integer.parseInt(json.getString("id"));
 	    	Portal portal = new Portal(x,y,id);
-	    	onLoad(portal);
+	    	onLoad(portal,dungeon.isPacman);
 	        entity = portal;
 	        break;
     	case "exit":
     		Exit exit = new Exit(x,y);
-    		onLoad(exit);
+    		onLoad(exit,dungeon.isPacman);
     		entity = exit;
     		break;
         case "door":
         	id = Integer.parseInt(json.getString("id"));
     		Door door = new Door(x,y, id);
-    		onLoad(door);
+    		onLoad(door,dungeon.isPacman);
     		entity = door;
     		break;
         case "key":
         	id = Integer.parseInt(json.getString("id"));
     		Key key = new Key(x,y, id);
-    		onLoad(key);
+    		onLoad(key,dungeon.isPacman);
     		entity = key;
     		break;
 	}   
@@ -224,16 +253,17 @@ public abstract class DungeonLoader {
         
     }
 
-    public abstract void onLoad(Entity player);
-    public abstract void onLoad(Wall wall);
-    public abstract void onLoad(Boulder boulder);
-    public abstract void onLoad(Exit exit);
-    public abstract void onLoad(Potion potion);
-    public abstract void onLoad(Door door);
-    public abstract void onLoad(Enemy enemy);
-    public abstract void onLoad(FloorSwitch floorSwitch);
-    public abstract void onLoad(Gold gold);
-    public abstract void onLoad(Key key);
-    public abstract void onLoad(Portal portal);
-    public abstract void onLoad(Sword sword);    
+    public abstract void onLoad(Entity player,boolean pacman);
+    public abstract void onLoad(Wall wall,boolean pacman);
+    public abstract void onLoad(Boulder boulder,boolean pacman);
+    public abstract void onLoad(Exit exit,boolean pacman);
+    public abstract void onLoad(Potion potion,boolean pacman);
+    public abstract void onLoad(Door door,boolean pacman);
+    public abstract void onLoad(Enemy enemy,boolean pacman);
+    public abstract void onLoad(Enemy enemy,boolean pacman, int ghost);
+    public abstract void onLoad(FloorSwitch floorSwitch,boolean pacman);
+    public abstract void onLoad(Gold gold,boolean pacman);
+    public abstract void onLoad(Key key,boolean pacman);
+    public abstract void onLoad(Portal portal,boolean pacman);
+    public abstract void onLoad(Sword sword,boolean pacman);    
 }

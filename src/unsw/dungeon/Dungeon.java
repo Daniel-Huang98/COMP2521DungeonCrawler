@@ -41,6 +41,7 @@ public class Dungeon {
     FloatProperty goldStatus = new SimpleFloatProperty((float)0);
     BooleanProperty alive = new SimpleBooleanProperty(true);
     BooleanProperty hasWon = new SimpleBooleanProperty(false);
+    public boolean isPacman = false;
   
     CompositeCheck check;
     /**
