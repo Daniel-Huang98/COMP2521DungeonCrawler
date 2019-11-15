@@ -5,18 +5,12 @@ import java.util.ArrayList;
 import unsw.dungeon.Enemy;
 import unsw.dungeon.Entity;
 
-public class BlueGhostFurther implements Movement{
-	
-	
-	public BlueGhostFurther() {
-		
-	}
-
+public class RedGhostFurther implements Movement{
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
 		pathing.dijkstra(e);
-    	int curr = 29*map.get(0).size()+27;
+    	int curr = 29*map.get(0).size()+0;
     	int next = pathing.getFrom()[curr];
     	int counter = 0;
     	
