@@ -15,6 +15,8 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
     private Movement movement;
     private Player player;
+    private Movement further;
+    private Movement closer;
     
 	/**
 	 * Constructs an enemy object that holds x,y coordinates
@@ -23,6 +25,15 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	 */
     public Enemy(int x, int y) {
         super(x, y);
+        this.observers = new ArrayList<playerObserver>();
+        this.further = new Further();
+        this.closer = new Closer();
+    }
+    
+    public Enemy(int x, int y, Movement further, Movement closer) {
+        super(x, y);
+        this.further = further;
+        this.closer = closer;
         this.observers = new ArrayList<playerObserver>();
     }
     
@@ -36,7 +47,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
      */
     public void setMap(ArrayList<ArrayList<Entity>> map) {
     	this.map = map;
-    	this.movement = new Closer(map.size(), map.get(0).size(), map);
+    	this.movement = new Closer();
     }
     
     public void setMove(int x, int y) {
@@ -64,11 +75,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
 		else if (obj instanceof TimelineObject) {
-			if (player.getPotion() != null)
-				movement = new Further(map.size(), map.get(0).size(), map);
-			else 
-				movement = new Closer(map.size(), map.get(0).size(), map);
-	    	map = movement.moveCharacter(this, player);
+			if (player.getPotion() != null) {
+				movement = further;
+				movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
+			}
+			else {
+				movement = closer;
+				movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
+			}
 	    	this.notifyEntities(0,0);
 		}
     }

@@ -316,7 +316,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
 		else if (obj instanceof TimelineObject) {
 			if(this.potion != null) {
 				int potionHealth = potion.getHealth();
-				potionStatus.set((float)potionHealth/15);
+				potionStatus.set((float)potionHealth/50);
 				this.decrementPotionHealth();
 			}
 		}

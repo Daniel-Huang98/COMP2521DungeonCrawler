@@ -13,9 +13,7 @@ import java.io.*;
  * dungeon.
  */
 public class Closer implements Movement{
-	private int height;
-	private int width;
-	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+	
 	
 	/**
 	 * Constructs a Closer object
@@ -23,10 +21,8 @@ public class Closer implements Movement{
      * @param width : width of the dungeon
      * @param map : 1 to 1 entity map of the dungeon
 	 */
-	public Closer(int height, int width, ArrayList<ArrayList<Entity>> map) {
-		this.height = height;
-		this.width = width;
-		this.map = map;
+	public Closer() {
+		
 	}
 
     /**
@@ -37,7 +33,7 @@ public class Closer implements Movement{
      * @return : updated map after the enemy has moved
      */
 	@Override
-	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest) {
+	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
 		pathing.dijkstra(e);
     	int curr = dest.getY()*map.get(0).size()+dest.getX();
@@ -66,8 +62,5 @@ public class Closer implements Movement{
 	    return map;
 	}
 
-	@Override
-	public void setMap(ArrayList<ArrayList<Entity>> map) {
-		this.map = map;		
-	}
+
 }
