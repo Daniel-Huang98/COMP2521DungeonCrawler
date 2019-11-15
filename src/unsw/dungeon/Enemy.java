@@ -63,20 +63,13 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
-		if (obj instanceof Player) {	    	
-			if (!(map.get(((Player)obj).getY()+dY).get(((Player)obj).getX()+dX) instanceof Wall)) {
-				map.get(((Player)obj).getY()+dY).set(((Player)obj).getX()+dX, (Entity)obj);
-				map.get(((Player)obj).getY()).set(((Player)obj).getX(), null);
-				movement.setMap(map);
-			}
-			this.notifyEntities(0,0);
-    	}
 		else if (obj instanceof TimelineObject) {
 			if (player.getPotion() != null)
 				movement = new Further(map.size(), map.get(0).size(), map);
 			else 
 				movement = new Closer(map.size(), map.get(0).size(), map);
 	    	map = movement.moveCharacter(this, player);
+	    	this.notifyEntities(0,0);
 		}
     }
 
