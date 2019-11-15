@@ -57,6 +57,9 @@ public class Closer implements Movement{
     	int nextY = curr/map.get(0).size();
     	int nextX = curr%(map.get(0).size());
     	map.get(e.getY()).set(e.getX(),null);
+    	int g[][] = pathing.getGraph();
+    	g[e.getY()*map.get(0).size()+e.getX()][nextY*map.get(0).size()+nextX] = 0;
+    	g[nextY*map.get(0).size()+nextX][e.getY()*map.get(0).size()+e.getX()] = 0;
     	e.setMove(nextX, nextY);
 	    map.get(e.getY()).set(e.getX(),(Entity)e);		
 	    return map;

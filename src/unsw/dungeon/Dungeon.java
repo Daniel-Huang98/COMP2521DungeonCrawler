@@ -11,6 +11,8 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import wincheck.WinCheck;
@@ -41,6 +43,7 @@ public class Dungeon {
     FloatProperty goldStatus = new SimpleFloatProperty((float)0);
     BooleanProperty alive = new SimpleBooleanProperty(true);
     BooleanProperty hasWon = new SimpleBooleanProperty(false);
+    StringProperty message = new SimpleStringProperty();
     public boolean isPacman = false;
   
     CompositeCheck check;
@@ -85,6 +88,7 @@ public class Dungeon {
     public void tryWin() {
     	if(this.canWin() && !dead) {
     		hasWon.set(true);
+    		message.set("You Have Won");
     		System.out.println("You have won");
     	} else if(dead){
     		System.out.println("You are dead");
@@ -147,6 +151,7 @@ public class Dungeon {
 	public void die() {
 		this.dead = true;
 		this.alive.set(false);
+		message.set("You Have Lost");
 		this.tryWin();
 	}
     
@@ -263,5 +268,9 @@ public class Dungeon {
     
     public BooleanProperty getHasWon() {
     	return hasWon;
+    }
+    
+    public StringProperty getMessage() {
+    	return message;
     }
 }
