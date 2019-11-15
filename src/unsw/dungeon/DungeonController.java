@@ -28,7 +28,7 @@ public class DungeonController implements Observer{
     
     private Dungeon dungeon;
     
-    private TimelineObject timeline = new TimelineObject(0.5);
+    private TimelineObject timeline = new TimelineObject(0.3);
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
