@@ -127,6 +127,17 @@ public class DungeonControllerLoader extends DungeonLoader {
 
     private void addEntity(Entity entity, ImageView view) {
         trackPosition(entity, view);
+        entity.setView(view);
+        //hides the image when boolean value set to true;
+        entity.gone().addListener(new ChangeListener<Boolean>() {
+        	@Override
+            public void changed(ObservableValue<? extends Boolean> observable,
+                    Boolean oldValue, Boolean newValue) {
+                if(newValue) {
+                	view.setImage(null);
+                }
+            }
+        });
         entities.add(view);
     }
 
@@ -157,6 +168,7 @@ public class DungeonControllerLoader extends DungeonLoader {
                 GridPane.setRowIndex(node, newValue.intValue());
             }
         });
+        
     }
 
     /**

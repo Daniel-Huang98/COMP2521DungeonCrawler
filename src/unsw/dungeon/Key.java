@@ -37,7 +37,7 @@ public class Key extends Entity implements playerObserver{
 	@Override
 	public void delete() {
 		deleted = true;
-		
+		this.gone().set(true);
 	}
 
 	@Override

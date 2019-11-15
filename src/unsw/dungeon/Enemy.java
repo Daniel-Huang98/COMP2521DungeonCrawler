@@ -78,7 +78,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	@Override
 	public void delete() {
 		deleted = true;
-		
+		this.gone().set(true);
 	}
 
 	@Override
