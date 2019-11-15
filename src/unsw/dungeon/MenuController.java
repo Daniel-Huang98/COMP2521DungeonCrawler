@@ -53,7 +53,7 @@ public class MenuController implements Subject{
 
     @FXML
     public void handleDungeon0(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("pacman.json");
     }
     
     @FXML
