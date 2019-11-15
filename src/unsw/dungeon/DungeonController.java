@@ -37,14 +37,17 @@ public class DungeonController {
     
     private Dungeon dungeon;
     
-    private Timeline timeline;
+    private TimelineObject timeline = new TimelineObject(0.5);
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
-        //this.timeline = new Timeline(new KeyFrame(Duration.millis(500), e -> this.gol.tick()));
-		//timeline.setCycleCount(Animation.INDEFINITE);
+        for (Entity e : dungeon.getEntities()) {
+        	if (e instanceof Enemy) {
+        		timeline.addObserver((playerObserver)e);
+        	}
+        }       
     }
 
     @FXML
@@ -57,13 +60,14 @@ public class DungeonController {
                 squares.add(new ImageView(ground), x, y);
             }
         }
-        //squares.add(new TextField("kill me"),0,dungeon.getHeight());
-
+        
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
-        //ui.add(new CheckBox("Key"), 0, 0);
+        timeline.begin();
     }
+    
+    
 
     @FXML
     public void handleKeyPress(KeyEvent event) {

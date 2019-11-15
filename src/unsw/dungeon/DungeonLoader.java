@@ -97,8 +97,6 @@ public abstract class DungeonLoader {
         
         dungeon.setWinCheck(loadGoals(goalCondition,dungeon));
         
-        
-        
         ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
         for (int i = 0; i < dungeon.getHeight(); i++) {
         	ArrayList<Entity> inner = new ArrayList <Entity>();
@@ -129,6 +127,7 @@ public abstract class DungeonLoader {
         			for (Entity e2: dungeon.getEntities()) {
         				if(e2 instanceof Player) {
         					((Enemy)e).addObserver((playerObserver)e2);
+        					((Enemy)e).setPlayer((Player)e2);
         					System.out.println("player is added to enemy");
         				}
         			}
@@ -138,6 +137,8 @@ public abstract class DungeonLoader {
         for (Enemy enemy: enemyList) {
         	enemy.setMap(map);
         }
+        
+        
         return dungeon;
     }
 

@@ -38,6 +38,7 @@ public class Portal extends Entity implements playerObserver {
     public void update(playerSubject obj, int dX, int dY) {
     	if (obj instanceof Player) {
 	    	if(((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) && destination != null) {
+	    		System.out.println("We made it to the portals");
 	    		((Player)obj).setCoordinates(destination.getX(), destination.getY());
 	    		((Player)obj).setCanMove(false);
 	    	}
