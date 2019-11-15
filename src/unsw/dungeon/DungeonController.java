@@ -3,19 +3,12 @@ package unsw.dungeon;
 import java.util.ArrayList;
 import java.util.List;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
 import javafx.fxml.FXML;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
 
 /**
  * A JavaFX controller for the dungeon.
@@ -28,8 +21,6 @@ public class DungeonController {
 	
     @FXML
     private GridPane squares;
-    
-    //private GridPane ui;
 
     private List<ImageView> initialEntities;
 
@@ -47,7 +38,7 @@ public class DungeonController {
         	if (e instanceof Enemy) {
         		timeline.addObserver((playerObserver)e);
         	}
-        }       
+        }  
     }
 
     @FXML
