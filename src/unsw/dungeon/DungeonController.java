@@ -15,7 +15,7 @@ import javafx.scene.layout.GridPane;
  * @author Robert Clifton-Everest
  *
  */
-public class DungeonController {
+public class DungeonController implements Observer{
 
 	String dungeonFile;
 	
@@ -55,10 +55,7 @@ public class DungeonController {
         for (ImageView entity : initialEntities)
             squares.getChildren().add(entity);
         
-        timeline.begin();
-    }
-    
-    
+    }    
 
     @FXML
     public void handleKeyPress(KeyEvent event) {
@@ -80,8 +77,26 @@ public class DungeonController {
         }
     }
 
-    String getFile() {
+    public String getFile() {
     	return dungeonFile;
     }
+    
+    public void startGame() {
+    	timeline.begin();
+    }
+    
+    public void pauseGame() {
+    	timeline.end();
+    }
+    
+    public Dungeon getDungeon() {
+    	return this.dungeon;
+    }
+
+	@Override
+	public void update(Subject obj, String fileName) {
+		if (((UiController)obj).getStart()) startGame();
+		else pauseGame();
+	}
 }
 

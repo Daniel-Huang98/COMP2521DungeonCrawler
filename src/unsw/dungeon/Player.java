@@ -6,6 +6,8 @@ import java.util.List;
 import battle.battle;
 import battle.deathBattle;
 import battle.swordBattle;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 
 /**
  * The player entity, contains sword reference, a boolean representing
@@ -26,7 +28,9 @@ public class Player extends Entity implements playerSubject, playerObserver {
     battle action;
     int dy = 0;
     int dx = 0;
-
+    FloatProperty keyStatus = new SimpleFloatProperty((float)0);
+    FloatProperty swordStatus = new SimpleFloatProperty((float)0);
+    FloatProperty potionStatus = new SimpleFloatProperty((float)0);
 
     /**
      * Create a player positioned in square (x,y)
@@ -57,6 +61,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if (getY() > 0)
             y().set(getY() - 1);
         if(this.potion != null)this.decrementPotionHealth();
+        updateStatus();
     }
 
     /**
@@ -72,6 +77,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if (getY() < dungeon.getHeight() - 1)
             y().set(getY() + 1);
         if(this.potion != null)this.decrementPotionHealth();
+        updateStatus();
     }
 
     /**
@@ -87,6 +93,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if (getX() > 0)
             x().set(getX() - 1);
         if(this.potion != null)this.decrementPotionHealth();
+        updateStatus();
     }
 
     /**
@@ -102,6 +109,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
         if (getX() < dungeon.getWidth() - 1)
             x().set(getX() + 1);
         if(this.potion != null)this.decrementPotionHealth();
+        updateStatus();
     }
     
     /**
@@ -118,6 +126,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     }
     
     public void setKey(Key key) {
+    	keyStatus.set((float)1);
     	this.key = key;
     }
     
@@ -133,6 +142,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     
     public void setSword(Sword obj) {
     	this.sword = obj;
+    	swordStatus.set((float)1);
     	System.out.println("I has the sword now");
     }
     
@@ -141,6 +151,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     }
     
     public void setPotion(Potion obj) {
+    	potionStatus.set((float)1);
     	this.potion = obj;
     }
     
@@ -232,6 +243,32 @@ public class Player extends Entity implements playerSubject, playerObserver {
      */
     public void exit() {
     	this.dungeon.exit();
+    }
+    
+    public FloatProperty getKeyStatus() {
+    	return keyStatus;
+    }
+
+    public FloatProperty getSwordStatus() {
+    	return swordStatus;
+    }
+    
+    public FloatProperty getPotionStatus() {
+    	return potionStatus;
+    }
+    
+    public void updateStatus() {
+    	if (key == null) {
+    		keyStatus.set((float)0);
+    	}
+    	if (potion != null) {
+    		int potionHealth = potion.getHealth();
+    		potionStatus.set((float)potionHealth/15);
+    	}
+    	if (sword != null) {
+    		int swordHealth = sword.getHealth();
+    		swordStatus.set((float)swordHealth/5);
+    	}
     }
     
     /**

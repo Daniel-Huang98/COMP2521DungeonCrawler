@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import compositecheck.CompositeCheck;
+import javafx.beans.property.FloatProperty;
+import javafx.beans.property.SimpleFloatProperty;
 import wincheck.WinCheck;
 import wincondition.WinCondition;
 
@@ -32,6 +34,7 @@ public class Dungeon {
     int totalEnemies = 0;
     boolean exitReached = false;
     boolean dead = false;
+    FloatProperty goldStatus = new SimpleFloatProperty((float)0);
   
     CompositeCheck check;
     /**
@@ -99,6 +102,7 @@ public class Dungeon {
 	 */
 	public void collectGold() {
 		this.collected++;
+		goldStatus.set((float)(collected/totalGold));
 		this.tryWin();
 		
 	}
@@ -198,6 +202,7 @@ public class Dungeon {
      */
     public void addGold() {
     	this.collected++;
+    	goldStatus.set((float)(collected/totalGold));
     }
     
     /**
@@ -236,5 +241,9 @@ public class Dungeon {
     
     public ArrayList<Entity> getEntities() {
     	return this.entities;
+    }
+    
+    public FloatProperty getGoldStatus() {
+    	return goldStatus;
     }
 }

@@ -32,6 +32,10 @@ public class Potion extends Entity implements playerObserver{
     	return false;
     }
     
+    public int getHealth() {
+    	return this.health;
+    }
+    
     /**
      * Checks if player is standing over the potion, if so set the boolean
      * in player and change the battle strategy

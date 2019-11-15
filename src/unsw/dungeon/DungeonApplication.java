@@ -46,6 +46,16 @@ public class DungeonApplication extends Application implements Observer {
 
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
 	        
+	        UiController uiController = new UiController(controller.getDungeon());
+	        uiController.addObserver((Observer)controller);
+	        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("UiView.fxml"));
+	        
+	        loader2.setController(uiController);
+	        Parent root2 = loader2.load();	        
+	        Stage secondStage = new Stage();
+	        secondStage.setScene(new Scene(root2));
+            secondStage.show();
+	        
 	        loader.setController(controller);
 	        Parent root = loader.load();
 	        Scene scene = new Scene(root);
