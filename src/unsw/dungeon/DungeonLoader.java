@@ -88,6 +88,7 @@ public abstract class DungeonLoader {
         JSONArray jsonEntities = json.getJSONArray("entities");
         
         JSONObject goalCondition = json.getJSONObject("goal-condition");
+        System.out.println("Goals are: " + goalCondition.toString(2));
 
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
@@ -128,7 +129,6 @@ public abstract class DungeonLoader {
         				if(e2 instanceof Player) {
         					((Enemy)e).addObserver((playerObserver)e2);
         					((Enemy)e).setPlayer((Player)e2);
-        					System.out.println("player is added to enemy");
         				}
         			}
         		}
