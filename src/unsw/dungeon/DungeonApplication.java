@@ -90,7 +90,7 @@ public class DungeonApplication extends Application implements Observer {
 	        	@Override
 	            public void changed(ObservableValue<? extends Boolean> observable,
 	                    Boolean oldValue, Boolean newValue) {
-	                if(!newValue) {
+	                if(newValue) {
 	                	update(null,"menu");
 	                	controller.pauseGame();
 	                }
