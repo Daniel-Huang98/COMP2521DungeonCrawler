@@ -86,7 +86,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         ghostImage1 = new Image("/ghost1-pacman.png");
         ghostImage2 = new Image("/ghost2-pacman.png");
         ghostImage3 = new Image("/ghost3-pacman.png");
-        ghostImage4 = new Image("/ghost4-pacman.png");
+        ghostImage4 = new Image("/ghost4-pacman.jpg");
         goldImagePacman = new Image("/point-pacman.png");
         portalImagePacman = new Image("/dirt-pacman.png");
         boulderImagePacman = new Image("/dirt-pacman.png");
