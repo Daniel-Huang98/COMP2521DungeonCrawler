@@ -110,7 +110,12 @@ public class BlueGhostCloser implements Movement{
 			setNext(this.redghost.getX(),this.redghost.getY() , dest.getX(), dest.getY(),map);
 		}
     	int curr = nextY*map.get(0).size()+nextX;
-    	int next = pathing.getFrom()[curr];
+    	int next = -1;
+    	try {
+    		next = pathing.getFrom()[curr];
+    	} catch (Exception prob) {
+    		System.out.println("unreachable");
+    	}
     	int counter = 0;
     	
     	//backtrack the traceback array
