@@ -42,7 +42,7 @@ public class TestDungeonLoader {
         if(subgoals == null) {
         	System.out.println("goal: " + goal);
         	switch(goal) {
-        		case "enemy":
+        		case "enemies":
         			obj = new LeafCheck(this.dungeon,new EnemyWin());
         			break;
         		case "treasure":
