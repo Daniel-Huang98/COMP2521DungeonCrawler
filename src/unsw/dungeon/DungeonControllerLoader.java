@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import movement.BlueGhostCloser;
 import movement.BlueGhostFurther;
+import movement.FrightenMovement;
 import movement.OrangeGhostFurther;
 import movement.PinkGhostFurther;
 import movement.RedGhostFurther;
@@ -52,6 +53,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image goldImagePacman;
     private Image portalImagePacman;
     private Image boulderImagePacman;
+    private Image ghostFrightenPacman;
     
 
     public DungeonControllerLoader(String filename)
@@ -71,6 +73,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         portalImage = new Image("portal.png");
         switchImage = new Image("pressure_plate.png");
         doorOpen = new Image("open_door.png");
+       
         
         
         playerImagePacman = new Image("/pacman.png");
@@ -84,6 +87,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         goldImagePacman = new Image("/point-pacman.png");
         portalImagePacman = new Image("/dirt-pacman.png");
         boulderImagePacman = new Image("/dirt-pacman.png");
+        ghostFrightenPacman = new Image("/purpleGhost.png");
     }
 
     @Override
@@ -154,21 +158,28 @@ public class DungeonControllerLoader extends DungeonLoader {
 		switch(ghost) {
 			case 0:
 				view = new ImageView(ghostImage1);
+				((Ghost)enemy).setNormal(ghostImage1);
 				enemy.setFurther(new RedGhostFurther());
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
 				enemy.setFurther(new OrangeGhostFurther());
+				((Ghost)enemy).setNormal(ghostImage2);
 				break;
 			case 2:
 				view = new ImageView(ghostImage3);
 				enemy.setFurther(new BlueGhostFurther());
+				((Ghost)enemy).setNormal(ghostImage3);
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
 				enemy.setFurther(new PinkGhostFurther());
+				((Ghost)enemy).setNormal(ghostImage4);
 				break;
 		}
+		((Ghost)enemy).setFrighten(ghostFrightenPacman);
+		((Ghost)enemy).setFrightenMovement(new FrightenMovement());
+		
 		addEntity(enemy, view);
 	}
 	
