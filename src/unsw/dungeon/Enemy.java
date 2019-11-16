@@ -94,7 +94,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
-		else if (obj instanceof TimelineObject && tickCounter >= 1) {
+		else if (obj instanceof TimelineObject && tickCounter >= 2) {
 			tickCounter = 0;
 			if (player.getPotion() != null) {
 				movement = further;
