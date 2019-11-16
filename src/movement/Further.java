@@ -13,7 +13,8 @@ import java.io.*;
  * dungeon.
  */
 public class Further implements Movement{
-	
+	private int lastX = -1;
+	private int lastY = -1;
 	/**
 	 * Constructs a Further object
 	 * @param height : height of the dungeon
@@ -43,6 +44,11 @@ public class Further implements Movement{
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
+		int g[][] = pathing.getGraph();
+		if (lastX != -1 && lastY != -1) {
+	    	g[e.getY()*map.get(0).size()+e.getX()][lastY*map.get(0).size()+lastX] = 0;
+	    	g[lastY*map.get(0).size()+lastX][e.getY()*map.get(0).size()+e.getX()] = 0;
+		}
 		pathing.dijkstra(e);
     	int curr = dest.getY()*map.get(0).size()+dest.getX();
     	int next = pathing.getFrom()[curr];
@@ -69,17 +75,20 @@ public class Further implements Movement{
 		int oldY = e.getY(); 
 		int dX = nextX-oldX;
 		int dY = nextY-oldY;
-		
+		int oppositeX = oldX + (dX)*-1;
+		int oppositeY = oldY + (dY)*-1;
+    	lastX = e.getX();
+    	lastY = e.getY();
 		//check if the move opposite to Dijkstra is reachable
-		if (checkBounds((oldX + (dX)*-1), (oldY + (dY)*-1),map) && map.get(oldY + (dY)*-1).get(oldX + (dX)*-1) == null) {
+		if (checkBounds(oppositeX, oppositeY, map) && map.get(oppositeY).get(oppositeX) == null && pathing.isReachable(oppositeY, oppositeX, oldY, oldX)) {
 			e.setMove(oldX + (dX)*-1, oldY + (dY)*-1);
 		}
 		//try other directions
 		else if (dY == 0) {
-			if (checkBounds(oldX, oldY+1,map) && map.get(oldY+1).get(oldX) == null) {
+			if (checkBounds(oldX, oldY+1,map) && map.get(oldY+1).get(oldX) == null && pathing.isReachable(oldY+1, oldX, oldY, oldX)) {
 				e.setMove(oldX,oldY+1);
 			}
-			else if (checkBounds(oldX, oldY-1,map) && map.get(oldY - 1).get(oldX) == null) {
+			else if (checkBounds(oldX, oldY-1,map) && map.get(oldY - 1).get(oldX) == null && pathing.isReachable(oldY-1, oldX, oldY, oldX)) {
 				e.setMove(oldX,oldY-1);
 			}
 			else {
@@ -88,10 +97,10 @@ public class Further implements Movement{
 		}
 		//try other directions
 		else if (dX == 0) {
-			if (checkBounds(oldX+1, oldY,map) && map.get(oldY).get(oldX+1) == null) {
+			if (checkBounds(oldX+1, oldY,map) && map.get(oldY).get(oldX+1) == null && pathing.isReachable(oldY, oldX+1, oldY, oldX)) {
 				e.setMove(oldX+1,oldY);
 			}
-			else if (checkBounds(oldX-1, oldY,map) && map.get(oldY).get(oldX-1) == null) {
+			else if (checkBounds(oldX-1, oldY,map) && map.get(oldY).get(oldX-1) == null && pathing.isReachable(oldY, oldX-1, oldY, oldX)) {
 				e.setMove(oldX-1,oldY);
 			}
 			else {
@@ -101,6 +110,4 @@ public class Further implements Movement{
 		map.get(e.getY()).set(e.getX(),(Entity)e);
 		return map;
 	}
-	
-
 }
