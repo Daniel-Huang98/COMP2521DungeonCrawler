@@ -163,13 +163,12 @@ public class DungeonControllerLoader extends DungeonLoader {
 				view = new ImageView(ghostImage1);
 				((Ghost)enemy).setNormal(ghostImage1);
 				enemy.setFurther(new RedGhostFurther());
-				enemy.setCloser(new RedGhostFurther());
+				//enemy.setCloser(new RedGhostFurther());
 				this.redghost = (Ghost)enemy;
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
 				enemy.setFurther(new OrangeGhostFurther());
-				enemy.setCloser(new OrangeGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage2);
 				break;
 			case 2:
@@ -181,7 +180,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 			case 3:
 				view = new ImageView(ghostImage4);
 				enemy.setFurther(new PinkGhostFurther());
-				enemy.setCloser(new PinkGhostFurther());
+				enemy.setCloser(new PinkGhostCloser());
 				((Ghost)enemy).setNormal(ghostImage4);
 				break;
 		}

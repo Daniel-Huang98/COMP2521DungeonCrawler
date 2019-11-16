@@ -103,7 +103,12 @@ public class BlueGhostCloser implements Movement{
 	    	g[lastY*map.get(0).size()+lastX][e.getY()*map.get(0).size()+e.getX()] = 0;
 		}
 		pathing.dijkstra(e);
-		setNext(this.redghost.getX(),this.redghost.getY() , dest.getX(), dest.getY(),map);
+		if(this.redghost.isDeleted()) {
+			nextX = dest.getX();
+			nextY = dest.getY();
+		}else {
+			setNext(this.redghost.getX(),this.redghost.getY() , dest.getX(), dest.getY(),map);
+		}
     	int curr = nextY*map.get(0).size()+nextX;
     	int next = pathing.getFrom()[curr];
     	int counter = 0;

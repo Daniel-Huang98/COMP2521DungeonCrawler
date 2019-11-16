@@ -22,6 +22,7 @@ public class Further implements Movement{
      * @param map : 1 to 1 entity map of the dungeon
 	 */
 	public Further() {
+		
 	}
 	
     /**

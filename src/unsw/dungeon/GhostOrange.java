@@ -1,45 +1,15 @@
 package unsw.dungeon;
 
-import javafx.scene.image.Image;
 import movement.FrightenMovement;
-import movement.Movement;
 
-public class Ghost extends Enemy{
-	float counter = 0;
-	protected Image normal;
-	protected Image frighten;
-	protected Movement frightenMovement;
-	protected double tick;
-	boolean flag = false;
-	
-	Ghost(int x, int y, double tick){
-		super(x, y);
-		this.tick = tick;
+public class GhostOrange extends Ghost{
+
+	GhostOrange(int x, int y, double tick) {
+		super(x, y, tick);
+		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public void setNormal(Image normal) {
-		this.normal = normal;
-	}
-	
-	public void setFrighten(Image frighten) {
-		this.frighten = frighten;
-	}
-	
-	public void changeNormal() {
-		this.view.setImage(normal);
-	}
-	
-	public void changeFrighten(){
-		this.view.setImage(frighten);
-	}
-	
-	public void setFrightenMovement(Movement frighten) {
-		this.frightenMovement = frighten;
-	}
-	
-	
-    @Override
+	@Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
 		else if (obj instanceof TimelineObject) {
@@ -55,6 +25,10 @@ public class Ghost extends Enemy{
 				this.changeFrighten();
 			}
 			else {
+				int distance = (this.getX()-player.getX())*(this.getX()-player.getX()) + (this.getY()-player.getY())*(this.getY()-player.getY());
+				if(counter > 7 && distance <= 64) {
+					counter = 0;
+				}
 				if((counter)*tick >= 30) counter = 0;
 				if(counter*tick < 7) {
 					movement = further;
