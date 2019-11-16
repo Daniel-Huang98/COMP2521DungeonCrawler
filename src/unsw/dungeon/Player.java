@@ -18,7 +18,7 @@ import javafx.beans.property.SimpleFloatProperty;
  */
 public class Player extends Entity implements playerSubject, playerObserver {
 
-    private Dungeon dungeon;
+    protected Dungeon dungeon;
     boolean canMove = true;
     List<playerObserver>observers;
     Sword sword;

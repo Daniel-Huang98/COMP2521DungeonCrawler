@@ -86,10 +86,15 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player, boolean pacman) {
     	ImageView view = null;
-    	if(pacman) view = new ImageView(playerImagePacman);
+    	if(pacman) {
+    		view = new ImageView(playerImagePacman);
+    		
+    		((Pacman)player).setImage(view);
+    	}
     	else view = new ImageView(playerImage);
         addEntity(player, view);
     }
+    
 
     @Override
     public void onLoad(Wall wall,boolean pacman) {
