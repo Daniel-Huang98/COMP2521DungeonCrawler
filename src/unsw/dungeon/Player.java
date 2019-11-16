@@ -32,6 +32,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     FloatProperty keyStatus = new SimpleFloatProperty((float)0);
     FloatProperty swordStatus = new SimpleFloatProperty((float)0);
     FloatProperty potionStatus = new SimpleFloatProperty((float)0);
+    int direction = 0; //0: right, 1: up, 2: left, 3: down
 
     /**
      * Create a player positioned in square (x,y)
