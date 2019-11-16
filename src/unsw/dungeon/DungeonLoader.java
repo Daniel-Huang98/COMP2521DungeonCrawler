@@ -196,7 +196,12 @@ public abstract class DungeonLoader {
         Entity entity = null;
         switch (type) {
         case "player":
-            Player player = new Player(dungeon, x, y);
+        	Player player;
+        	if(dungeon.isPacman) {
+        		player = new Pacman(dungeon,x,y);
+        	} else {
+        		player = new Player(dungeon, x, y);
+        	}
             dungeon.setPlayer(player);
             onLoad(player,dungeon.isPacman);
             entity = player;

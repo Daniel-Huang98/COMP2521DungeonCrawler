@@ -1,5 +1,8 @@
 package unsw.dungeon;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
 /**
  * Door entity that has a boolean which indicates opened or closed
  */
@@ -8,6 +11,8 @@ public class Door extends Entity implements playerObserver{
 	private boolean isOpened = false;
 	boolean deleted = false;
 	int id;
+	ImageView view;
+	Image open;
 	
 	/**
 	 * Constructs a door object that has x,y coordinates
@@ -23,6 +28,13 @@ public class Door extends Entity implements playerObserver{
     	return isOpened;
     }
 
+    public void setImage(ImageView view){
+    	this.view = view;
+    }
+    
+    public void setOpen(Image open) {
+    	this.open = open;
+    }
     /**
      * Checks if player is on the door and opens only if they have the
      * corresponding key
@@ -44,6 +56,7 @@ public class Door extends Entity implements playerObserver{
 	    			isOpened = true;
 	    			((Player)obj).setKey(null);
 	    			System.out.println("Door unlocked");
+	    			this.view.setImage(open);
 	    		}
 			}
     	}

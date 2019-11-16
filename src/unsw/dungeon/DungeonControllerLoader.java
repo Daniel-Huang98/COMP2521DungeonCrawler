@@ -32,6 +32,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image boulderImage;
     private Image potionImage;
     private Image doorImage;
+    private Image doorOpen;
     private Image enemyImage;
     private Image exitImage;
     private Image goldImage;
@@ -51,6 +52,7 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image goldImagePacman;
     private Image portalImagePacman;
     private Image boulderImagePacman;
+    
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -68,6 +70,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         keyImage = new Image("key.png");
         portalImage = new Image("portal.png");
         switchImage = new Image("pressure_plate.png");
+        doorOpen = new Image("open_door.png");
         
         
         playerImagePacman = new Image("/pacman.png");
@@ -86,10 +89,15 @@ public class DungeonControllerLoader extends DungeonLoader {
     @Override
     public void onLoad(Entity player, boolean pacman) {
     	ImageView view = null;
-    	if(pacman) view = new ImageView(playerImagePacman);
+    	if(pacman) {
+    		view = new ImageView(playerImagePacman);
+    		
+    		((Pacman)player).setImage(view);
+    	}
     	else view = new ImageView(playerImage);
         addEntity(player, view);
     }
+    
 
     @Override
     public void onLoad(Wall wall,boolean pacman) {
@@ -125,7 +133,11 @@ public class DungeonControllerLoader extends DungeonLoader {
 	public void onLoad(Door door,boolean pacman) {
 		ImageView view = null;
     	if(pacman) view = new ImageView(doorImagePacman);
-    	else view = new ImageView(doorImage);
+    	else {
+    		view = new ImageView(doorImage);
+    		door.setOpen(doorOpen);
+    		door.setImage(view);
+    	}
         addEntity(door, view);
 	}
 
