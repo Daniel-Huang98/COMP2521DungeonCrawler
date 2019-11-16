@@ -12,24 +12,12 @@ import javafx.scene.control.ProgressBar;
 
 public class UiController implements Subject{
 	private boolean isStart = false;
-	Dungeon dungeon;
-	ArrayList <Observer> observers = new ArrayList<>();
-	FloatProperty f = new SimpleFloatProperty((float)0.4);
+	private Dungeon dungeon;
+	private ArrayList <Observer> observers = new ArrayList<>();
+
 	public UiController(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}
-	
-	@FXML
-	private Button Start;
-	
-	@FXML
-	private Button Pause;
-	
-	@FXML
-	private Button Menu;
-	
-	@FXML
-	private Button Reset;
 	
 	@FXML
 	private ProgressBar GoldProgress;
@@ -42,29 +30,6 @@ public class UiController implements Subject{
 	
 	@FXML
 	private ProgressBar PotionProgress;
-	
-	@FXML
-	public void handleStart(ActionEvent event) {
-		isStart = true;
-		notifyEntities("start");
-	}
-	
-	@FXML
-	public void handlePause(ActionEvent event) {
-		isStart = false;
-		notifyEntities("pause");
-	}
-	
-	@FXML
-	public void handleMenu(ActionEvent event) {
-		notifyEntities("menu");
-	}
-	
-	@FXML
-	public void handleReset(ActionEvent event) {
-		isStart = false;
-		notifyEntities("reset");
-	}
 	
 	@FXML
 	public void initialize() {
