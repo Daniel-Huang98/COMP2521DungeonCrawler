@@ -14,6 +14,7 @@ import movement.BlueGhostCloser;
 import movement.BlueGhostFurther;
 import movement.FrightenMovement;
 import movement.OrangeGhostFurther;
+import movement.PinkGhostCloser;
 import movement.PinkGhostFurther;
 import movement.RedGhostFurther;
 
@@ -55,6 +56,8 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image boulderImagePacman;
     private Image ghostFrightenPacman;
     
+    private Ghost redghost;
+    
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -83,7 +86,7 @@ public class DungeonControllerLoader extends DungeonLoader {
         ghostImage1 = new Image("/ghost1-pacman.png");
         ghostImage2 = new Image("/ghost2-pacman.png");
         ghostImage3 = new Image("/ghost3-pacman.png");
-        ghostImage4 = new Image("/ghost4-pacman.png");
+        ghostImage4 = new Image("/ghost4-pacman.jpg");
         goldImagePacman = new Image("/point-pacman.png");
         portalImagePacman = new Image("/dirt-pacman.png");
         boulderImagePacman = new Image("/dirt-pacman.png");
@@ -160,20 +163,25 @@ public class DungeonControllerLoader extends DungeonLoader {
 				view = new ImageView(ghostImage1);
 				((Ghost)enemy).setNormal(ghostImage1);
 				enemy.setFurther(new RedGhostFurther());
+				enemy.setCloser(new RedGhostFurther());
+				this.redghost = (Ghost)enemy;
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
 				enemy.setFurther(new OrangeGhostFurther());
+				enemy.setCloser(new OrangeGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage2);
 				break;
 			case 2:
 				view = new ImageView(ghostImage3);
 				enemy.setFurther(new BlueGhostFurther());
+				enemy.setCloser(new BlueGhostCloser(this.redghost));
 				((Ghost)enemy).setNormal(ghostImage3);
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
 				enemy.setFurther(new PinkGhostFurther());
+				enemy.setCloser(new PinkGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage4);
 				break;
 		}
