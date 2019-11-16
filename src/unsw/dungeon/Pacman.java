@@ -117,5 +117,44 @@ public class Pacman extends Player{
         	dx = 1;
         updateStatus();
     }
+	
+	@Override
+	public void update(playerSubject obj, int dX, int dY) {
+		//System.out.println("check player");
+
+		if (obj instanceof Enemy) {
+			//check if enemy is about to move onto the player
+			/*if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
+	    		if(getAction().attacked(this)) {
+	    			((Enemy)obj).delete(); 	
+	    			System.out.println("Enemy has died");
+	    		}
+	    	} */if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+	    		if(getAction().attacked(this)) {
+	    			((Enemy)obj).delete(); 	
+	    			System.out.println("Enemy has died");
+	    		}
+	    	}
+		}
+		else if (obj instanceof TimelineObject) {
+			notifyEntities(dx,dy);
+			if(canMove) {
+				x().set(getX() + dx);
+				y().set(getY() + dy);
+			} else {
+				canMove = true;
+				
+			}
+			dx = 0;
+			dy = 0;
+			if(this.potion != null) {
+				int potionHealth = potion.getHealth();
+				potionStatus.set((float)potionHealth/this.potion.getFullHealth());
+				this.decrementPotionHealth();
+			}
+		}
+		updateStatus();
+	}
+
 
 }

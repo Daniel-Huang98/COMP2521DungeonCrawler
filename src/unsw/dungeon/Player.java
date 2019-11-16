@@ -327,16 +327,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
 	    	}
 		}
 		else if (obj instanceof TimelineObject) {
-			notifyEntities(dx,dy);
-			if(canMove) {
-				x().set(getX() + dx);
-				y().set(getY() + dy);
-			} else {
-				canMove = true;
-				
-			}
-			dx = 0;
-			dy = 0;
 			if(this.potion != null) {
 				int potionHealth = potion.getHealth();
 				potionStatus.set((float)potionHealth/this.potion.getFullHealth());
