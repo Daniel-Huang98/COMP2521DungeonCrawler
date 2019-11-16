@@ -11,9 +11,14 @@ public class Ghost extends Enemy{
 	protected Movement frightenMovement;
 	protected double tick;
 	boolean flag = false;
+	int startX;
+	int startY;
+	int endCounter = 0;
 	
 	Ghost(int x, int y, double tick){
 		super(x, y);
+		this.startX = x;
+		this.startY = y;
 		this.tick = tick;
 	}
 	
@@ -38,6 +43,15 @@ public class Ghost extends Enemy{
 		this.frightenMovement = frighten;
 	}
 	
+	@Override
+	public void delete() {
+		this.x().set(startX);
+		this.y().set(startY);
+		int endCounter = (int) (counter+(5*(1/tick)));
+		//this.gone().set(true);
+	}
+
+	
 	
     @Override
     public void update(playerSubject obj, int dX, int dY) {
@@ -61,7 +75,8 @@ public class Ghost extends Enemy{
 				} else {
 					movement = closer;
 				}
-				movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
+				if(counter > endCounter)movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
+				
 				this.changeNormal();
 			}
 			counter++;
