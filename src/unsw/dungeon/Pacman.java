@@ -38,7 +38,8 @@ public class Pacman extends Player{
     	}
     	this.facing = "north";
         if (getY() > 0)
-            y().set(getY() - 1);
+            //y().set(getY() - 1);
+        	dy = -1;
         updateStatus();
     }
 
@@ -62,7 +63,8 @@ public class Pacman extends Player{
     	}
     	this.facing = "south";
         if (getY() < dungeon.getHeight() - 1)
-            y().set(getY() + 1);
+            //y().set(getY() + 1);
+        	dy = 1;
         updateStatus();
     }
 
@@ -86,7 +88,8 @@ public class Pacman extends Player{
     	}
     	this.facing = "west";
         if (getX() > 0)
-            x().set(getX() - 1);
+            //x().set(getX() - 1);
+        	dx = -1;
         updateStatus();
     }
 
@@ -110,7 +113,8 @@ public class Pacman extends Player{
     	}
     	this.facing = "east";
         if (getX() < dungeon.getWidth() - 1)
-            x().set(getX() + 1);
+            //x().set(getX() + 1);
+        	dx = 1;
         updateStatus();
     }
 
