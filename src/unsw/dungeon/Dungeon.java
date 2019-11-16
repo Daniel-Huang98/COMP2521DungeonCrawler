@@ -85,7 +85,9 @@ public class Dungeon {
     	return result;
     }
     
-    
+    /**
+     * Tries to win the game by checking conditions
+     */
     public void tryWin() {
     	if(this.canWin() && !dead) {
     		hasWon.set(true);

@@ -23,7 +23,8 @@ public class Key extends Entity implements playerObserver{
 
     /**
      * Checks if player is on key and sets a boolean within the player
-     * indicating if he has the key or not
+     * indicating if he has the key or not, key not picked up if the
+     * player already has key
      * @param obj: a subject that is observed
      * @param dX: the subject's change in X direction
      * @param dY: the subject's change in Y direction

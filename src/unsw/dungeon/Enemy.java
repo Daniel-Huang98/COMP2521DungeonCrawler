@@ -32,6 +32,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
         this.closer = new Closer();
     }
     
+	/**
+	 * Constructs an enemy object that holds x,y coordinates and two
+	 * movement strategies, further and closer
+	 * @param x : x coordinate
+     * @param y : y coordinate
+     * @param further : A movement strategy that moves further from the player
+     * @param closer : A movement strategy that moves closer to the player
+	 */
     public Enemy(int x, int y, Movement further, Movement closer) {
         super(x, y);
         this.further = further;

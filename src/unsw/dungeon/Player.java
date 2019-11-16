@@ -154,7 +154,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     public void setSword(Sword obj) {
     	this.sword = obj;
     	swordStatus.set((float)1);
-    	System.out.println("I has the sword now");
+    	System.out.println("I have the sword now");
     }
     
     public Sword getSword() {
@@ -270,6 +270,9 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	return potionStatus;
     }
     
+    /**
+     * set status values for UI
+     */
     public void updateStatus() {
     	if (key == null) {
     		keyStatus.set((float)0);

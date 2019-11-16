@@ -8,6 +8,9 @@ import unsw.dungeon.Entity;
 import unsw.dungeon.Player;
 import unsw.dungeon.Wall;
 
+/**
+ * Blue ghost default movement in Pacman
+ */
 public class PinkGhostCloser implements Movement{
 	private int height;
 	private int width;
@@ -19,6 +22,14 @@ public class PinkGhostCloser implements Movement{
 	int nextY;
 	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	
+	/**
+	 * Figures out what to do next based on the blue ghost algorithm
+	 * @param dx : change in x position of ghost
+	 * @param dy : change in y position of ghost
+	 * @param playerX : Current x position of ghost
+	 * @param playerY : Current y position of ghost
+	 * @param map : entity map
+	 */
 	private void setNext(int dx, int dy, int currX, int currY, ArrayList<ArrayList<Entity>> map) {
 		// test if it exceed the map array
 		if(currY + dy < 0) {
@@ -53,6 +64,15 @@ public class PinkGhostCloser implements Movement{
 		
 	}
 
+	/**
+	 * Moves the pink ghost based on the blue ghost algorithm
+     * @param e : the enemy that is moving
+     * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
+     * @return : updated map after the enemy has moved
+     */
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		

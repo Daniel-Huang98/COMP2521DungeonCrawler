@@ -6,14 +6,32 @@ import unsw.dungeon.Enemy;
 import unsw.dungeon.Entity;
 import unsw.dungeon.Wall;
 
+/**
+ * Pink ghost scatter movement in Pacman
+ */
 public class PinkGhostFurther implements Movement{
 	private int lastX = -1;
 	private int lastY = -1;
 	
+    /**
+     * Check if the new movement is a valid index
+     * @param x : x coordinate
+     * @param y : y coordinate
+     * @return true if it is within the index bounds
+     */
     public boolean checkBounds(int x, int y,ArrayList<ArrayList<Entity>> map) {
     	return (x < map.get(0).size() && x >= 0 && y < map.size() && y >= 0);
     }
 	
+	/**
+	 * Moves to a set wall on the map, once it gets to the map, it moves in a circle
+     * @param e : the enemy that is moving
+     * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
+     * @return : updated map after the enemy has moved
+     */
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);

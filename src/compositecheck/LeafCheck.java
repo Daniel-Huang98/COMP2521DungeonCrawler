@@ -3,15 +3,28 @@ package compositecheck;
 import unsw.dungeon.Dungeon;
 import wincondition.WinCondition;
 
+/**
+ * Stores checker for entities
+ * 
+ */
 public class LeafCheck implements CompositeCheck{
 	Dungeon dungeon;
 	WinCondition checker;
 	
+	/**
+	 * Constructs a LeafCheck object
+	 * @param obj : A Dungeon object
+	 * @param checker : A WinCondition object
+	 */
 	public LeafCheck(Dungeon obj, WinCondition checker){
 		this.checker = checker;
 		this.dungeon = obj;
 	}
 
+	/**
+	 * Checks if user has achieved all goals
+	 * @return : boolean that represent if the player has won or not
+	 */
 	@Override
 	public boolean check() {
 		

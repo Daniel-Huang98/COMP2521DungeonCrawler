@@ -23,12 +23,8 @@ public class Closer implements Movement{
 	
 	/**
 	 * Constructs a Closer object
-	 * @param height : height of the dungeon
-     * @param width : width of the dungeon
-     * @param map : 1 to 1 entity map of the dungeon
 	 */
-	public Closer() {
-		
+	public Closer() {		
 	}
 
     /**
@@ -36,6 +32,9 @@ public class Closer implements Movement{
      * the Dijkstra algorithm.
      * @param e : the enemy that is moving
      * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
      * @return : updated map after the enemy has moved
      */
 	@Override

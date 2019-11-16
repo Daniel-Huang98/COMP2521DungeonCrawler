@@ -8,6 +8,9 @@ import unsw.dungeon.Entity;
 import unsw.dungeon.Ghost;
 import unsw.dungeon.Wall;
 
+/**
+ * Blue ghost default movement in Pacman
+ */
 public class BlueGhostCloser implements Movement{
 	
 	private int height;
@@ -21,10 +24,22 @@ public class BlueGhostCloser implements Movement{
 	private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
 	private Ghost redghost;
 	
+	/**
+	 * Constructs a blue ghost object
+	 * @param redghost : Uses red ghost in movement logic
+	 */
 	public BlueGhostCloser(Ghost redghost) {
 		this.redghost = redghost;
 	}
 	
+	/**
+	 * Figures out what to do next based on the blue ghost algorithm
+	 * @param enemyX : Current x position of ghost
+	 * @param enemyY : Current y position of ghost
+	 * @param playerX : Current x position of player
+	 * @param playerY : Current y position of player
+	 * @param map : entity map
+	 */
 	private void setNext(int enemyX, int enemyY, int playerX, int playerY, ArrayList<ArrayList<Entity>> map) {
 		double dy = enemyY - playerY;
 		double dx = enemyX - playerX;
@@ -94,6 +109,15 @@ public class BlueGhostCloser implements Movement{
 		
 	}
 
+	/**
+	 * Moves the blue ghost based on the blue ghost algorithm
+     * @param e : the enemy that is moving
+     * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
+     * @return : updated map after the enemy has moved
+     */
 	@Override
 	public ArrayList<ArrayList<Entity>> moveCharacter(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);

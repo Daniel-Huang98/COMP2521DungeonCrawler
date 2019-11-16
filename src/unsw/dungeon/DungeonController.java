@@ -30,12 +30,20 @@ public class DungeonController implements Subject{
     
     private Dungeon dungeon;
     
+    //Timeline that dictates enemy/player movement
     private TimelineObject timeline = new TimelineObject(0.2);
 
+    /**
+     * Constructs a DungeonController object
+     * @param dungeon : A dungeon object
+     * @param initialEntities : A list of all entities
+     */
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;
         this.player = dungeon.getPlayer();
         this.initialEntities = new ArrayList<>(initialEntities);
+        
+        //add players and enemies as observers of the timeline
         for (Entity e : dungeon.getEntities()) {
         	if (e instanceof Enemy || e instanceof Player) {
         		timeline.addObserver((playerObserver)e);
@@ -107,11 +115,17 @@ public class DungeonController implements Subject{
     	return dungeonFile;
     }
     
+    /**
+     * Start the timeline and enable Player movement
+     */
     public void startGame() {
     	player.setCanMove(true);
     	timeline.begin();
     }
     
+    /**
+     * Ends the game
+     */
     public void pauseGame() {
     	player.setCanMove(false);
     	timeline.end();

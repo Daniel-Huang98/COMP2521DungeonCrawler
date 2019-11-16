@@ -2,13 +2,27 @@ package unsw.dungeon;
 
 import movement.FrightenMovement;
 
+/**
+ * Orange ghost is a subclass of Ghost
+ */
 public class GhostOrange extends Ghost{
 
+	/**
+	 * Constructs an orange ghost object that contains x,y coordinates
+	 * @param x
+	 * @param y
+	 */
 	GhostOrange(int x, int y, double tick) {
 		super(x, y, tick);
 		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * Decide movement strategy of the orange ghost and move it
+	 * @param obj : the timeline object
+	 * @param dX : change in horizontal direction
+	 * @param dY : change in vertical direction
+	 */
 	@Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;

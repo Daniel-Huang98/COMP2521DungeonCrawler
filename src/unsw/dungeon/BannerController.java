@@ -8,10 +8,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
+/**
+ * A JavaFX controller for the banner after you
+ * win or lose the game.
+ */
 public class BannerController implements Subject{
 	ArrayList <Observer> observers = new ArrayList<>();
 	Dungeon dungeon;
 	
+	/**
+	 * Constructs a BannerController object
+	 * @param dungeon : A Dungeon object
+	 */
 	public BannerController(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}
@@ -35,6 +43,10 @@ public class BannerController implements Subject{
 		notifyEntities("menu");
 	}
 
+	/**
+	 * Binds the message so it either displays the win 
+	 * or lose message
+	 */
 	@FXML
 	public void initialize() {
 		Message.textProperty().bind(dungeon.getMessage());

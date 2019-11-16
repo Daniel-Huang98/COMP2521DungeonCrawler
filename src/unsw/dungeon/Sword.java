@@ -37,7 +37,8 @@ public class Sword extends Entity implements playerObserver{
 
     /**
      * Checks if player is standing over a sword, if so a reference
-     * to it is added to the player and the battle strategy is changed
+     * to it is added to the player and the battle strategy is changed.
+     * Sword cannot be picked up if player already has sword
      * @param player: a subject that is observed
      * @param dX: the subject's change in X direction
      * @param dY: the subject's change in Y direction

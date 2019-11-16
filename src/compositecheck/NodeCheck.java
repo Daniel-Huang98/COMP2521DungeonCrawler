@@ -4,11 +4,19 @@ import java.util.ArrayList;
 import unsw.dungeon.Dungeon;
 import wincheck.WinCheck;
 
+/**
+ * handles ANDs and ORs
+ */
 public class NodeCheck implements CompositeCheck{
 	Dungeon dungeon;
 	WinCheck checker;
 	ArrayList<CompositeCheck> SubChecks;
 	
+	/**
+	 * Constructs a node object
+	 * @param obj : A Dungeon object
+	 * @param checker : A Wincheck object
+	 */
 	public NodeCheck(Dungeon obj, WinCheck checker){
 		this.checker = checker;
 		this.SubChecks = new ArrayList<CompositeCheck>();
@@ -19,6 +27,10 @@ public class NodeCheck implements CompositeCheck{
 		return this.SubChecks;
 	}
 	
+	/**
+	 * Recursively checks if user has achieved all goals
+	 * @return : boolean that represent if the player has won or not
+	 */
 	@Override
 	public boolean check() {
 		

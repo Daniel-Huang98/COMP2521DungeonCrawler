@@ -55,10 +55,14 @@ public class FrightenMovement implements Movement{
     }
 	
     /**
-     * Move the character away from the entity by inverting the output of
-     * the Dijkstra algorithm. If no reachable, try all the other directions
+     * Move the character away from the entity by inverting the direction after the
+     * player has the potion. At intersection, move in pseudo-random fashion. Ghost
+     * can't move backwards.
      * @param e : the enemy that is moving
      * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
      * @return : updated map after the enemy has moved
      */
 	@Override
@@ -90,11 +94,21 @@ public class FrightenMovement implements Movement{
 		return map;
 	}
 	
+	/**
+	 * Set previous direction
+	 * @param newX : new X coordinate to move to
+	 * @param newY : new Y coordinate to move to
+	 */
 	public void setChange(int newX, int newY) {
 		dX = newX - lastX;
 		dY = newY - lastY;
 	}
 	
+	/**
+	 * Check if the ghost is at an intersection
+	 * @param map : entity map
+	 * @return : boolean representing if it is an intersection or not
+	 */
 	public boolean checkIntersection(ArrayList<ArrayList<Entity>> map) {
 		if (dX == 0) {
 			if (!(map.get(lastY).get(lastX+1) instanceof Wall) || !(map.get(lastY).get(lastX-1) instanceof Wall))
@@ -107,6 +121,15 @@ public class FrightenMovement implements Movement{
 		return false;
 	}
 	
+	/**
+	 * Figure out where to move after the player picks up the potion
+     * @param e : the enemy that is moving
+     * @param dest : the destination entity that the enemy is moving away from
+     * @param height : height of dungeon
+     * @param width : width of dungeon
+     * @param map : entity map
+     * @return : updated map after the enemy has moved
+	 */
 	public ArrayList<ArrayList<Entity>> checkAlternatives(Enemy e, Entity dest,int height, int width, ArrayList<ArrayList<Entity>> map) {
 		Dijkstra pathing = new Dijkstra(height, width, map);
 		int g[][] = pathing.getGraph();
@@ -189,6 +212,13 @@ public class FrightenMovement implements Movement{
 	    return (int)(Math.round(Math.random()*3));
 	}
 	
+	/**
+	 * Choose a pseudoRandom direction base of a random number generator. If
+	 * unreachable, run the random number generator and try again
+	 * @param e : enemy object that needs to move
+	 * @param map : entity map
+	 * @return : updated map after the enemy has moved
+	 */
 	public ArrayList<ArrayList<Entity>> pseudoRandom(Enemy e, ArrayList<ArrayList<Entity>> map) {
 		int rand = getRandomNumber();
 		//System.out.println(rand);

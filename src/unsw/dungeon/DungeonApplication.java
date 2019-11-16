@@ -16,10 +16,10 @@ import javafx.stage.Stage;
 
 public class DungeonApplication extends Application implements Observer {
 
-	Stage primaryStage;
-	Stage secondStage;
-	Stage thirdStage;
-	String fileName;
+	Stage primaryStage; //dungeon window
+	Stage secondStage;	//status window
+	Stage thirdStage;	//goal window
+	String fileName;    //the last file to be opened
 	Dungeon dungeon;
 	
 	int state = 0;
@@ -27,6 +27,8 @@ public class DungeonApplication extends Application implements Observer {
     @Override
     public void start(Stage primaryStage) throws IOException {   	
     	this.primaryStage = primaryStage;
+    	
+    	//Close all windows if main dungeon window closes
     	primaryStage.setOnHiding( event -> {
     		try {
 				secondStage.close();
@@ -41,6 +43,9 @@ public class DungeonApplication extends Application implements Observer {
         launch(args);
     }
 
+    /**
+     * State machine for loading ui elements
+     */
 	@Override
 	public void update(Subject obj, String fileName) {	
 		if ((state == 0 && obj instanceof MenuController) ||  fileName.equals("reset")) {
@@ -63,6 +68,9 @@ public class DungeonApplication extends Application implements Observer {
 		}
 	}
 	
+	/**
+	 * Loads the menu
+	 */
 	public void loadMenu() {
 		try {
 			try {
@@ -94,6 +102,11 @@ public class DungeonApplication extends Application implements Observer {
 		}
 	}
 	
+	/**
+	 * Loads the dungeon
+	 * @param fileName : the fileName that relates to the dungeon to be loaded
+	 */
+	
 	public void loadDungeon(String fileName) {
 		try {
 			primaryStage.setTitle("Dungeon");
@@ -102,6 +115,8 @@ public class DungeonApplication extends Application implements Observer {
 	        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(this.fileName);
 	        DungeonController controller = dungeonLoader.loadController();
 	        controller.addObserver(this);
+	        
+	        //checks if player has lost
 	        controller.getDungeon().getAlive().addListener(new ChangeListener<Boolean>() {
 	        	@Override
 	            public void changed(ObservableValue<? extends Boolean> observable,
@@ -113,6 +128,7 @@ public class DungeonApplication extends Application implements Observer {
 	            }
 	        });
 	        
+	        //checks if player has won
 	        controller.getDungeon().getHasWon().addListener(new ChangeListener<Boolean>() {
 	        	@Override
 	            public void changed(ObservableValue<? extends Boolean> observable,
@@ -177,6 +193,9 @@ public class DungeonApplication extends Application implements Observer {
 		}
 	}
 	
+	/**
+	 * Load the banner when the game ends
+	 */
 	public void loadBanner() {
 		try {
 			try {

@@ -9,7 +9,10 @@ import wincondition.WinCondition;
 
 public class AndWinCheck implements WinCheck{
 
-
+	/**
+	 * Checks if AND conditions are satisfied
+	 * @param obj : A NodeCheck object
+	 */
 	@Override
 	public boolean canWin(NodeCheck obj) {
 		boolean result = true;

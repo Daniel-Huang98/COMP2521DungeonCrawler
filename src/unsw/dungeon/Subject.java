@@ -1,5 +1,10 @@
 package unsw.dungeon;
 
+/**
+ * Subject interface for UI elements
+ * @author damien
+ *
+ */
 public interface Subject {
 	
 	void notifyEntities(String fileName);

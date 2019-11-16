@@ -2,12 +2,27 @@ package unsw.dungeon;
 
 import movement.FrightenMovement;
 
+/**
+ * Red ghost is a subclass of Ghost
+ */
 public class GhostRed extends Ghost{
+	
+	/**
+	 * Constructs an red ghost object that contains x,y coordinates
+	 * @param x
+	 * @param y
+	 */
 	GhostRed(int x, int y, double tick) {
 		super(x, y, tick);
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * Decide movement strategy of the red ghost and move it
+	 * @param obj : the timeline object
+	 * @param dX : change in horizontal direction
+	 * @param dY : change in vertical direction
+	 */
 	@Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;

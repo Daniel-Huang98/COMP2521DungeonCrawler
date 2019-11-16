@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 import movement.FrightenMovement;
 import movement.Movement;
 
+/**
+ * Ghost is a subclass of enemy for Pacman
+ */
 public class Ghost extends Enemy{
 	float counter = 0;
 	protected Image normal;
@@ -15,6 +18,13 @@ public class Ghost extends Enemy{
 	int startY;
 	int endCounter = 0;
 	
+	/**
+	 * Constructs a ghost object that contains x,y coordinates
+	 * and a tick for movement timing
+	 * @param x
+	 * @param y
+	 * @param tick
+	 */
 	Ghost(int x, int y, double tick){
 		super(x, y);
 		this.startX = x;
@@ -43,6 +53,9 @@ public class Ghost extends Enemy{
 		this.frightenMovement = frighten;
 	}
 	
+	/**
+	 * Ghost died, respawn at the start
+	 */
 	@Override
 	public void delete() {
 		this.x().set(startX);
@@ -52,7 +65,12 @@ public class Ghost extends Enemy{
 	}
 
 	
-	
+	/**
+	 * Decide movement strategy of the ghost and move it
+	 * @param obj : the timeline object
+	 * @param dX : change in horizontal direction
+	 * @param dY : change in vertical direction
+	 */
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;

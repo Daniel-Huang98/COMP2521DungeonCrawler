@@ -3,6 +3,9 @@ package unsw.dungeon;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * Pacman is a subclass of Player
+ */
 public class Pacman extends Player{
 	Image closed = new Image("/pacmanClosed.png");
 	Image open = new Image("/pacman.png");
@@ -118,6 +121,13 @@ public class Pacman extends Player{
         updateStatus();
     }
 	
+   /**
+    * Checks if enemy has moved into the player, employs
+    * which strategy to see who dies
+    * @param obj: a subject that is observed
+    * @param dX: the subject's change in X direction
+    * @param dY: the subject's change in Y direction
+    */
 	@Override
 	public void update(playerSubject obj, int dX, int dY) {
 		//System.out.println("check player");

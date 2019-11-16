@@ -37,6 +37,9 @@ public class UiController implements Subject{
 	@FXML
 	private ProgressBar PotionProgress;
 	
+	/** 
+	 * Bind all the status bars to properties
+	 */
 	@FXML
 	public void initialize() {
 		GoldProgress.progressProperty().bind(dungeon.getGoldStatus());

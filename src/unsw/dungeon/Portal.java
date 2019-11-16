@@ -46,13 +46,6 @@ public class Portal extends Entity implements playerObserver {
 	    		((Player)obj).setCanMove(false);
 	    	}
     	}
-    	/*else if (obj instanceof Enemy) {
-    		if(((dX + ((Enemy)obj).getX()) == this.getX() && (((Enemy)obj).getY()+dY) == this.getY()) && destination != null) {
-	    		((Enemy)obj).setCoordinates(destination.getX(), destination.getY());
-	    		((Enemy)obj).setCanMove(false);
-	    		System.out.println("here");
-	    	}
-    	}*/
     }
     
 
