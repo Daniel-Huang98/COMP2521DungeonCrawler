@@ -30,7 +30,7 @@ public class DungeonController implements Subject{
     
     private Dungeon dungeon;
     
-    private TimelineObject timeline = new TimelineObject(0.3);
+    private TimelineObject timeline = new TimelineObject(0.25);
 
     public DungeonController(Dungeon dungeon, List<ImageView> initialEntities) {
         this.dungeon = dungeon;

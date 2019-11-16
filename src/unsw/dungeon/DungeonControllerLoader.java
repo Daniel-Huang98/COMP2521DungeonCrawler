@@ -154,15 +154,15 @@ public class DungeonControllerLoader extends DungeonLoader {
 		switch(ghost) {
 			case 0:
 				view = new ImageView(ghostImage1);
-				enemy.setFurther(new BlueGhostFurther());
+				enemy.setFurther(new RedGhostFurther());
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
-				enemy.setFurther(new RedGhostFurther());
+				enemy.setFurther(new OrangeGhostFurther());
 				break;
 			case 2:
 				view = new ImageView(ghostImage3);
-				enemy.setFurther(new OrangeGhostFurther());
+				enemy.setFurther(new BlueGhostFurther());
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
