@@ -18,6 +18,7 @@ public class DungeonApplication extends Application implements Observer {
 
 	Stage primaryStage;
 	Stage secondStage;
+	Stage thirdStage;
 	String fileName;
 	Dungeon dungeon;
 	
@@ -29,6 +30,7 @@ public class DungeonApplication extends Application implements Observer {
     	primaryStage.setOnHiding( event -> {
     		try {
 				secondStage.close();
+				thirdStage.close();
 			}
 			catch(Exception e) {
 			}});
@@ -54,6 +56,7 @@ public class DungeonApplication extends Application implements Observer {
 			primaryStage.close();
 			try {
 				secondStage.close();
+				thirdStage.close();
 			}
 			catch(Exception e) {
 			}
@@ -64,6 +67,7 @@ public class DungeonApplication extends Application implements Observer {
 		try {
 			try {
 				secondStage.close();
+				thirdStage.close();
 			}
 			catch(Exception e) {
 			}
@@ -125,11 +129,17 @@ public class DungeonApplication extends Application implements Observer {
 	        UiController uiController = new UiController(this.dungeon);
 	        uiController.addObserver(this);
 	        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("UiView.fxml"));
-	        
 	        loader2.setController(uiController);
 	        Parent root2 = loader2.load();
+	        GoalController goalController = new GoalController();
+	        FXMLLoader loader3 = new FXMLLoader(getClass().getResource("GoalView.fxml"));
+	        loader3.setController(goalController);
+	        Parent root3 = loader3.load();
+	        StringProperty goals = dungeonLoader.getGoals();
+	        goalController.setGoals(goals);
 	        try{
 	        	secondStage.close();
+	        	thirdStage.close();
 	        }
 	        catch (Exception e){	
 	        }
@@ -137,9 +147,13 @@ public class DungeonApplication extends Application implements Observer {
 	        loader.setController(controller);
 	        Parent root = loader.load();
 	        Scene scene = new Scene(root);
-	        root.requestFocus();
+	        
 	        
 	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        
+            thirdStage = new Stage();
+            thirdStage.setScene(new Scene(root3));
+            thirdStage.show();
 	        
 	        secondStage = new Stage();
 	        secondStage.setScene(new Scene(root2));
@@ -151,8 +165,11 @@ public class DungeonApplication extends Application implements Observer {
 	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
 	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 - 70); 
 	        secondStage.setX((primScreenBounds.getWidth() - secondStage.getWidth()) / 2);
-            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 + primaryStage.getHeight()-70);  
-	        
+            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 + primaryStage.getHeight()-70);
+            thirdStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2 + primaryStage.getWidth());
+            thirdStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 - 70);
+            
+            root.requestFocus();
             state = 1;
 	        
 		} catch (IOException e) {
@@ -164,6 +181,7 @@ public class DungeonApplication extends Application implements Observer {
 		try {
 			try {
 				secondStage.close();
+				thirdStage.close();
 			}
 			catch(Exception e) {
 			}

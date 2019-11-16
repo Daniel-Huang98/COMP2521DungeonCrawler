@@ -4,20 +4,26 @@ import java.util.ArrayList;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.layout.GridPane;
 
 
 public class UiController implements Subject{
 	private boolean isStart = false;
 	private Dungeon dungeon;
 	private ArrayList <Observer> observers = new ArrayList<>();
-
+	
 	public UiController(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}
+	
+	@FXML
+	private GridPane UiGrid;
 	
 	@FXML
 	private ProgressBar GoldProgress;
@@ -47,7 +53,7 @@ public class UiController implements Subject{
 	public boolean getStart() {
 		return isStart;
 	}
-
+	
 	@Override
 	public void notifyEntities(String fileName) {
 		for (Observer o : observers) {

@@ -11,6 +11,8 @@ import org.json.JSONTokener;
 import compositecheck.CompositeCheck;
 import compositecheck.LeafCheck;
 import compositecheck.NodeCheck;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.image.ImageView;
 import wincheck.AndWinCheck;
 import wincheck.OrWinCheck;
@@ -34,6 +36,7 @@ public abstract class DungeonLoader {
 
     private JSONObject json;
     int ghostNum = 0;
+    StringProperty goals = new SimpleStringProperty();
 
     public DungeonLoader(String filename) throws FileNotFoundException {
         json = new JSONObject(new JSONTokener(new FileReader("dungeons/" + filename)));
@@ -90,6 +93,7 @@ public abstract class DungeonLoader {
         JSONArray jsonEntities = json.getJSONArray("entities");
         
         JSONObject goalCondition = json.getJSONObject("goal-condition");
+        goals.set(goalCondition.toString(2));
         
         System.out.println("Goals are: " + goalCondition.toString(2));
         
@@ -280,6 +284,10 @@ public abstract class DungeonLoader {
         else if(entity instanceof Enemy) dungeon.incTotalEnemies();
         
     }
+	
+	public StringProperty getGoals() {
+		return goals;
+	}
 
     public abstract void onLoad(Entity player,boolean pacman);
     public abstract void onLoad(Wall wall,boolean pacman);
