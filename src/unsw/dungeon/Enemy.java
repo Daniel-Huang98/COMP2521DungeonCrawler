@@ -103,6 +103,14 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 			}
 	    	this.notifyEntities(0,0);
 		}
+		else if (obj instanceof Player) {
+			if (((Player)obj).getX()+dX == this.getX() && ((Player)obj).getY()+dY == this.getY()) {
+				if(((Player)obj).getAction().attacked((Player)obj)) {
+					System.out.println("Enemy has died");
+	    			this.delete();
+	    		}
+			}
+		}
     }
 
 	@Override

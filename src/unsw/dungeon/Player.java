@@ -300,13 +300,13 @@ public class Player extends Entity implements playerSubject, playerObserver {
 		//System.out.println("check player");
 
 		if (obj instanceof Enemy) {
-			//System.out.println("checking coord");
-			if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
+			//check if enemy is about to move onto the player
+			/*if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
 	    		}
-	    	} else if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+	    	} */if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
