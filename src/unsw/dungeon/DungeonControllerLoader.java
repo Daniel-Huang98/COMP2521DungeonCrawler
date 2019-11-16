@@ -56,6 +56,8 @@ public class DungeonControllerLoader extends DungeonLoader {
     private Image boulderImagePacman;
     private Image ghostFrightenPacman;
     
+    private Ghost redghost;
+    
 
     public DungeonControllerLoader(String filename)
             throws FileNotFoundException {
@@ -162,6 +164,7 @@ public class DungeonControllerLoader extends DungeonLoader {
 				((Ghost)enemy).setNormal(ghostImage1);
 				enemy.setFurther(new RedGhostFurther());
 				enemy.setCloser(new RedGhostFurther());
+				this.redghost = (Ghost)enemy;
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
@@ -172,13 +175,13 @@ public class DungeonControllerLoader extends DungeonLoader {
 			case 2:
 				view = new ImageView(ghostImage3);
 				enemy.setFurther(new BlueGhostFurther());
-				enemy.setCloser(new BlueGhostFurther());
+				enemy.setCloser(new BlueGhostCloser(this.redghost));
 				((Ghost)enemy).setNormal(ghostImage3);
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
 				enemy.setFurther(new PinkGhostFurther());
-				enemy.setCloser(new PinkGhostCloser());
+				enemy.setCloser(new PinkGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage4);
 				break;
 		}
