@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import battle.deathBattle;
 import unsw.dungeon.Dungeon;
 import unsw.dungeon.Player;
 import unsw.dungeon.Potion;
@@ -84,16 +85,18 @@ class potionTest {
 		Player player = new Player(dungeon,5,5);
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
+		player.setCanMove(true);
 		player.moveRight();
-		for(int i = 0; i < 15; i++) {
-			player.moveRight();
+		for(int i = 0; i < potion.getFullHealth(); i++) {
+			player.decrementPotionHealth();
 		}
+		assertEquals(true, player.getAction() instanceof deathBattle);
 		assertEquals(false,player.getAction().attacked(player));
 	}
 	
 	/**
 	 * After a player has used the invincibility potion, it's effects 
-	 * should stop after 15 steps
+	 * should stop after health used up
 	 */
 	@Test
 	void healthTest() {
@@ -103,8 +106,9 @@ class potionTest {
 		Potion potion = new Potion(6,5);
 		player.addObserver(potion);
 		player.moveRight();
-		for(int i = 0; i < 15; i++) {
-			player.moveRight();
+		player.setCanMove(true);
+		for(int i = 0; i < potion.getFullHealth(); i++) {
+			player.decrementPotionHealth();
 		}
 		assertEquals(null,player.getPotion());
 	}

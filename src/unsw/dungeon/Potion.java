@@ -8,7 +8,7 @@ import battle.potionBattle;
 public class Potion extends Entity implements playerObserver{
 	boolean deleted = false;
 	int health;
-	 
+	int fullHealth;
 	/**
 	 * Constructs a potion object at x,y coordinates with 15
 	 * steps of use
@@ -18,6 +18,11 @@ public class Potion extends Entity implements playerObserver{
     public Potion(int x, int y) {
         super(x, y);
         this.health = 50;
+        this.fullHealth = 50;
+    }
+    
+    public int getFullHealth() {
+    	return fullHealth;
     }
     
     /**

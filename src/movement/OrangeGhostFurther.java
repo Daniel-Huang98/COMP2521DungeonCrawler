@@ -24,7 +24,7 @@ public class OrangeGhostFurther implements Movement{
 	    	g[lastY*map.get(0).size()+lastX][e.getY()*map.get(0).size()+e.getX()] = 0;
 		}
 		pathing.dijkstra(e);
-    	int curr = 1*map.get(0).size()+0;
+    	int curr = 29*map.get(0).size()+0;
     	int next = pathing.getFrom()[curr];
     	int counter = 0;
     	

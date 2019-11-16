@@ -34,6 +34,9 @@ class EnemyTest {
 		entities.add(enemy);
 		setMap(entities, 10, 10, enemy);
 		player.moveDown();
+		player.moveDown();
+		player.moveDown();
+		player.moveDown();
 		assertEquals(false,player.isAlive(), "Battle Test 1");
 	}
 	
@@ -55,7 +58,7 @@ class EnemyTest {
 		setMap(entities, 10, 10, enemy);
 		player.moveDown();
 		assertEquals(enemy.getX(), 5);
-		assertEquals(enemy.getY(), 6);
+		assertEquals(enemy.getY(), 7);
 		assertEquals(player.getX(), 5);
 		assertEquals(player.getY(), 5);
 		assertEquals(true,player.isAlive(), "Battle Test 2");
@@ -78,7 +81,7 @@ class EnemyTest {
 		setMap(entities, 10, 10, enemy);
 		player.moveDown();
 		assertEquals(enemy.getX(), 5);
-		assertEquals(enemy.getY(), 5);
+		assertEquals(enemy.getY(), 6);
 		assertEquals(player.getX(), 5);
 		assertEquals(player.getY(), 4);
 		assertEquals(false,enemy.isDeleted(), "Health Test");
@@ -131,6 +134,9 @@ class EnemyTest {
 		entities.add(enemy);
 		entities.add(sword);
 		setMap(entities, 10, 10, enemy);
+		player.moveDown();
+		player.moveDown();
+		player.moveDown();
 		player.moveDown();
 		player.moveDown();
 		assertEquals(true,player.isAlive() , "Sword Test - player alive");

@@ -56,7 +56,7 @@ public class Door extends Entity implements playerObserver{
 	    			isOpened = true;
 	    			((Player)obj).setKey(null);
 	    			System.out.println("Door unlocked");
-	    			this.view.setImage(open);
+	    			if(view != null)this.view.setImage(open);
 	    		}
 			}
     	}
