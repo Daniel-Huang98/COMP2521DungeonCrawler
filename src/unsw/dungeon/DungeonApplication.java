@@ -44,6 +44,14 @@ public class DungeonApplication extends Application implements Observer {
 		else if (fileName.equals("won") || fileName.equals("lost")) {
 			loadBanner();
 		}
+		else if (fileName.equals("close")) {
+			primaryStage.close();
+			try {
+				secondStage.close();
+			}
+			catch(Exception e) {
+			}
+		}
 	}
 	
 	public void loadMenu() {
@@ -130,13 +138,13 @@ public class DungeonApplication extends Application implements Observer {
 	        primaryStage.setScene(scene);
 	        
 	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 - 70);
 	        
 	        secondStage = new Stage();
 	        secondStage.setScene(new Scene(root2));
             secondStage.show();
-            secondStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2 + primaryStage.getWidth());
-            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);  
+            secondStage.setX((primScreenBounds.getWidth() - secondStage.getWidth()) / 2);
+            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 + primaryStage.getHeight()-70);  
             
             primaryStage.close();
             primaryStage.show();

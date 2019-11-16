@@ -20,18 +20,6 @@ public class UiController implements Subject{
 	}
 	
 	@FXML
-	private Button Start;
-	
-	@FXML
-	private Button Pause;
-	
-	@FXML
-	private Button Menu;
-	
-	@FXML
-	private Button Reset;
-	
-	@FXML
 	private ProgressBar GoldProgress;
 	
 	@FXML
@@ -42,29 +30,6 @@ public class UiController implements Subject{
 	
 	@FXML
 	private ProgressBar PotionProgress;
-	
-	@FXML
-	public void handleStart(ActionEvent event) {
-		isStart = true;
-		notifyEntities("start");
-	}
-	
-	@FXML
-	public void handlePause(ActionEvent event) {
-		isStart = false;
-		notifyEntities("pause");
-	}
-	
-	@FXML
-	public void handleMenu(ActionEvent event) {
-		notifyEntities("menu");
-	}
-	
-	@FXML
-	public void handleReset(ActionEvent event) {
-		isStart = false;
-		notifyEntities("reset");
-	}
 	
 	@FXML
 	public void initialize() {
