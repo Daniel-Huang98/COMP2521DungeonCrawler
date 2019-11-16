@@ -14,6 +14,7 @@ import movement.BlueGhostCloser;
 import movement.BlueGhostFurther;
 import movement.FrightenMovement;
 import movement.OrangeGhostFurther;
+import movement.PinkGhostCloser;
 import movement.PinkGhostFurther;
 import movement.RedGhostFurther;
 
@@ -160,20 +161,24 @@ public class DungeonControllerLoader extends DungeonLoader {
 				view = new ImageView(ghostImage1);
 				((Ghost)enemy).setNormal(ghostImage1);
 				enemy.setFurther(new RedGhostFurther());
+				enemy.setCloser(new RedGhostFurther());
 				break;
 			case 1:
 				view = new ImageView(ghostImage2);
 				enemy.setFurther(new OrangeGhostFurther());
+				enemy.setCloser(new OrangeGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage2);
 				break;
 			case 2:
 				view = new ImageView(ghostImage3);
 				enemy.setFurther(new BlueGhostFurther());
+				enemy.setCloser(new BlueGhostFurther());
 				((Ghost)enemy).setNormal(ghostImage3);
 				break;
 			case 3:
 				view = new ImageView(ghostImage4);
 				enemy.setFurther(new PinkGhostFurther());
+				enemy.setCloser(new PinkGhostCloser());
 				((Ghost)enemy).setNormal(ghostImage4);
 				break;
 		}

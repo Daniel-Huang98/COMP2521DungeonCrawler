@@ -28,6 +28,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
     battle action;
     int dy = 0;
     int dx = 0;
+    String facing = "east";
     FloatProperty keyStatus = new SimpleFloatProperty((float)0);
     FloatProperty swordStatus = new SimpleFloatProperty((float)0);
     FloatProperty potionStatus = new SimpleFloatProperty((float)0);
@@ -57,7 +58,9 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	if(!canMove) {
     		canMove = true;
     		return;
-    	}
+    	} 
+    	facing = "north";
+    	
         if (getY() > 0)
             y().set(getY() - 1);
         updateStatus();
@@ -72,7 +75,8 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	if(!canMove) {
     		canMove = true;
     		return;
-    	}
+    	} 
+    	facing = "south";
         if (getY() < dungeon.getHeight() - 1)
             y().set(getY() + 1);
         updateStatus();
@@ -88,6 +92,8 @@ public class Player extends Entity implements playerSubject, playerObserver {
     		canMove = true;
     		return;
     	}
+    	facing = "west";
+    	
         if (getX() > 0)
             x().set(getX() - 1);
         updateStatus();
@@ -102,10 +108,15 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	if(!canMove) {
     		canMove = true;
     		return;
-    	}
+    	} 
+    	facing = "east";	
         if (getX() < dungeon.getWidth() - 1)
             x().set(getX() + 1);
         updateStatus();
+    }
+    
+    public String getFacing() {
+    	return facing;
     }
     
     /**
@@ -271,6 +282,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
      */
     @Override
     public void notifyEntities(int dX, int dY) {
+    	System.out.println(this.facing);
     	this.setDelta(dX, dY);
     	for(playerObserver e: observers) {
     		if(!e.isDeleted())e.update(this,dX, dY);
