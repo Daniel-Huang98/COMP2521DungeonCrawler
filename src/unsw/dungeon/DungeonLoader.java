@@ -58,7 +58,7 @@ public abstract class DungeonLoader {
         		case "exit":
         			obj = new LeafCheck(dungeon,new ExitWin());
         			break;
-        		case "switch":
+        		case "boulders":
         			obj = new LeafCheck(dungeon,new SwitchWin());
         			break;
         	}
