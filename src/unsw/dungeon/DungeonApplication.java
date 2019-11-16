@@ -26,6 +26,12 @@ public class DungeonApplication extends Application implements Observer {
     @Override
     public void start(Stage primaryStage) throws IOException {   	
     	this.primaryStage = primaryStage;
+    	primaryStage.setOnHiding( event -> {
+    		try {
+				secondStage.close();
+			}
+			catch(Exception e) {
+			}});
     	loadMenu();
     }
     
@@ -135,20 +141,20 @@ public class DungeonApplication extends Application implements Observer {
 	        
 	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
 	        
-	        primaryStage.setScene(scene);
-	        
-	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
-	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 - 70);
-	        
 	        secondStage = new Stage();
 	        secondStage.setScene(new Scene(root2));
             secondStage.show();
-            secondStage.setX((primScreenBounds.getWidth() - secondStage.getWidth()) / 2);
+ 
+	        primaryStage.setScene(scene);
+	        primaryStage.show();
+	        
+	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
+	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 - 70); 
+	        secondStage.setX((primScreenBounds.getWidth() - secondStage.getWidth()) / 2);
             secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2 + primaryStage.getHeight()-70);  
-            
-            primaryStage.close();
-            primaryStage.show();
-	        state = 1;
+	        
+            state = 1;
+	        
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
