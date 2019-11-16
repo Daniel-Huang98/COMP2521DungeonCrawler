@@ -124,12 +124,12 @@ public class Pacman extends Player{
 
 		if (obj instanceof Enemy) {
 			//check if enemy is about to move onto the player
-			/*if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
+			if (((Enemy)obj).getX()+dX == this.getX()+this.dx && ((Enemy)obj).getY()+dY == this.getY()+this.dy) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
 	    		}
-	    	} */if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
+	    	} if (((Enemy)obj).getX()+dX == this.getX() && ((Enemy)obj).getY()+dY == this.getY()) {
 	    		if(getAction().attacked(this)) {
 	    			((Enemy)obj).delete(); 	
 	    			System.out.println("Enemy has died");
