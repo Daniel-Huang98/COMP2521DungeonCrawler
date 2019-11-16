@@ -94,6 +94,9 @@ public class DungeonController implements Subject{
         	pauseGame();
     		notifyEntities("reset");
         	break;
+        case ESCAPE:
+        	pauseGame();
+        	notifyEntities("close");
         default:
             break;
         }
