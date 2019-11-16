@@ -15,9 +15,10 @@ import javafx.scene.layout.GridPane;
  * @author Robert Clifton-Everest
  *
  */
-public class DungeonController implements Observer{
+public class DungeonController implements Subject{
 
-	String dungeonFile;
+	private String dungeonFile;
+	private ArrayList <Observer> observers = new ArrayList<>();
 	
     @FXML
     private GridPane squares;
@@ -78,9 +79,24 @@ public class DungeonController implements Observer{
 	            player.moveRight();
 	            break;
 	        default:
-	            break;
+	        	break;
 	        }
     	}
+    	switch (event.getCode()) {
+        case SPACE:
+        	startGame();
+        	break;
+        case M:
+        	pauseGame();
+        	notifyEntities("menu");
+        	break;
+        case R:
+        	pauseGame();
+    		notifyEntities("reset");
+        	break;
+        default:
+            break;
+        }
     }
 
     public String getFile() {
@@ -102,11 +118,21 @@ public class DungeonController implements Observer{
     }
 
 	@Override
-	public void update(Subject obj, String fileName) {
-		if (fileName.equals("start"))
-			startGame();
-		else if (fileName.equals("pause") || fileName.equals("reset"))
-			pauseGame();
+	public void notifyEntities(String fileName) {
+		for (Observer o : observers) {
+			o.update(this, fileName);
+		}		
+	}
+
+	@Override
+	public void addObserver(Observer obs) {
+		this.observers.add(obs);
+	}
+
+	@Override
+	public void deleteObserver(Observer obs) {
+		this.observers.remove(obs);
+		
 	}
 }
 

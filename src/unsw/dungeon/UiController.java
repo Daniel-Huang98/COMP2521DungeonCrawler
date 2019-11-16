@@ -12,9 +12,9 @@ import javafx.scene.control.ProgressBar;
 
 public class UiController implements Subject{
 	private boolean isStart = false;
-	Dungeon dungeon;
-	ArrayList <Observer> observers = new ArrayList<>();
-	FloatProperty f = new SimpleFloatProperty((float)0.4);
+	private Dungeon dungeon;
+	private ArrayList <Observer> observers = new ArrayList<>();
+
 	public UiController(Dungeon dungeon) {
 		this.dungeon = dungeon;
 	}

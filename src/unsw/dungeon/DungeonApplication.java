@@ -83,7 +83,7 @@ public class DungeonApplication extends Application implements Observer {
 				this.fileName = fileName;
 	        DungeonControllerLoader dungeonLoader = new DungeonControllerLoader(this.fileName);
 	        DungeonController controller = dungeonLoader.loadController();
-
+	        controller.addObserver(this);
 	        controller.getDungeon().getAlive().addListener(new ChangeListener<Boolean>() {
 	        	@Override
 	            public void changed(ObservableValue<? extends Boolean> observable,
@@ -109,7 +109,6 @@ public class DungeonApplication extends Application implements Observer {
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource("DungeonView.fxml"));
 	        this.dungeon = controller.getDungeon();
 	        UiController uiController = new UiController(this.dungeon);
-	        uiController.addObserver((Observer)controller);
 	        uiController.addObserver(this);
 	        FXMLLoader loader2 = new FXMLLoader(getClass().getResource("UiView.fxml"));
 	        
@@ -125,16 +124,22 @@ public class DungeonApplication extends Application implements Observer {
 	        Parent root = loader.load();
 	        Scene scene = new Scene(root);
 	        root.requestFocus();
-	        primaryStage.setScene(scene);
-	        primaryStage.show();
+	        
 	        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+	        
+	        primaryStage.setScene(scene);
+	        
 	        primaryStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2);
 	        primaryStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);
+	        
 	        secondStage = new Stage();
 	        secondStage.setScene(new Scene(root2));
             secondStage.show();
             secondStage.setX((primScreenBounds.getWidth() - primaryStage.getWidth()) / 2 + primaryStage.getWidth());
-            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);            
+            secondStage.setY((primScreenBounds.getHeight() - primaryStage.getHeight()) / 2);  
+            
+            primaryStage.close();
+            primaryStage.show();
 	        state = 1;
 		} catch (IOException e) {
 			e.printStackTrace();
