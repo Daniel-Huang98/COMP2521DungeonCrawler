@@ -131,8 +131,19 @@ public abstract class DungeonLoader {
         for (int i = 0; i < jsonEntities.length(); i++) {
             loadEntity(dungeon, jsonEntities.getJSONObject(i));
         }
-        
-        
+        //for the case when a switch loads with a boulder already on it
+        for(Entity e: dungeon.getEntities()) {
+        	if(e instanceof Boulder) {
+        		for(Entity e2: dungeon.getEntities()) {
+        			if(e2 instanceof FloorSwitch) {
+        				if(e.getX() == e2.getX() && e.getY() == e2.getY()) {
+        					((FloorSwitch)(e2)).setBoulder((Boulder)e);
+        					dungeon.activateSwitch();
+        				}
+        			}
+        		}
+        	}
+        }
         
        
         
