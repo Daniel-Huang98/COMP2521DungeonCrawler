@@ -218,10 +218,12 @@ public class Player extends Entity implements playerSubject, playerObserver {
     public void decrementPotionHealth() {
     	if(potion.decrementHealth()) {
     		this.potion = null;
+    		System.out.println("potion set to null");
     		if(sword != null) {
     			this.action = new swordBattle();
     		} else {
     			this.action = new deathBattle();
+    			System.out.println("deathbattle set");
     		}
     	}
     }
@@ -282,7 +284,6 @@ public class Player extends Entity implements playerSubject, playerObserver {
      */
     @Override
     public void notifyEntities(int dX, int dY) {
-    	System.out.println(this.facing);
     	this.setDelta(dX, dY);
     	for(playerObserver e: observers) {
     		if(!e.isDeleted())e.update(this,dX, dY);
@@ -328,7 +329,7 @@ public class Player extends Entity implements playerSubject, playerObserver {
 		else if (obj instanceof TimelineObject) {
 			if(this.potion != null) {
 				int potionHealth = potion.getHealth();
-				potionStatus.set((float)potionHealth/50);
+				potionStatus.set((float)potionHealth/this.potion.getFullHealth());
 				this.decrementPotionHealth();
 			}
 		}
