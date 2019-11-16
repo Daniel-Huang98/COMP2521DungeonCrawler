@@ -33,8 +33,8 @@ public class BlueGhostCloser implements Movement{
 		if(dy == 0){ //vertical
 			nextY = enemyY;
 			nextX = (int)(playerX+(-dx));
-			if(nextX > 27) {
-				nextX = 27;
+			if(nextX > 26) {
+				nextX = 26;
 			}else if(nextX < 0) {
 				nextX = 0;
 			}
@@ -103,7 +103,12 @@ public class BlueGhostCloser implements Movement{
 	    	g[lastY*map.get(0).size()+lastX][e.getY()*map.get(0).size()+e.getX()] = 0;
 		}
 		pathing.dijkstra(e);
-		setNext(this.redghost.getX(),this.redghost.getY() , dest.getX(), dest.getY(),map);
+		if(this.redghost.isDeleted()) {
+			nextX = dest.getX();
+			nextY = dest.getY();
+		}else {
+			setNext(this.redghost.getX(),this.redghost.getY() , dest.getX(), dest.getY(),map);
+		}
     	int curr = nextY*map.get(0).size()+nextX;
     	int next = pathing.getFrom()[curr];
     	int counter = 0;

@@ -228,7 +228,9 @@ public abstract class DungeonLoader {
             entity = sword;
             break;
         case "ghost":
-        	Enemy ghost = new Ghost(x,y, 0.2);
+        	Enemy ghost;
+        	if(ghostNum != 1) ghost = new Ghost(x,y, 0.2);
+        	else ghost = new GhostOrange(x,y, 0.2);
         	onLoad(ghost,dungeon.isPacman,ghostNum++);
             entity = ghost;
             break;
