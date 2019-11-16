@@ -1,6 +1,7 @@
 package unsw.dungeon;
 
 import javafx.scene.image.Image;
+import movement.FrightenMovement;
 import movement.Movement;
 
 public class Ghost extends Enemy{
@@ -9,6 +10,7 @@ public class Ghost extends Enemy{
 	private Image frighten;
 	private Movement frightenMovement;
 	protected double tick;
+	boolean flag = false;
 	
 	Ghost(int x, int y, double tick){
 		super(x, y);
@@ -42,7 +44,11 @@ public class Ghost extends Enemy{
     	if(isDeleted()) return;
 		else if (obj instanceof TimelineObject) {
 			if (player.getPotion() != null) {
+				if (!(movement instanceof FrightenMovement))
+					((FrightenMovement)frightenMovement).setCheckBehind(true);
 				movement = frightenMovement;
+				//System.out.println(getX()+ " " + getY());
+				((FrightenMovement)frightenMovement).setPrev(getX(),getY());
 				if(counter % 2 == 0) {
 					movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
 				}

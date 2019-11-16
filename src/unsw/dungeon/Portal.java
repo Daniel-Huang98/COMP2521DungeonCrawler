@@ -23,6 +23,10 @@ public class Portal extends Entity implements playerObserver {
     	this.destination = portal;
     }
     
+    public Portal getPortalPair() {
+    	return destination;
+    }
+    
     public int getId() {
     	return id;
     }
