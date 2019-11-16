@@ -97,13 +97,11 @@ public class FrightenMovement implements Movement{
 	
 	public boolean checkIntersection(ArrayList<ArrayList<Entity>> map) {
 		if (dX == 0) {
-			if (!(map.get(lastY).get(lastX+1) instanceof Wall) || !(map.get(lastY).get(lastX-1) instanceof Wall) ||
-					!(map.get(lastY).get(lastX+1) instanceof Door) || !(map.get(lastY).get(lastX-1) instanceof Door))
+			if (!(map.get(lastY).get(lastX+1) instanceof Wall) || !(map.get(lastY).get(lastX-1) instanceof Wall))
 				return true;
 		}
 		else {
-			if (!(map.get(lastY+1).get(lastX) instanceof Wall) || !(map.get(lastY-1).get(lastX) instanceof Wall) ||
-					!(map.get(lastY+1).get(lastX) instanceof Door) || !(map.get(lastY-1).get(lastX) instanceof Door))
+			if (!(map.get(lastY+1).get(lastX) instanceof Wall) || !(map.get(lastY-1).get(lastX) instanceof Wall))
 				return true;
 		}
 		return false;
@@ -198,7 +196,7 @@ public class FrightenMovement implements Movement{
 		switch (rand) {
 		case 0:
 			if ((lastX+(dX*-1) == lastX+1 && lastY+(dY*-1) == lastY) || !checkBounds(lastX+1,lastY,map) || 
-					map.get(lastY).get(lastX+1) instanceof Wall || map.get(lastY).get(lastX+1) instanceof Door) {
+					map.get(lastY).get(lastX+1) instanceof Wall) {
 				pseudoRandom(e, map);
 			}
 			else {
@@ -209,7 +207,7 @@ public class FrightenMovement implements Movement{
 			break;
 		case 1:
 			if ((lastX+(dX*-1) == lastX-1 && lastY+(dY*-1) == lastY) || !checkBounds(lastX-1,lastY,map) || 
-					map.get(lastY).get(lastX-1) instanceof Wall || map.get(lastY).get(lastX-1) instanceof Door) {
+					map.get(lastY).get(lastX-1) instanceof Wall) {
 				pseudoRandom(e, map);
 			}
 			else {
@@ -220,7 +218,7 @@ public class FrightenMovement implements Movement{
 			break;
 		case 2:
 			if ((lastX+(dX*-1) == lastX && lastY+(dY*-1) == lastY+1) || !checkBounds(lastX,lastY+1,map) || 
-					map.get(lastY+1).get(lastX) instanceof Wall || map.get(lastY+1).get(lastX) instanceof Door) {
+					map.get(lastY+1).get(lastX) instanceof Wall) {
 				pseudoRandom(e, map);
 			}
 			else {
@@ -231,7 +229,7 @@ public class FrightenMovement implements Movement{
 			break;
 		case 3:
 			if ((lastX+(dX*-1) == lastX && lastY+(dY*-1) == lastY-1) || !checkBounds(lastX,lastY-1,map) 
-					|| map.get(lastY-1).get(lastX) instanceof Wall || map.get(lastY-1).get(lastX) instanceof Door) {
+					|| map.get(lastY-1).get(lastX) instanceof Wall) {
 				pseudoRandom(e, map);
 			}
 			else {
