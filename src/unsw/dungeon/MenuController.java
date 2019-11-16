@@ -53,41 +53,41 @@ public class MenuController implements Subject{
 
     @FXML
     public void handleDungeon0(ActionEvent event) {
-    	notifyEntities("pacman.json");
+    	notifyEntities("maze.json");
     }
     
     @FXML
     public void handleDungeon1(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("ORTest.json");
     }
     
     @FXML
     public void handleDungeon2(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("ANDTest.json");
     }
     
     @FXML
     public void handleDungeon3(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("testgoals1.json");
     }
     
     @FXML
     public void handleDungeon4(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("portals.json");
     }
     
     @FXML
     public void handleDungeon5(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("hardlevel.json");
     }
     
     @FXML
     public void handleDungeon6(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("boulders.json");
     }
     @FXML
     public void handleDungeon7(ActionEvent event) {
-    	notifyEntities("advanced3.json");
+    	notifyEntities("pacman.json");
     }
 
 	@Override
