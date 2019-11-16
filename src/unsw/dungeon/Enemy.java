@@ -17,6 +17,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     protected Player player;
     protected Movement further;
     protected Movement closer;
+  
     
 	/**
 	 * Constructs an enemy object that holds x,y coordinates

@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import movement.BlueGhostCloser;
 import movement.BlueGhostFurther;
+import movement.FrightenMovement;
 import movement.OrangeGhostFurther;
 import movement.PinkGhostFurther;
 import movement.RedGhostFurther;
@@ -177,6 +178,8 @@ public class DungeonControllerLoader extends DungeonLoader {
 				break;
 		}
 		((Ghost)enemy).setFrighten(ghostFrightenPacman);
+		((Ghost)enemy).setFrightenMovement(new FrightenMovement());
+		
 		addEntity(enemy, view);
 	}
 	
