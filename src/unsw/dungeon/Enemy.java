@@ -17,6 +17,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     protected Player player;
     protected Movement further;
     protected Movement closer;
+    private int tickCounter = 0;
   
     
 	/**
@@ -93,7 +94,8 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if(isDeleted()) return;
-		else if (obj instanceof TimelineObject) {
+		else if (obj instanceof TimelineObject && tickCounter >= 1) {
+			tickCounter = 0;
 			if (player.getPotion() != null) {
 				movement = further;
 				movement.moveCharacter(this, player,map.size(), map.get(0).size(), map);
@@ -112,6 +114,7 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	    		}
 			}
 		}
+    	tickCounter++;
     }
 
 	@Override

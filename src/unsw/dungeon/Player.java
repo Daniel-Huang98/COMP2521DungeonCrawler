@@ -280,6 +280,10 @@ public class Player extends Entity implements playerSubject, playerObserver {
     	}
     }
     
+    public boolean canWin() {
+    	return dungeon.canWin();
+    }
+    
     /**
      * notifies all observers of its change in coordinates
      */

@@ -23,7 +23,8 @@ public class Exit extends Entity implements playerObserver{
     @Override
     public void update(playerSubject obj, int dX, int dY) {
     	if (obj instanceof Player) {
-	    	if((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY()) {
+    		if ((dX + ((Player)obj).getX()) == this.getX() && (((Player)obj).getY()+dY) == this.getY() && !((Player)obj).canWin()){
+	    		((Player)obj).setCanMove(false);
 	    		((Player)obj).exit();
 	    	}
     	}

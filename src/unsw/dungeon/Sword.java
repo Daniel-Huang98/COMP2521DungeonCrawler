@@ -44,7 +44,7 @@ public class Sword extends Entity implements playerObserver{
      */
     @Override
     public void update(playerSubject player, int dX, int dY) {
-    	if(((Player)player).getX()+dX == this.getX() && ((Player)player).getY()+dY == this.getY()) {
+    	if(((Player)player).getX()+dX == this.getX() && ((Player)player).getY()+dY == this.getY() && ((Player)player).getSword() == null) {
     		System.out.println("picked up sword");
     		((Player)player).setSword(this);
     		((Player)player).setAction(new swordBattle());
