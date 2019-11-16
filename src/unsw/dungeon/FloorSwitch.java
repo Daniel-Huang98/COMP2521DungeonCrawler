@@ -24,6 +24,10 @@ public class FloorSwitch extends Entity implements playerObserver{
     	return boulder;
     }
     
+    public void setBoulder(Boulder obj) {
+    	this.boulder = obj;
+    }
+    
     /**
      * Checks if boulder is moved onto switch, then sets the boulder
      * reference within the class if so.
