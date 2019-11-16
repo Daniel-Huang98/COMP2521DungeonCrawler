@@ -12,11 +12,12 @@ public class Enemy extends Entity implements playerObserver, playerSubject{
 	private boolean deleted = false;
     private List<playerObserver>observers;
     private boolean canMove = true;
-    private ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
-    private Movement movement;
-    private Player player;
-    private Movement further;
-    private Movement closer;
+    protected ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
+    protected Movement movement;
+    protected Player player;
+    protected Movement further;
+    protected Movement closer;
+  
     
 	/**
 	 * Constructs an enemy object that holds x,y coordinates
