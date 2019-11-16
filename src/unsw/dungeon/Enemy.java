@@ -9,7 +9,7 @@ import movement.*;
  */
 public class Enemy extends Entity implements playerObserver, playerSubject{
 	
-	private boolean deleted = false;
+	protected boolean deleted = false;
     private List<playerObserver>observers;
     private boolean canMove = true;
     protected ArrayList<ArrayList<Entity>> map = new ArrayList<ArrayList<Entity>>();
