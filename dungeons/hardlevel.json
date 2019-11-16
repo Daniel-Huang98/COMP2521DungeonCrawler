@@ -103,8 +103,8 @@
       "type": "player"
     },
     {
-      "x": 6,
-      "y": 1,
+      "x": 5,
+      "y": 14,
       "type": "sword"
     },
     {
@@ -213,8 +213,8 @@
       "type": "wall"
     },
     {
-      "x": 3,
-      "y": 5,
+      "x": 4,
+      "y": 6,
       "type": "enemy"
     },
     {
@@ -380,12 +380,12 @@
     {
       "x": 7,
       "y": 10,
-      "type": "portal"
+      "type": "treasure"
     },
     {
       "x": 11,
       "y": 10,
-      "type": "portal"
+      "type": "invincibility"
     },
     {
       "x": 17,
@@ -596,17 +596,106 @@
       "x": 17,
       "y": 15,
       "type": "wall"
+    },
+ {
+      "x": 5,
+      "y": 3,
+      "type": "boulder"
+    },
+{
+      "x": 7,
+      "y": 6,
+      "type": "switch"
+    },
+{
+      "x": 4,
+      "y": 12,
+      "type": "exit"
+    },
+{
+      "x": 12,
+      "y": 3,
+      "type": "wall"
+    },
+{
+      "x": 13,
+      "y": 4,
+      "type": "wall"
+    },
+{
+      "x": 14,
+      "y": 4,
+      "type": "wall"
+    },
+{
+      "x": 14,
+      "y": 3,
+      "type": "key",
+      "id" : "1"
+    },
+{
+      "x": 13,
+      "y": 3,
+      "type": "portal",
+      "id" : "1"	
+    },
+{
+      "x": 16,
+      "y": 14,
+      "type": "portal",
+      "id" : "1"	
+    },
+{
+      "x": 6,
+      "y": 12,
+      "type": "wall"
+    },
+{
+      "x": 4,
+      "y": 10,
+      "type": "door",
+      "id" : "1"
+    },
+{
+      "x": 9,
+      "y": 13,
+      "type": "boulder"
+    },
+{
+      "x": 14,
+      "y": 5,
+      "type": "switch"
+    },
+{
+      "x": 14,
+      "y": 8,
+      "type": "treasure"
+    },
+{
+      "x": 11,
+      "y": 5,
+      "type": "enemy"
+    },
+{
+      "x": 11,
+      "y": 5,
+      "type": "enemy"
+    },
+{
+      "x": 15,
+      "y": 11,
+      "type": "sword"
     }
   ],
-  "goal-condition": {
-    "goal": "AND",
-    "subgoals": [
-      {
-        "goal": "enemies"
-      },
-      {
-        "goal": "treasure"
+"goal-condition": {
+    "goal": "AND", "subgoals":
+    [ {"goal": "exit" },
+      {"goal": "AND", "subgoals":
+	[ {"goal": "enemies" },
+          {"goal": "treasure" },
+          {"goal": "switch" }
+        ]
       }
     ]
   }
-}
+} 
