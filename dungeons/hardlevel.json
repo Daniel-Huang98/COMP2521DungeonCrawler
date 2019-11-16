@@ -723,7 +723,7 @@
       {"goal": "AND", "subgoals":
 	[ {"goal": "enemies" },
           {"goal": "treasure" },
-          {"goal": "switch" }
+          {"goal": "boulders" }
         ]
       }
     ]

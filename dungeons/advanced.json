@@ -617,7 +617,7 @@
     "goal": "AND",
     "subgoals": [
       {
-        "goal": "switch"
+        "goal": "boulders"
       },
       {
         "goal": "treasure"
