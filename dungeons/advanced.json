@@ -623,7 +623,7 @@
         "goal": "treasure"
       },
 	{
-        "goal": "enemy"
+        "goal": "enemies"
       }
     ]
   }

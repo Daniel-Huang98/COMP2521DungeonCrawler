@@ -49,7 +49,7 @@ public abstract class DungeonLoader {
         if(subgoals == null) {
         	System.out.println("goal: " + goal);
         	switch(goal) {
-        		case "enemy":
+        		case "enemies":
         			obj = new LeafCheck(dungeon,new EnemyWin());
         			break;
         		case "treasure":
