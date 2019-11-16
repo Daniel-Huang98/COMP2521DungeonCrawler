@@ -38,6 +38,10 @@ public class UiController implements Subject{
 		KeyProgress.progressProperty().bind(player.getKeyStatus());
 		SwordProgress.progressProperty().bind(player.getSwordStatus());
 		PotionProgress.progressProperty().bind(player.getPotionStatus());
+		GoldProgress.setStyle("-fx-accent: Yellow;");
+		KeyProgress.setStyle("-fx-accent: Green;");
+		SwordProgress.setStyle("-fx-accent: Black;");
+		PotionProgress.setStyle("-fx-accent: Purple");
 	}
 	
 	public boolean getStart() {
