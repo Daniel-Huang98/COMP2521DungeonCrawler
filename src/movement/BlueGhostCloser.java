@@ -33,8 +33,8 @@ public class BlueGhostCloser implements Movement{
 		if(dy == 0){ //vertical
 			nextY = enemyY;
 			nextX = (int)(playerX+(-dx));
-			if(nextX > 27) {
-				nextX = 27;
+			if(nextX > 26) {
+				nextX = 26;
 			}else if(nextX < 0) {
 				nextX = 0;
 			}
